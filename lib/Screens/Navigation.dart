@@ -7,25 +7,20 @@ import 'homePage.dart';
 import 'profilePage.dart';
 import 'DatesPage.dart';
 
-void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+class Navigation extends StatefulWidget {
+  const Navigation({super.key});
 
   @override
-  State<MyApp> createState() => _MyAppState();
+  State<Navigation> createState() => _NavigationBarState();
 }
 
-class _MyAppState extends State<MyApp> {
-  final _pageController = PageController();
-
-  @override
+class _NavigationBarState extends State<Navigation> {
+   final _pageController = PageController();
+    @override
   void dispose() {
     _pageController.dispose();
-  }
 
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
