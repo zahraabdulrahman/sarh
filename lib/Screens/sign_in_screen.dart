@@ -6,7 +6,8 @@ class Sign_in_screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-    body: Container(
+      resizeToAvoidBottomInset: false,
+      body: Container(
     decoration: const BoxDecoration(
     image: DecorationImage(
     image: AssetImage('assets/img/Shapes_2.png'),
