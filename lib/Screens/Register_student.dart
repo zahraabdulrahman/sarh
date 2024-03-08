@@ -18,7 +18,7 @@ class Register_student extends StatelessWidget {
             MaterialPageRoute(builder: (context) => const Register_screen()),
           );
           },),
-        ),
+        ),//icon to get back
       body: Column(
         children: [
           Container(
@@ -30,26 +30,26 @@ class Register_student extends StatelessWidget {
               Text("البريد الالكتروني", style: TextStyle(color: Color(0xFF3A3A3A),),)
             ],
           ),
-        Row(
-          children: [
-            const SizedBox(width: 30,),
-            Container(
-                height: 49, width: 315,
-                alignment: Alignment.centerRight,
-                child: const TextField(
-                  textDirection: TextDirection.rtl,
-                  decoration: InputDecoration(
-                    labelText: '',
-                    hintText: 'ادخل بريدك الالكتروني',
-                    border: UnderlineInputBorder(
-                        borderSide: BorderSide(
-                            color: Color(0xFFA7E8BD),
-                            width: 1
-                        )
-                    ),
-                  ),
-                )),],
-        ),
+        // Row(
+        //   children: [
+        //     const SizedBox(width: 30,),
+        //     Container(
+        //         height: 49, width: 315,
+        //         alignment: Alignment.centerRight,
+        //         child: const TextField(
+        //           textDirection: TextDirection.rtl,
+        //           decoration: InputDecoration(
+        //             labelText: '',
+        //             hintText: 'ادخل بريدك الالكتروني',
+        //             border: UnderlineInputBorder(
+        //                 borderSide: BorderSide(
+        //                     color: Color(0xFFA7E8BD),
+        //                     width: 1
+        //                 )
+        //             ),
+        //           ),
+        //         )),],
+        // ),
           const Row(
             children: [
               SizedBox(width: 285,),
