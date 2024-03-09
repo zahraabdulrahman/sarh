@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sarh/Screens/LogRegPage.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -10,24 +12,18 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(color: Colors.red),
-      child: const Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            Icons.home,
-            size: 120,
-            color: Colors.white,
-          ),
-          Text(
-            'Home Page',
-            style: TextStyle(
-                color: Colors.white, fontSize: 30, fontWeight: FontWeight.w700),
-          )
-        ],
-      ),
-    );
+    return Scaffold(
+        body: Center(
+            child: ElevatedButton(
+                child: const Text("Logout"),
+                onPressed: () {
+                  FirebaseAuth.instance.signOut().then((value) {
+                    print("Signed Out");
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LogRegPage()));
+                  });
+                })));
   }
 }

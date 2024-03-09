@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sarh/Screens/Navigation.dart';
 import 'package:sarh/Screens/register.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
@@ -106,7 +106,7 @@ class _Sign_in_screenState extends State<Sign_in_screen> {
               ],
             ),
             reusableTextField(
-                "ادخل كلمة السر", Icons.lock, false, _emailTextController),
+                "ادخل كلمة السر", Icons.lock, false, _passwordTextController),
             // Row(
             //   children: [
             //     const SizedBox(width: 30,),
@@ -143,10 +143,23 @@ class _Sign_in_screenState extends State<Sign_in_screen> {
                 )
               ],
             ),
+            firebaseUIButton(context, "تسجيل الدخول", () {
+                  FirebaseAuth.instance
+                      .signInWithEmailAndPassword(
+                          email: _emailTextController.text,
+                          password: _passwordTextController.text)
+                      .then((value) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => const Navigation()));
+                  }).onError((error, stackTrace) {
+                    print("Error ${error.toString()}");
+                  });
+                }),
+            signUpOption() 
 
-            const SizedBox(height: 70),
-            Center(child: signInSignUpButton(context, false, () {})),
-            signUpOption(),
+            // const SizedBox(height: 70),
+            // Center(child: signInSignUpButton(context, false, () {})),
+            // signUpOption(),
             // Padding(
             //   padding: const EdgeInsets.only(top: 15.0),
             //   child: Center(
@@ -184,7 +197,7 @@ class _Sign_in_screenState extends State<Sign_in_screen> {
         GestureDetector(
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => Register_screen()));
+                MaterialPageRoute(builder: (context) => const Register_screen()));
           },
           child: const Text(
             "التسجيل",

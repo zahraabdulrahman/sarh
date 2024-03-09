@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "451801507625",
+    "project_id": "sarh-3efed",
+    "storage_bucket": "sarh-3efed.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:451801507625:android:492fc2e026a708cfd07938",
+        "android_client_info": {
+          "package_name": "com.example.sarh"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgcjK2E_ixq72pO10-pbzavlGNSqsBhyc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
