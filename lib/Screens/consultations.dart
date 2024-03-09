@@ -110,9 +110,16 @@ class _Consulations extends State<Consulations> {
     _foundUsers = results;
   }
   }
-
+  final List<String> gender = [
+    'انثى',
+    'ذكر'
+  ];
+  List<String> selectedCategories = [];
   @override
   Widget build(BuildContext context) {
+    final filterProducts = productList.where((product)) {
+      return selectedCategoris.isEmpty || selectedCategories.contains
+    });
     return Scaffold(
       //extendBodyBehindAppBar: true, // <-- Set this
       appBar: AppBar(
@@ -152,6 +159,34 @@ class _Consulations extends State<Consulations> {
             decoration: const InputDecoration(
                 labelText: 'البحث عن اخصائي', suffixIcon: Icon(Icons.search)),
           ),
+         Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(10.0),
+                margin: const EdgeInsets.all(8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: gender
+                        .map((gender) => FilterChip(
+                        selected: selectedCategories.contains(gender),
+                        label: Text(gender),
+                        onSelected: (selected) {
+                          setState(() {
+                            if (selected) {
+                              selectedCategories.add(gender);
+                            } else {
+                              selectedCategories.remove(gender);
+                            }
+                          });
+                        },
+                    ),
+                  ).toList(),
+                )
+              ),
+            Expanded(child:
+              ListView.builder(itemCount: 10, itemBuilder: (context, index){}]
+          ),
+
           Expanded(
             child: Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -179,7 +214,7 @@ class _Consulations extends State<Consulations> {
                   ),
                 )),
           ),
-        ],
+      ],
       ),
     );
   }
