@@ -18,7 +18,11 @@ class videos extends StatelessWidget {
     return const Scaffold();
   }
 }
-
+List<String> selectedCategories = [];
+final List<String> gender = [
+  'انثى',
+  'ذكر'
+];
 class _Consulations extends State<Consulations> {
   final List<Map<String, dynamic>> _allUsers = [
     {
@@ -87,6 +91,12 @@ class _Consulations extends State<Consulations> {
       "التخصص": "اضطرابات نطق سمعي",
       "الجنس": "انثى"
     },
+    {
+      "id": "10",
+      "الاسم": "الاخصائي:sasa",
+      "التخصص": "اضطرابات نطق سمعي",
+      "الجنس": "انثى"
+    },
   ];
 
   List<Map<String, dynamic>> _foundUsers = [];
@@ -103,23 +113,16 @@ class _Consulations extends State<Consulations> {
     } else {
       results = _allUsers
           .where((user) =>
-              user["الاسم"].toLowerCase().contains(enteredKeyword.toLowerCase()))
+          user["الاسم"].toLowerCase().contains(enteredKeyword.toLowerCase()) && user["الجنس"].contains(selectedCategories))
           .toList();
     }
-  void setState() {
-    _foundUsers = results;
+    void setState() {
+      _foundUsers = results;
+    }
   }
-  }
-  final List<String> gender = [
-    'انثى',
-    'ذكر'
-  ];
-  List<String> selectedCategories = [];
+
   @override
   Widget build(BuildContext context) {
-    final filterProducts = productList.where((product)) {
-      return selectedCategoris.isEmpty || selectedCategories.contains
-    });
     return Scaffold(
       //extendBodyBehindAppBar: true, // <-- Set this
       appBar: AppBar(
@@ -153,40 +156,32 @@ class _Consulations extends State<Consulations> {
               ),
             ],
           ),
-
           TextField(
             onChanged: (value) => _runFilter(value),
             decoration: const InputDecoration(
                 labelText: 'البحث عن اخصائي', suffixIcon: Icon(Icons.search)),
-          ),
-         Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(10.0),
-                margin: const EdgeInsets.all(8.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: gender
-                        .map((gender) => FilterChip(
-                        selected: selectedCategories.contains(gender),
-                        label: Text(gender),
-                        onSelected: (selected) {
-                          setState(() {
-                            if (selected) {
-                              selectedCategories.add(gender);
-                            } else {
-                              selectedCategories.remove(gender);
-                            }
-                          });
-                        },
-                    ),
-                  ).toList(),
-                )
-              ),
-            Expanded(child:
-              ListView.builder(itemCount: 10, itemBuilder: (context, index){}]
-          ),
-
+          ),              Column(
+              children: [
+                Container(
+                    padding: const EdgeInsets.all(10.0),
+                    margin: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: gender.map((gender) {
+                        return FilterChip(
+                          selected: selectedCategories.contains(gender),
+                          label: Text(gender),
+                          onSelected: (selected) {
+                            setState(() {
+                              if (selected) {
+                                selectedCategories.add(gender);
+                              } else {
+                                selectedCategories.remove(gender);
+                              }
+                            });
+                          },
+                        );
+                      }).toList(),))]),
           Expanded(
             child: Padding(
                 padding: const EdgeInsets.all(10.0),
@@ -214,7 +209,7 @@ class _Consulations extends State<Consulations> {
                   ),
                 )),
           ),
-      ],
+        ],
       ),
     );
   }
