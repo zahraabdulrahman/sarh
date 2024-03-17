@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'cards/index.dart';
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
@@ -28,10 +28,11 @@ class ProfilePage extends StatelessWidget {
             children: [
               Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                children: [Container(
+                children: [
+                    Container(
                   height: 150,
                   width: 337,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         color: Colors.grey
                     ),
 
@@ -48,256 +49,342 @@ class ProfilePage extends StatelessWidget {
                           backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
                             foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
                             fixedSize: MaterialStateProperty.all<Size>(
-                              Size(73, 50),// Specify the desired width and height
+                              const Size(73, 50),// Specify the desired width and height
                             ),
                             padding: MaterialStateProperty.all<EdgeInsets>(
-                              EdgeInsets.all(8), // Specify the desired padding
+                              const EdgeInsets.all(8), // Specify the desired padding
                             )
                         ),
-                    icon: Icon(Icons.volume_up),
-                      label : Text("")
+                    icon: const Icon(Icons.volume_up),
+                      label : const Text("")
                     ),
-                    SizedBox(height: 90, width: 40),
+                    const SizedBox(height: 90, width: 40),
                   ])
               ,
               Row(
                   mainAxisAlignment: MainAxisAlignment.center,
               children: [
-            Container(
-              height: 166,
-              width: 133,
-              decoration: BoxDecoration(
-                color: Colors.grey
-              ),
-              child: Column(
-                children: [
-
-                  AspectRatio(
-                    aspectRatio: 1.0,
+                GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Feelings(),
+                        ),
+                      );
+                    },
                     child: Container(
-                      child: Image.asset(
-                        'assets/images/emoji.png',
-                        fit: BoxFit.cover,),
-
-                    ),
-                  ),
-                  Expanded(
-                      flex: 1,
-                      child: Container(
-                          child: Text("مشاعر",
-                            style: TextStyle(
-                              fontSize: 18,
-                            ),)
-                      ))
-                ],
-              ),),
-              SizedBox(width: 60),
-              Container(
-                  height: 166,
-                  width: 133,
-                  decoration: BoxDecoration(
-                      color: Color(0xFFEFA7A7)
-                  ),
-                child: Column(
-                  children: [
-
-                      AspectRatio(
-                        aspectRatio: 1.0,
-                        child: Container(
-                            child: Image.asset(
-                                'assets/images/sentences.PNG',
-                              fit: BoxFit.cover,),
-
-                        ),
+                      height: 166,
+                      width: 133,
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFEFA7A7),
+                        borderRadius: BorderRadius.circular(10),
                       ),
-                    Expanded(
-                        flex: 1,
-                        child: Container(
-                          child: Text("جمل محفوظة",
-                            style: TextStyle(
-                              fontSize: 18,
-                            ),)
-                        ))
-                  ],
+                      child: Column(
+                        children: [
+                          AspectRatio(
+                            aspectRatio: 1.0,
+                            child: Container(
+                              child: Image.asset(
+                                'assets/images/emoji.png',
+                                fit: BoxFit.cover,),
+                            ),
+                          ),
+                          Expanded(
+                              flex: 1,
+                              child: Container(
+                                  child: const Text("مشاعر",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                    ),)
+                              ))
+                        ],
+                      ),
+                    ),
                 ),
-            )
-          ]),
-              SizedBox(height: 60),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                        height: 166,
-                        width: 133,
-                        decoration: BoxDecoration(
-                            color: Color(0xFFC7EAE4)
+                    const SizedBox(width: 60),
+                GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Sentences(),
                         ),
-                      child: Column(
-                        children: [
-
-                          AspectRatio(
-                            aspectRatio: 1.0,
-                            child: Container(
-                              child: Image.asset(
-                                'assets/images/arabic-food.jpg',
-                                fit: BoxFit.cover,),
-
-                            ),
-                          ),
-                          Expanded(
-                              flex: 1,
-                              child: Container(
-                                  child: Text("طعام",
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                    ),)
-                              ))
-                        ],
-                      ),),
-                    SizedBox(width: 60),
-                    Container(
+                      );
+                    },
+                    child: Container(
                       height: 166,
                       width: 133,
                       decoration: BoxDecoration(
-                          color: Color(0xFFFFD972)
+                        color: const Color(0xFFC7EAE4),
+                        borderRadius: BorderRadius.circular(10),
                       ),
                       child: Column(
                         children: [
+
 
                           AspectRatio(
                             aspectRatio: 1.0,
                             child: Container(
                               child: Image.asset(
-                                'assets/images/stuff.png',
+                                'assets/images/sentences.PNG',
                                 fit: BoxFit.cover,),
+
 
                             ),
                           ),
                           Expanded(
                               flex: 1,
                               child: Container(
-                                  child: Text("أشياء",
+                                  child: const Text("جمل محفوظة",
                                     style: TextStyle(
                                       fontSize: 18,
                                     ),)
                               ))
                         ],
-                      ),
-                    )
-                  ]),
-              SizedBox(height: 60),
+                      ),)
+
+                )]),
+              const SizedBox(height: 60),
+              Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const Food(),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              height: 166,
+                              width: 133,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFEFA7A7),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                children: [
+                                  AspectRatio(
+                                    aspectRatio: 1.0,
+                                    child: Container(
+                                      child: Image.asset(
+                                        'assets/images/arabic-food.jpg',
+                                        fit: BoxFit.cover,),
+                                    ),
+                                  ),
+                                  Expanded(
+                                      flex: 1,
+                                      child: Container(
+                                          child: const Text("طعام",
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                            ),)
+                                      ))
+                                ],
+                              ),),),
+                          const SizedBox(width: 60),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const Things(),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              height: 166,
+                              width: 133,
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFFFD972),
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: Column(
+                                children: [
+
+
+                                  AspectRatio(
+                                    aspectRatio: 1.0,
+                                    child: Container(
+                                      child: Image.asset(
+                                        'assets/images/stuff.png',
+                                        fit: BoxFit.cover,),
+
+
+                                    ),
+                                  ),
+                                  Expanded(
+                                      flex: 1,
+                                      child: Container(
+                                          child: const Text("أشياء",
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                            ),)
+                                      ))
+                                ],
+                              ),),)
+
+                        ]),
+              const SizedBox(height: 60),
               Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Clothes(),
+                          ),
+                        );
+                      },
+                      child: Container(
                         height: 166,
                         width: 133,
                         decoration: BoxDecoration(
-                            color: Colors.grey
+                          color: const Color(0xFFA7E8BD),
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                      child: Column(
-                        children: [
+                        child: Column(
+                          children: [
 
-                          AspectRatio(
-                            aspectRatio: 1.0,
-                            child: Container(
-                              child: Image.asset(
-                                'assets/images/clothes.jpg',
-                                fit: BoxFit.cover,),
 
-                            ),
-                          ),
-                          Expanded(
-                              flex: 1,
+                            AspectRatio(
+                              aspectRatio: 1.0,
                               child: Container(
-                                  child: Text("ملابس",
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                    ),)
-                              ))
-                        ],
-                      ),),
-                    SizedBox(width: 60),
-                    Container(
-                      height: 166,
-                      width: 133,
-                      decoration: BoxDecoration(
-                          color: Colors.grey
-                      ),
-                      child: Column(
-                        children: [
+                                child: Image.asset(
+                                  'assets/images/clothes.jpg',
+                                  fit: BoxFit.cover,),
 
-                          AspectRatio(
-                            aspectRatio: 1.0,
-                            child: Container(
-                              child: Image.asset(
-                                'assets/images/water.png',
-                                fit: BoxFit.cover,),
 
+                              ),
                             ),
+                            Expanded(
+                                flex: 1,
+                                child: Container(
+                                    child: const Text("ملابس",
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),)
+                                ))
+                          ],
+                        ),),),
+                    const SizedBox(width: 60),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Clothes(),
                           ),
-                          Expanded(
-                              flex: 1,
+                        );
+                      },
+                      child: Container(
+                        height: 166,
+                        width: 133,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFC7EAE4),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          children: [
+
+
+                            AspectRatio(
+                              aspectRatio: 1.0,
                               child: Container(
-                                  child: Text("مشروبات",
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                    ),)
-                              ))
-                        ],
-                      ),
-                    )
+                                child: Image.asset(
+                                  'assets/images/water.png',
+                                  fit: BoxFit.cover,),
+
+
+                              ),
+                            ),
+                            Expanded(
+                                flex: 1,
+                                child: Container(
+                                    child: const Text("مشروبات",
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),)
+                                ))
+                          ],
+                        ),),)
+
                   ]),
-              SizedBox(height: 60),
+              const SizedBox(height: 60),
               Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Container(
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Actionss(),
+                          ),
+                        );
+                      },
+                      child: Container(
                         height: 166,
                         width: 133,
                         decoration: BoxDecoration(
-                            color: Colors.grey
+                          color: const Color(0xFFFFD972),
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                      child: Column(
-                        children: [
+                        child: Column(
+                          children: [
 
-                          AspectRatio(
-                            aspectRatio: 1.0,
-                            child: Container(
-                              child: Image.asset(
-                                'assets/images/action.PNG',
-                                fit: BoxFit.cover,),
 
-                            ),
-                          ),
-                          Expanded(
-                              flex: 1,
+                            AspectRatio(
+                              aspectRatio: 1.0,
                               child: Container(
-                                  child: Text("أفعال",
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                    ),)
-                              ))
-                        ],
-                      ),
-                    ),
-                    SizedBox(width: 60),
-                    Container(
-                      height: 166,
-                      width: 133,
-                      decoration: BoxDecoration(
-                          color: Colors.grey
-                      ),
-                      child: Column(
-                        children: [
-                          Center(
-                            child: Text("إضافة ملف جديد")
-                          )
-                        ],
-                      ),
-                    )
+                                child: Image.asset(
+                                  'assets/images/action.PNG',
+                                  fit: BoxFit.cover,),
+
+
+                              ),
+                            ),
+                            Expanded(
+                                flex: 1,
+                                child: Container(
+                                    child: const Text("أفعال",
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                      ),)
+                                ))
+                          ],
+                        ),),),
+                    const SizedBox(width: 60),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AddFolder(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        height: 166,
+                        width: 133,
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFA7E8BD),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: const Center(
+                          child: Text("إضافة ملف",
+                            style: TextStyle(
+                              fontSize: 20,
+                            ),),
+                        )),)
+
                   ]),
-              SizedBox(height: 60),])
+              const SizedBox(height: 60),])
 
       ),
     );
