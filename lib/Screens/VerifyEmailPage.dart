@@ -66,31 +66,33 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
           appBar: AppBar(
             title: const Text("Verify Email"),
           ),
-          body: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text(
-                  'يرجى تأكيد الايميل بالرابط المرسل على',
-                  style: TextStyle(fontSize: 20),
-                  textAlign: TextAlign.center,
-                ),
-                firebaseUIButton(context, "اعادة الارسال", () {
-                  onPressed: canResendEmail ? sendVerificationEmail : Null;
-                }),
-                ElevatedButton(
-                child: const Text("الغاء"),
-                onPressed: () {
-                  FirebaseAuth.instance.signOut().then((value) {
-                    print("Signed Out");
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LogRegPage()));
-                  });
-                })
-              ],
+          body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text(
+                    'يرجى تأكيد الايميل بالرابط المرسل على',
+                    style: TextStyle(fontSize: 20),
+                    textAlign: TextAlign.center,
+                  ),
+                  firebaseUIButton(context, "اعادة الارسال", () {
+                    onPressed: canResendEmail ? sendVerificationEmail : Null;
+                  }),
+                  GestureDetector(
+                  child: const Text("الغاء",
+                  style:
+                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15),),
+                  onTap: () {
+                    FirebaseAuth.instance.signOut().then((value) {
+                      print("Signed Out");
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LogRegPage()));
+                    });
+                  })
+                ],
+              ),
             ),
-          ));
+          );
 }

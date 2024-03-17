@@ -90,9 +90,11 @@ class _Sarh extends State<Sarh> {
     return Scaffold(
       //extendBodyBehindAppBar: true, // <-- Set this
       appBar: AppBar(
-        title: Transform(
-          transform: Matrix4.translationValues(310, 43, 0.0),
-          child: const Text(
+        title:
+        Transform(
+          transform: Matrix4.translationValues(700, 43, 0.0),
+          child:
+          const Text(
             'صرح',
             style: TextStyle(color: Colors.black, fontSize: 28),
           ),

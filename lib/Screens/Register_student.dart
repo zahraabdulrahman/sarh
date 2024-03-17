@@ -1,10 +1,14 @@
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:sarh/reusable_widgets/reusable_widget.dart';
 import 'register.dart';
 import 'package:sarh/Screens/VerifyEmailPage.dart';
+import 'package:sarh/Screens/sign_in_screen.dart';
 
 //import 'package:image_picker/image_picker.dart';
 class Register_student extends StatefulWidget {
@@ -33,6 +37,12 @@ class _Register_studentState extends State<Register_student> {
     super.dispose();
   }
 
+  Uint8List? _image;
+  void selectImage() async {
+    Uint8List img = await pickImage(ImageSource.gallery);
+    _image = img;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,19 +64,42 @@ class _Register_studentState extends State<Register_student> {
       ), //icon to get back
       body: Column(
         children: [
-          Container(child: Image.asset('assets/images/pfp.png')),
-          const SizedBox(
-            height: 0,
-          ),
-          const Row(
+          Stack(
             children: [
-              SizedBox(
-                width: 260,
+              _image != null
+                  ? CircleAvatar(
+                      radius: 64,
+                      backgroundImage: MemoryImage(_image!),
+                     )
+                  : CircleAvatar(
+                      radius: 60,
+                      backgroundImage: NetworkImage(
+                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIwRBD9gNuA2GjcOf6mpL-WuBhJADTWC3QVQ&usqp=CAU'),
+                    ),
+              Positioned(
+                child: IconButton(
+                  onPressed: selectImage,
+                  icon: Icon(Icons.add_a_photo),
+                ),
+                bottom: -10,
+                left: 80,
               ),
-              Text(
-                "البريد الالكتروني",
-                style: TextStyle(
-                  color: Color(0xFF3A3A3A),
+            ],
+          ),
+
+          // Container(child: Image.asset('assets/images/pfp.png')),
+          // const SizedBox(
+          //   height: 0,
+          // ),
+          Row(
+            children: [
+              Transform(
+                transform: Matrix4.translationValues(-10, 0.0, 0.0),
+                child: const Text(
+                  "البريد الالكتروني",
+                  style: TextStyle(
+                    color: Color(0xFF3A3A3A),
+                  ),
                 ),
               )
             ],
@@ -80,35 +113,16 @@ class _Register_studentState extends State<Register_student> {
           const SizedBox(
             height: 10,
           ),
-          // Row(
-          //   children: [
-          //     const SizedBox(width: 30,),
-          //     Container(
-          //         height: 49, width: 315,
-          //         alignment: Alignment.centerRight,
-          //         child: const TextField(
-          //           textDirection: TextDirection.rtl,
-          //           decoration: InputDecoration(
-          //             labelText: '',
-          //             hintText: 'ادخل بريدك الالكتروني',
-          //             border: UnderlineInputBorder(
-          //                 borderSide: BorderSide(
-          //                     color: Color(0xFFA7E8BD),
-          //                     width: 1
-          //                 )
-          //             ),
-          //           ),
-          //         )),],
-          // ),
-          const Row(
+
+          Row(
             children: [
-              SizedBox(
-                width: 285,
-              ),
-              Text(
-                "الاسم الاول",
-                style: TextStyle(
-                  color: Color(0xFF3A3A3A),
+              Transform(
+                transform: Matrix4.translationValues(-10, 0.0, 0.0),
+                child: const Text(
+                  "الاسم الاول",
+                  style: TextStyle(
+                    color: Color(0xFF3A3A3A),
+                  ),
                 ),
               )
             ],
@@ -122,36 +136,16 @@ class _Register_studentState extends State<Register_student> {
           const SizedBox(
             height: 5,
           ),
-          // Row(
-          //   children: [
-          //     const SizedBox(
-          //       width: 30,
-          //     ),
-          //     Container(
-          //         height: 49,
-          //         width: 315,
-          //         alignment: Alignment.centerRight,
-          //         child: const TextField(
-          //           textDirection: TextDirection.rtl,
-          //           decoration: InputDecoration(
-          //             labelText: '',
-          //             hintText: 'اسمك الاول',
-          //             border: UnderlineInputBorder(
-          //                 borderSide:
-          //                     BorderSide(color: Color(0xFFA7E8BD), width: 1)),
-          //           ),
-          //         )),
-          //   ],
-          // ),
-          const Row(
+
+          Row(
             children: [
-              SizedBox(
-                width: 288,
-              ),
-              Text(
-                "اسم العائلة",
-                style: TextStyle(
-                  color: Color(0xFF3A3A3A),
+              Transform(
+                transform: Matrix4.translationValues(-10, 0.0, 0.0),
+                child: const Text(
+                  "اسم العائلة",
+                  style: TextStyle(
+                    color: Color(0xFF3A3A3A),
+                  ),
                 ),
               )
             ],
@@ -162,30 +156,7 @@ class _Register_studentState extends State<Register_student> {
             child: reusableTextField("ادخل اسمك الاخير", Icons.email, false,
                 _lastNameTextController),
           ),
-          // const SizedBox(
-          //   height: 10,
-          // ),
-          // Row(
-          //   children: [
-          //     const SizedBox(
-          //       width: 30,
-          //     ),
-          //     Container(
-          //         height: 49,
-          //         width: 315,
-          //         alignment: Alignment.centerRight,
-          //         child: const TextField(
-          //           textDirection: TextDirection.rtl,
-          //           decoration: InputDecoration(
-          //             labelText: '',
-          //             hintText: 'اسمك الاخير',
-          //             border: UnderlineInputBorder(
-          //                 borderSide:
-          //                     BorderSide(color: Color(0xFFA7E8BD), width: 1)),
-          //           ),
-          //         )),
-          //   ],
-          // ),
+
           Container(
               padding: const EdgeInsets.all(15),
               child: Center(
@@ -223,49 +194,16 @@ class _Register_studentState extends State<Register_student> {
                   }
                 },
               ))),
-          // const Row(
-          //   children: [
-          //     SizedBox(
-          //       width: 279,
-          //     ),
-          //     Text(
-          //       "تاريخ الميلاد",
-          //       style: TextStyle(
-          //         color: Color(0xFF3A3A3A),
-          //       ),
-          //     )
-          //   ],
-          // ),
-          // Row(
-          //   children: [
-          //     const SizedBox(
-          //       width: 30,
-          //     ),
-          //     Container(
-          //         height: 49,
-          //         width: 315,
-          //         alignment: Alignment.centerRight,
-          //         child: const TextField(
-          //           textDirection: TextDirection.rtl,
-          //           decoration: InputDecoration(
-          //             labelText: '',
-          //             hintText: 'يوم ميلادك',
-          //             border: UnderlineInputBorder(
-          //                 borderSide:
-          //                     BorderSide(color: Color(0xFFA7E8BD), width: 1)),
-          //           ),
-          //         )),
-          //   ],
-          // ),
-          const Row(
+
+          Row(
             children: [
-              SizedBox(
-                width: 285,
-              ),
-              Text(
-                "كلمة المرور",
-                style: TextStyle(
-                  color: Color(0xFF3A3A3A),
+              Transform(
+                transform: Matrix4.translationValues(-10, 0.0, 0.0),
+                child: const Text(
+                  "كلمة المرور",
+                  style: TextStyle(
+                    color: Color(0xFF3A3A3A),
+                  ),
                 ),
               )
             ],
@@ -279,37 +217,16 @@ class _Register_studentState extends State<Register_student> {
           const SizedBox(
             height: 10,
           ),
-          // Row(
-          //   children: [
-          //     const SizedBox(
-          //       width: 30,
-          //     ),
-          //     Container(
-          //         height: 49,
-          //         width: 315,
-          //         alignment: Alignment.centerRight,
-          //         child: const TextField(
-          //           textDirection: TextDirection.rtl,
-          //           decoration: InputDecoration(
-          //             labelText: '',
-          //             hintText:
-          //                 'يجب ان يحتوي على حروف كبيرة وصغيره ورمز واحد على الأقل',
-          //             border: UnderlineInputBorder(
-          //                 borderSide:
-          //                     BorderSide(color: Color(0xFFA7E8BD), width: 1)),
-          //           ),
-          //         )),
-          //   ],
-          // ),
-          const Row(
+
+          Row(
             children: [
-              SizedBox(
-                width: 258,
-              ),
-              Text(
-                "تأكيد كلمة المرور",
-                style: TextStyle(
-                  color: Color(0xFF3A3A3A),
+              Transform(
+                transform: Matrix4.translationValues(-10, 0.0, 0.0),
+                child: const Text(
+                  "تأكيد كلمة المرور",
+                  style: TextStyle(
+                    color: Color(0xFF3A3A3A),
+                  ),
                 ),
               )
             ],
@@ -320,53 +237,7 @@ class _Register_studentState extends State<Register_student> {
             child: reusableTextField(
                 " ادخل كلمة السر مجددا", Icons.lock, false, _confirmPass),
           ),
-          // Row(
-          //   children: [
-          //     const SizedBox(
-          //       width: 30,
-          //     ),
-          //     Container(
-          //         height: 49,
-          //         width: 315,
-          //         alignment: Alignment.centerRight,
-          //         child: const TextField(
-          //           textDirection: TextDirection.rtl,
-          //           decoration: InputDecoration(
-          //             labelText: '',
-          //             hintText: 'إعادة كتابة كلمة المرور',
-          //             border: UnderlineInputBorder(
-          //                 borderSide:
-          //                     BorderSide(color: Color(0xFFA7E8BD), width: 1)),
-          //           ),
-          //         )),
-          //   ],
-          // ),
-          // const SizedBox(
-          //   height: 20,
-          // ),
-          // Container(
-          //   padding: const EdgeInsets.only(left: 30),
-          //   height: 72,
-          //   width: 315,
-          //   decoration: BoxDecoration(
-          //     borderRadius: BorderRadius.circular(28),
-          //     color: const Color(0xFFA7E8BD),
-          //   ),
-          //   child: const Row(children: [
-          //     Icon(
-          //       Icons.arrow_back,
-          //       color: Colors.black,
-          //       size: 19,
-          //     ),
-          //     SizedBox(width: 130),
-          //     Center(
-          //       child: Text("إكمال",
-          //           style: TextStyle(
-          //             fontSize: 20,
-          //           )),
-          //     )
-          //   ]),
-          // )
+
           firebaseUIButton(context, "اكمال", () {
             if (confirmedPasssowrd()) {
               FirebaseAuth.instance
@@ -375,8 +246,10 @@ class _Register_studentState extends State<Register_student> {
                       password: _passwordTextController.text)
                   .then((value) {
                 print("Created New Account");
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const VerifyEmailPage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const VerifyEmailPage()));
               }).onError((error, stackTrace) {
                 print("Error ${error.toString()}");
               });
@@ -386,14 +259,15 @@ class _Register_studentState extends State<Register_student> {
                   _emailTextController.text.trim(),
                   _dateinput.text.trim());
             }
-          })
+          }),
+          signInOption(),
         ],
       ),
     );
   }
 
-   firstName() {
-    Container(
+  Container firstName() {
+    return Container(
       child: Transform(
         transform: Matrix4.translationValues(320, -3, 0.0),
         child: Text(
@@ -420,5 +294,24 @@ class _Register_studentState extends State<Register_student> {
     } else {
       return false;
     }
+  }
+
+  Widget signInOption() {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const Sign_in_screen()),
+        );
+      },
+      child: const Text(
+        "لديك حساب بالفعل؟ تسجيل الدخول",
+        style: TextStyle(
+          color: Colors.grey,
+          fontWeight: FontWeight.bold,
+        ),
+        textAlign: TextAlign.center,
+      ),
+    );
   }
 }

@@ -31,7 +31,7 @@ class ProfilePage extends StatelessWidget {
                 children: [Container(
                   height: 150,
                   width: 337,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         color: Colors.grey
                     ),
 
@@ -48,16 +48,16 @@ class ProfilePage extends StatelessWidget {
                           backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
                             foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
                             fixedSize: MaterialStateProperty.all<Size>(
-                              Size(73, 50),// Specify the desired width and height
+                              const Size(73, 50),// Specify the desired width and height
                             ),
                             padding: MaterialStateProperty.all<EdgeInsets>(
-                              EdgeInsets.all(8), // Specify the desired padding
+                              const EdgeInsets.all(8), // Specify the desired padding
                             )
                         ),
-                    icon: Icon(Icons.volume_up),
-                      label : Text("")
+                    icon: const Icon(Icons.volume_up),
+                      label : const Text("")
                     ),
-                    SizedBox(height: 90, width: 40),
+                    const SizedBox(height: 90, width: 40),
                   ])
               ,
               Row(
@@ -66,76 +66,76 @@ class ProfilePage extends StatelessWidget {
             Container(
               height: 166,
               width: 133,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: Colors.grey
               )),
-              SizedBox(width: 60),
+              const SizedBox(width: 60),
               Container(
                   height: 166,
                   width: 133,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                       color: Colors.grey
                   ),
             )
           ]),
-              SizedBox(height: 60),
+              const SizedBox(height: 60),
               Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                         height: 166,
                         width: 133,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: Colors.grey
                         )),
-                    SizedBox(width: 60),
+                    const SizedBox(width: 60),
                     Container(
                       height: 166,
                       width: 133,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: Colors.grey
                       ),
                     )
                   ]),
-              SizedBox(height: 60),
+              const SizedBox(height: 60),
               Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                         height: 166,
                         width: 133,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: Colors.grey
                         )),
-                    SizedBox(width: 60),
+                    const SizedBox(width: 60),
                     Container(
                       height: 166,
                       width: 133,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: Colors.grey
                       ),
                     )
                   ]),
-              SizedBox(height: 60),
+              const SizedBox(height: 60),
               Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
                         height: 166,
                         width: 133,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             color: Colors.grey
                         )),
-                    SizedBox(width: 60),
+                    const SizedBox(width: 60),
                     Container(
                       height: 166,
                       width: 133,
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: Colors.grey
                       ),
                     )
                   ]),
-              SizedBox(height: 60),])
+              const SizedBox(height: 60),])
 
       ),
     );
