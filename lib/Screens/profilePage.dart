@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'cards/index.dart';
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
@@ -23,119 +23,368 @@ class ProfilePage extends StatelessWidget {
         toolbarHeight: 250,
       ),
       body:
-        SingleChildScrollView(
+      SingleChildScrollView(
           child: Column(
-            children: [
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                children: [Container(
-                  height: 150,
-                  width: 337,
-                    decoration: const BoxDecoration(
-                        color: Colors.grey
-                    ),
-
-                )]
-              ),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    ElevatedButton.icon(
-                    onPressed: () {
-                      // Handle button press
-                    },
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
-                            foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                            fixedSize: MaterialStateProperty.all<Size>(
-                              const Size(73, 50),// Specify the desired width and height
-                            ),
-                            padding: MaterialStateProperty.all<EdgeInsets>(
-                              const EdgeInsets.all(8), // Specify the desired padding
-                            )
-                        ),
-                    icon: const Icon(Icons.volume_up),
-                      label : const Text("")
-                    ),
-                    const SizedBox(height: 90, width: 40),
-                  ])
-              ,
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
               children: [
-            Container(
-              height: 166,
-              width: 133,
-              decoration: const BoxDecoration(
-                color: Colors.grey
-              )),
-              const SizedBox(width: 60),
-              Container(
-                  height: 166,
-                  width: 133,
-                  decoration: const BoxDecoration(
-                      color: Colors.grey
-                  ),
-            )
-          ]),
-              const SizedBox(height: 60),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                        height: 166,
-                        width: 133,
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 150,
+                        width: 337,
                         decoration: const BoxDecoration(
                             color: Colors.grey
-                        )),
-                    const SizedBox(width: 60),
-                    Container(
-                      height: 166,
-                      width: 133,
-                      decoration: const BoxDecoration(
-                          color: Colors.grey
+                        ),
+
+                      )]
+                ),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      ElevatedButton.icon(
+                          onPressed: () {
+                            // Handle button press
+                          },
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+                              foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                              fixedSize: MaterialStateProperty.all<Size>(
+                                const Size(73, 50),// Specify the desired width and height
+                              ),
+                              padding: MaterialStateProperty.all<EdgeInsets>(
+                                const EdgeInsets.all(8), // Specify the desired padding
+                              )
+                          ),
+                          icon: const Icon(Icons.volume_up),
+                          label : const Text("")
                       ),
-                    )
-                  ]),
-              const SizedBox(height: 60),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                        height: 166,
-                        width: 133,
-                        decoration: const BoxDecoration(
-                            color: Colors.grey
-                        )),
-                    const SizedBox(width: 60),
-                    Container(
-                      height: 166,
-                      width: 133,
-                      decoration: const BoxDecoration(
-                          color: Colors.grey
+                      const SizedBox(height: 90, width: 40),
+                    ])
+                ,
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Feelings(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: 166,
+                          width: 133,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFEFA7A7),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            children: [
+                              AspectRatio(
+                                aspectRatio: 1.0,
+                                child: Container(
+                                  child: Image.asset(
+                                    'assets/images/emoji.png',
+                                    fit: BoxFit.cover,),
+                                ),
+                              ),
+                              Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                      child: const Text("مشاعر",
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),)
+                                  ))
+                            ],
+                          ),
+                        ),
                       ),
-                    )
-                  ]),
-              const SizedBox(height: 60),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                        height: 166,
-                        width: 133,
-                        decoration: const BoxDecoration(
-                            color: Colors.grey
-                        )),
-                    const SizedBox(width: 60),
-                    Container(
-                      height: 166,
-                      width: 133,
-                      decoration: const BoxDecoration(
-                          color: Colors.grey
-                      ),
-                    )
-                  ]),
-              const SizedBox(height: 60),])
+                      const SizedBox(width: 60),
+                      GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const Sentences(),
+                              ),
+                            );
+                          },
+                          child: Container(
+                            height: 166,
+                            width: 133,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFC7EAE4),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: Column(
+                              children: [
+
+
+                                AspectRatio(
+                                  aspectRatio: 1.0,
+                                  child: Container(
+                                    child: Image.asset(
+                                      'assets/images/sentences.PNG',
+                                      fit: BoxFit.cover,),
+
+
+                                  ),
+                                ),
+                                Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                        child: const Text("جمل محفوظة",
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                          ),)
+                                    ))
+                              ],
+                            ),)
+
+                      )]),
+                const SizedBox(height: 60),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Food(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: 166,
+                          width: 133,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFEFA7A7),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            children: [
+                              AspectRatio(
+                                aspectRatio: 1.0,
+                                child: Container(
+                                  child: Image.asset(
+                                    'assets/images/arabic-food.jpg',
+                                    fit: BoxFit.cover,),
+                                ),
+                              ),
+                              Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                      child: const Text("طعام",
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),)
+                                  ))
+                            ],
+                          ),),),
+                      const SizedBox(width: 60),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Things(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: 166,
+                          width: 133,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFFFD972),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            children: [
+
+
+                              AspectRatio(
+                                aspectRatio: 1.0,
+                                child: Container(
+                                  child: Image.asset(
+                                    'assets/images/stuff.png',
+                                    fit: BoxFit.cover,),
+
+
+                                ),
+                              ),
+                              Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                      child: const Text("أشياء",
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),)
+                                  ))
+                            ],
+                          ),),)
+
+                    ]),
+                const SizedBox(height: 60),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Clothes(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: 166,
+                          width: 133,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFA7E8BD),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            children: [
+
+
+                              AspectRatio(
+                                aspectRatio: 1.0,
+                                child: Container(
+                                  child: Image.asset(
+                                    'assets/images/clothes.jpg',
+                                    fit: BoxFit.cover,),
+
+
+                                ),
+                              ),
+                              Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                      child: const Text("ملابس",
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),)
+                                  ))
+                            ],
+                          ),),),
+                      const SizedBox(width: 60),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Clothes(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: 166,
+                          width: 133,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFC7EAE4),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            children: [
+
+
+                              AspectRatio(
+                                aspectRatio: 1.0,
+                                child: Container(
+                                  child: Image.asset(
+                                    'assets/images/water.png',
+                                    fit: BoxFit.cover,),
+
+
+                                ),
+                              ),
+                              Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                      child: const Text("مشروبات",
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),)
+                                  ))
+                            ],
+                          ),),)
+
+                    ]),
+                const SizedBox(height: 60),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Actionss(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          height: 166,
+                          width: 133,
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFFFD972),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            children: [
+
+
+                              AspectRatio(
+                                aspectRatio: 1.0,
+                                child: Container(
+                                  child: Image.asset(
+                                    'assets/images/action.PNG',
+                                    fit: BoxFit.cover,),
+
+
+                                ),
+                              ),
+                              Expanded(
+                                  flex: 1,
+                                  child: Container(
+                                      child: const Text("أفعال",
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                        ),)
+                                  ))
+                            ],
+                          ),),),
+                      const SizedBox(width: 60),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const AddFolder(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                            height: 166,
+                            width: 133,
+                            decoration: BoxDecoration(
+                              color: const Color(0xFFA7E8BD),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: const Center(
+                              child: Text("إضافة ملف",
+                                style: TextStyle(
+                                  fontSize: 20,
+                                ),),
+                            )),)
+
+                    ]),
+                const SizedBox(height: 60),])
 
       ),
     );
