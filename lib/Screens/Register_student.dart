@@ -212,7 +212,7 @@ class _Register_studentState extends State<Register_student> {
             width: 400,
             height: 40,
             child: reusableTextField(
-                "ادخل كلمة السر", Icons.lock, false, _passwordTextController),
+                "ادخل كلمة السر", Icons.lock, true, _passwordTextController),
           ),
           const SizedBox(
             height: 10,
@@ -235,7 +235,7 @@ class _Register_studentState extends State<Register_student> {
             width: 400,
             height: 40,
             child: reusableTextField(
-                " ادخل كلمة السر مجددا", Icons.lock, false, _confirmPass),
+                " ادخل كلمة السر مجددا", Icons.lock, true, _confirmPass),
           ),
 
           firebaseUIButton(context, "اكمال", () {
