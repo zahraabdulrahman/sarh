@@ -71,18 +71,18 @@ class _Register_studentState extends State<Register_student> {
                       radius: 64,
                       backgroundImage: MemoryImage(_image!),
                      )
-                  : CircleAvatar(
+                  : const CircleAvatar(
                       radius: 60,
                       backgroundImage: NetworkImage(
                           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIwRBD9gNuA2GjcOf6mpL-WuBhJADTWC3QVQ&usqp=CAU'),
                     ),
               Positioned(
-                child: IconButton(
-                  onPressed: selectImage,
-                  icon: Icon(Icons.add_a_photo),
-                ),
                 bottom: -10,
                 left: 80,
+                child: IconButton(
+                  onPressed: selectImage,
+                  icon: const Icon(Icons.add_a_photo),
+                ),
               ),
             ],
           ),

@@ -107,7 +107,7 @@ class _Sign_in_screenState extends State<Sign_in_screen> {
                         onTap: (){
                           Navigator.push(context,
                               MaterialPageRoute(builder: (context){
-                            return forgot_pw_page();
+                            return const forgot_pw_page();
                           }));
                         },
                         child: const Text(

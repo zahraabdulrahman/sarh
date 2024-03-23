@@ -24,7 +24,7 @@ Future passowrdReset() async {
       showDialog(
           context: context,
           builder: (context){
-            return AlertDialog(
+            return const AlertDialog(
               content: Text('تم ارسال رابط تغيير الايميل'),
             );
           });
@@ -33,7 +33,7 @@ Future passowrdReset() async {
       showDialog(
           context: context,
           builder: (context){
-            return AlertDialog(
+            return const AlertDialog(
               content: Text('الايميل المدخل خاطئ حاول مجدداً'),
             );
           });
@@ -50,11 +50,11 @@ Future passowrdReset() async {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('ادخل ايميلك وسيتم ارسال رابط اعادة كلمة المرور '),
-            SizedBox(height: 25,),
+            const Text('ادخل ايميلك وسيتم ارسال رابط اعادة كلمة المرور '),
+            const SizedBox(height: 25,),
             reusableTextField("ادخل بريدك الالكتروني", Icons.email, false,
                 _emailTextController),
-            SizedBox(height: 25,),
+            const SizedBox(height: 25,),
             firebaseUIButton(context, "تغيير كلمة المرور", () {
               passowrdReset();
             }

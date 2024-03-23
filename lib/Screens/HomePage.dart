@@ -4,6 +4,8 @@ import 'package:sarh/Screens/CardsSettings.dart';
 import 'package:sarh/Screens/AboutSarh.dart';
 import 'package:sarh/Screens/sign_in_screen.dart';
 
+import 'PersonalInformation.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -122,7 +124,7 @@ class _HomePageState extends State<HomePage> {
                             onTap: () {
                               Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => const CardsSettings()),
+                                MaterialPageRoute(builder: (context) => const PersonalInformation()),
                               );
                             }),
                         Transform(

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 // import 'package:xyz/utils/pixel_sizes.dart';
-import 'package:image_picker/image_picker.dart';
 
 TextField reusableTextField(String text, IconData icon, bool isPasswordType,
     TextEditingController controller) {
@@ -116,10 +115,10 @@ Container settingUIButton (BuildContext context, String title, IconData icon, Fu
 }
 
 pickImage(ImageSource source) async {
-  final ImagePicker _imagePicker = ImagePicker();
-  XFile? _file = await _imagePicker.pickImage(source: source);
-  if(_file != null){
-    return await _file.readAsBytes();
+  final ImagePicker imagePicker = ImagePicker();
+  XFile? file = await imagePicker.pickImage(source: source);
+  if(file != null){
+    return await file.readAsBytes();
   }
   print('No Images Selected');
 }

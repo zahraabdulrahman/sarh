@@ -6,7 +6,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 
 class ImageUploads extends StatefulWidget {
-  const ImageUploads({Key? key}) : super(key: key) ;
+  const ImageUploads({super.key}) ;
 
   @override
   _ImageUploadsState createState() => _ImageUploadsState();
