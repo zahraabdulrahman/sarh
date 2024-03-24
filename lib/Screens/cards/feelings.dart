@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-// AudioPlayer audioPlayer = AudioPlayer();
+//AudioPlayer audioPlayer = AudioPlayer();
 // card data
 class CardData {
   final String title;
