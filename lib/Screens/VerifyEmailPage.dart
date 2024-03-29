@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,19 @@ import 'package:sarh/Screens/Navigation.dart';
 import 'package:sarh/reusable_widgets/reusable_widget.dart';
 
 class VerifyEmailPage extends StatefulWidget {
-  const VerifyEmailPage({super.key});
+
+  final User user;
+  final  firstName;
+  final  lastName;
+  final  date;
+
+  const VerifyEmailPage({
+    super.key,
+    required this.user,
+    required this.firstName,
+    required this.lastName,
+    required this.date,
+  });
 
   @override
   State<VerifyEmailPage> createState() => _VerifyEmailPageState();
@@ -16,6 +29,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
   bool isEmailVerified = false;
   bool canResendEmail = false;
   Timer? timer;
+
   @override
   void initState() {
     super.initState();
@@ -43,7 +57,9 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
     setState(() {
       isEmailVerified = FirebaseAuth.instance.currentUser!.emailVerified;
     });
-    if (isEmailVerified) timer?.cancel();
+    if (isEmailVerified) {
+      timer?.cancel();
+    }
   }
 
   Future sendVerificationEmail() async {
@@ -60,39 +76,70 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
   }
 
   @override
-  Widget build(BuildContext context) => isEmailVerified
-      ? const Navigation()
-      : Scaffold(
-          appBar: AppBar(
-            title: const Text("Verify Email"),
-          ),
-          body: Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    'يرجى تأكيد الايميل بالرابط المرسل على',
-                    style: TextStyle(fontSize: 20),
-                    textAlign: TextAlign.center,
-                  ),
-                  firebaseUIButton(context, "اعادة الارسال", () {
-                    onPressed: canResendEmail ? sendVerificationEmail : Null;
-                  }),
-                  GestureDetector(
-                  child: const Text("الغاء",
-                  style:
-                    TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 15),),
-                  onTap: () {
-                    FirebaseAuth.instance.signOut().then((value) {
-                      print("Signed Out");
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const LogRegPage()));
-                    });
-                  })
-                ],
+  Widget build(BuildContext context) {
+    if (isEmailVerified) {
+      addUserDetails(
+                    widget.firstName,
+                    widget.lastName,
+                    widget.user.email!,
+                    widget.date,
+                    widget.user.uid,
+                  );
+      return const Navigation();
+    } else {
+      return Scaffold(
+        appBar: AppBar(
+          title: const Text("Verify Email"),
+        ),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+               Text(
+                'يرجى تأكيد الايميل بالرابط المرسل على ${widget.user.email}',
+                style: const TextStyle(fontSize: 20),
+                textAlign: TextAlign.center,
               ),
-            ),
-          );
+              firebaseUIButton(context, "اعادة الارسال", () {
+                if (canResendEmail) {
+                  sendVerificationEmail();
+                }
+              }),
+              GestureDetector(
+                child: const Text(
+                  "الغاء",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 15,
+                  ),
+                ),
+                onTap: () {
+                  FirebaseAuth.instance.signOut().then((value) {
+                    print("Signed Out");
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LogRegPage(),
+                      ),
+                    );
+                  });
+                },
+              ),
+            ],
+          ),
+        ),
+      );
+    }
+  }
+}
+Future<void> addUserDetails(
+    String firstName, String lastName, String email, String date, String uid) async {
+  await FirebaseFirestore.instance.collection('users').doc(uid).set({
+    'first name': firstName,
+    'last name': lastName,
+    'date': date,
+    'email': email,
+    'uid': uid, // Include the UID in the document data
+  });
 }

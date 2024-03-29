@@ -18,15 +18,17 @@ class Register_screen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children:[
             const SizedBox(height:400),
-              const Row(
+               Row(
             children: [
-              SizedBox(width: 255,),
-              Text(
-                'التسجيل',
-                style: TextStyle(
-                  fontSize: 28.0,
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFF3A3A3A),
+              Transform(
+                transform: Matrix4.translationValues(-10, 0.0, 0.0),
+                child: const Text(
+                  'التسجيل',
+                  style: TextStyle(
+                    fontSize: 28.0,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xFF3A3A3A),
+                  ),
                 ),
               )
             ]),

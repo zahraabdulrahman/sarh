@@ -8,8 +8,6 @@ class Consulations extends StatefulWidget {
   State<Consulations> createState() => _Consulations();
 }
 
-bool isDark = false;
-
 class videos extends StatelessWidget {
   const videos({super.key});
 
@@ -100,90 +98,92 @@ class _Consulations extends State<Consulations> {
   ];
 
   List<Map<String, dynamic>> _foundUsers = [];
+
   @override
   void initState() {
     _foundUsers = _allUsers;
     super.initState();
   }
 
-  void _runFilter(String enteredKeyword) {
+  void _runFilter(String enteredKeyword, List<String> selectedCategories) {
     List<Map<String, dynamic>> results = [];
-    if (enteredKeyword.isEmpty) {
+    if (enteredKeyword.isEmpty && selectedCategories.isEmpty) {
       results = _allUsers;
     } else {
-      results = _allUsers
-          .where((user) =>
-          user["الاسم"].toLowerCase().contains(enteredKeyword.toLowerCase()) && user["الجنس"].contains(selectedCategories))
-          .toList();
+      results = _allUsers.where((user) {
+        bool nameContainsKeyword = user["الاسم"].toLowerCase().contains(enteredKeyword.toLowerCase());
+        bool genderMatchesCategory = selectedCategories.isEmpty || selectedCategories.contains(user["الجنس"]);
+        return nameContainsKeyword && genderMatchesCategory;
+      }).toList();
     }
-    void setState() {
+    setState(() {
       _foundUsers = results;
-    }
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      //extendBodyBehindAppBar: true, // <-- Set this
-      appBar: AppBar(
-        title: Transform(
-          transform: Matrix4.translationValues(150, 43, 0.0),
-          child: const Text(
-            'استشارات فورية',
-            style: TextStyle(color: Colors.black, fontSize: 28),
+    List<String> selectedCategories = [];
+    List<String> gendersList = [
+      'انثى',
+      'ذكر',
+    ];
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        //extendBodyBehindAppBar: true, // <-- Set this
+        appBar: AppBar(
+          title: Transform(
+            transform: Matrix4.translationValues(-10, 43, 0.0),
+            child: const Text(
+              'استشارات فورية',
+              style: TextStyle(color: Colors.black, fontSize: 28),
+            ),
           ),
+          flexibleSpace: Container(
+            decoration: const BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/images/صرح.png'),
+                    fit: BoxFit.fill)),
+          ),
+          toolbarHeight: 250,
         ),
-        flexibleSpace: Container(
-          decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('assets/images/صرح.png'),
-                  fit: BoxFit.fill)),
-        ),
-        toolbarHeight: 250,
-      ),
-      body: Column(
-        children: [
-          Row(
-            children: [
-              Container(
-                child: Transform(
-                  transform: Matrix4.translationValues(240, -3, 0.0),
-                  child: const Text(
-                    "البحث عن اخصائي",
-                    style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
-                  ),
-                ),
+        body: Column(
+          children: [
+            const Text(
+              "البحث عن اخصائي",
+              style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
+            ),
+            TextField(
+              onChanged: (value) => _runFilter(value, selectedCategories),
+              decoration: const InputDecoration(
+                labelText: 'البحث عن اخصائي',
+                suffixIcon: Icon(Icons.search),
               ),
-            ],
-          ),
-          TextField(
-            onChanged: (value) => _runFilter(value),
-            decoration: const InputDecoration(
-                labelText: 'البحث عن اخصائي', suffixIcon: Icon(Icons.search)),
-          ),              Column(
-              children: [
-                Container(
-                    padding: const EdgeInsets.all(10.0),
-                    margin: const EdgeInsets.all(8.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: gender.map((gender) {
-                        return FilterChip(
-                          selected: selectedCategories.contains(gender),
-                          label: Text(gender),
-                          onSelected: (selected) {
-                            setState(() {
-                              if (selected) {
-                                selectedCategories.add(gender);
-                              } else {
-                                selectedCategories.remove(gender);
-                              }
-                            });
-                          },
-                        );
-                      }).toList(),))]),
-          Expanded(
-            child: Padding(
+            ),
+            Wrap(
+              spacing: 8.0,
+              runSpacing: 4.0,
+              children: gendersList.map((gender) {
+                return FilterChip(
+                  label: Text(gender),
+                  selected: selectedCategories.contains(gender),
+                  selectedColor: Colors.green,
+                  onSelected: (selected) {
+                    setState(() {
+                      if (selected) {
+                        selectedCategories.add(gender);
+                      } else {
+                        selectedCategories.remove(gender);
+                      }
+                    });
+                    _runFilter('', selectedCategories);
+                  },
+                );
+              }).toList(),
+            ),
+            Expanded(
+              child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: ListView.builder(
                   itemCount: _foundUsers.length,
@@ -193,23 +193,25 @@ class _Consulations extends State<Consulations> {
                     elevation: 4,
                     margin: const EdgeInsets.symmetric(vertical: 10),
                     child: ListTile(
-                        leading: Text(
-                          _foundUsers[index]['الاسم'],
-                          style: const TextStyle(
-                              fontSize: 24, color: Colors.black),
-                        ),
-                        title: Text(
-                          _foundUsers[index]['التخصص'],
-                          style: const TextStyle(color: Colors.black),
-                        ),
-                        subtitle: Text(
-                          _foundUsers[index]["الجنس"],
-                          style: const TextStyle(color: Colors.black),
-                        )),
+                      leading: Text(
+                        _foundUsers[index]['الاسم'],
+                        style: const TextStyle(fontSize: 24, color: Colors.black),
+                      ),
+                      title: Text(
+                        _foundUsers[index]['التخصص'],
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                      subtitle: Text(
+                        _foundUsers[index]["الجنس"],
+                        style: const TextStyle(color: Colors.black),
+                      ),
+                    ),
                   ),
-                )),
-          ),
-        ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

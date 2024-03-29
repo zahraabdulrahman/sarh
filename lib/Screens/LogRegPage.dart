@@ -17,7 +17,7 @@ class LogRegPage extends StatelessWidget {
         )),
         child: Center(
           child: Column(children: [
-            const SizedBox(height: 400),
+            const SizedBox(height: 450),
             const SizedBox(
               height: 170.61,
               width: 303,

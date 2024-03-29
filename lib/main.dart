@@ -4,17 +4,12 @@ import 'package:sarh/Screens/SplashScreen.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 // import 'package:provider/provider.dart';
 // import 'firebase_options.dart';
+import 'firebase_options.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  // Platfrm.isAndroid?
   await Firebase.initializeApp(
-    options:  const FirebaseOptions(
-      apiKey: "AIzaSyCgcjK2E_ixq72pO10-pbzavlGNSqsBhyc",
-      appId: "1:451801507625:android:492fc2e026a708cfd07938",
-      messagingSenderId: "451801507625",
-      projectId: "sarh-3efed",
-    ),
+    options: DefaultFirebaseOptions.currentPlatform,
   );
 
   runApp(MaterialApp(

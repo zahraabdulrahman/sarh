@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:sarh/Screens/Navigation.dart';
 import 'package:sarh/Screens/register.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
@@ -40,7 +39,7 @@ class _Sign_in_screenState extends State<Sign_in_screen> {
              Row(children: [
               Transform(
                 transform: Matrix4.translationValues(-10, 0.0, 0.0),
-                child: Text(
+                child: const Text(
                   'تسجيل الدخول',
                   style: TextStyle(
                     fontSize: 28.0,
@@ -102,7 +101,7 @@ class _Sign_in_screenState extends State<Sign_in_screen> {
                       onTap: (){
                         Navigator.push(context,
                             MaterialPageRoute(builder: (context){
-                              return forgot_pw_page();
+                              return const forgot_pw_page();
                             }));
                       },
                       child: const Text(
@@ -142,7 +141,7 @@ class _Sign_in_screenState extends State<Sign_in_screen> {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Text("لايوجد لديك حساب?", style: TextStyle(color: Colors.black)),
+        const Text("لايوجد لديك حساب؟", style: TextStyle(color: Colors.black)),
         GestureDetector(
           onTap: () {
             Navigator.push(context,
@@ -150,7 +149,7 @@ class _Sign_in_screenState extends State<Sign_in_screen> {
           },
           child: const Text(
             "التسجيل",
-            style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
+            style: TextStyle(color: Color(0xFF9ED9AE), fontWeight: FontWeight.bold),
           ),
         )
       ],

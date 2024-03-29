@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -21,11 +20,20 @@ class Register_student extends StatefulWidget {
 class _Register_studentState extends State<Register_student> {
   final TextEditingController _passwordTextController = TextEditingController();
   final TextEditingController _emailTextController = TextEditingController();
-  final TextEditingController _firstNameTextController =
-      TextEditingController();
-  final TextEditingController _lastNameTextController = TextEditingController();
-  final TextEditingController _dateinput = TextEditingController();
+  late TextEditingController _firstNameTextController;
+  late TextEditingController _lastNameTextController;
+  late TextEditingController _dateinput;
   final TextEditingController _confirmPass = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _firstNameTextController = TextEditingController();
+    _lastNameTextController = TextEditingController();
+    _dateinput = TextEditingController();
+  }
+
+
   @override
   void dispose() {
     _passwordTextController.dispose();
@@ -238,26 +246,13 @@ class _Register_studentState extends State<Register_student> {
                 " ادخل كلمة السر مجددا", Icons.lock, true, _confirmPass),
           ),
 
-          firebaseUIButton(context, "اكمال", () {
+          firebaseUIButton(context, "اكمال", ()async{
             if (confirmedPasssowrd()) {
-              FirebaseAuth.instance
-                  .createUserWithEmailAndPassword(
-                      email: _emailTextController.text,
-                      password: _passwordTextController.text)
-                  .then((value) {
-                print("Created New Account");
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const VerifyEmailPage()));
-              }).onError((error, stackTrace) {
-                print("Error ${error.toString()}");
-              });
-              addUserDetails(
-                  _firstNameTextController.text.trim(),
-                  _lastNameTextController.text.trim(),
-                  _emailTextController.text.trim(),
-                  _dateinput.text.trim());
+              createAccountAndSendVerificationEmail(context,
+                firstName: _firstNameTextController.text.trim(),
+                lastName: _lastNameTextController.text.trim(),
+                date: _dateinput.text.trim(),
+              );
             }
           }),
           signInOption(),
@@ -278,15 +273,47 @@ class _Register_studentState extends State<Register_student> {
     );
   }
 
-  Future addUserDetails(
-      String firstName, String lastName, String email, String date) async {
-    await FirebaseFirestore.instance.collection('users').add({
-      'first name': firstName,
-      'last name': lastName,
-      'date': date,
-      'email': email,
-    });
+  // Future<void> addUserDetails(
+  //     String firstName, String lastName, String email, String date, String uid) async {
+  //   await FirebaseFirestore.instance.collection('users').doc(uid).set({
+  //     'first name': firstName,
+  //     'last name': lastName,
+  //     'date': date,
+  //     'email': email,
+  //     'uid': uid, // Include the UID in the document data
+  //   });
+  // }
+  Future<void> createAccountAndSendVerificationEmail(BuildContext context, {
+    required String firstName,
+    required String lastName,
+    required String date,
+  }) async {
+    try {
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: _emailTextController.text,
+        password: _passwordTextController.text,
+      );
+
+      await userCredential.user!.sendEmailVerification();
+
+      print("Verification email sent");
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => VerifyEmailPage(
+            user: userCredential.user!, // Pass the user object here
+            firstName: firstName,
+            lastName: lastName,
+            date: date,
+          ),
+        ),
+      );
+    } catch (e) {
+      print("Error creating user: $e");
+      // Handle errors here, such as displaying an error message to the user
+    }
   }
+
 
   bool confirmedPasssowrd() {
     if (_passwordTextController.text.trim() == _confirmPass.text.trim()) {
