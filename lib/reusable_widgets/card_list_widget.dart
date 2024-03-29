@@ -1,60 +1,38 @@
 import 'package:flutter/material.dart';
-
-Column cardsBar() {
-  return Column(
-    children: [
-      Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Container(
-          height: 150,
-          width: 337,
-          decoration: const BoxDecoration(color: Colors.grey),
-        )
-      ]),
-      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-        ElevatedButton.icon(
-            onPressed: () {
-              // Handle button press
-            },
-            style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                fixedSize: MaterialStateProperty.all<Size>(
-                  const Size(73, 50), // Specify the desired width and height
-                ),
-                padding: MaterialStateProperty.all<EdgeInsets>(
-                  const EdgeInsets.all(8), // Specify the desired padding
-                )),
-            icon: const Icon(Icons.volume_up),
-            label: const Text("")),
-        const SizedBox(height: 90, width: 40),
-      ]),
-    ],
-  );
-}
+import 'package:audioplayers/audioplayers.dart';
+final GlobalKey<_CardListWidgetState> cardListKey = GlobalKey<_CardListWidgetState>();
 
 class CardModel {
   final String imagePath;
-  final String soundPath;
+  final String audioPath;
   bool isSelected;
 
-  CardModel({
-    required this.imagePath,
-    required this.soundPath,
-    this.isSelected = false,
-  });
+  CardModel({required this.imagePath,
+    required this.audioPath,
+    this.isSelected = false});
 }
+
 
 class CardListWidget extends StatefulWidget {
   final List<CardModel> cards;
 
-  const CardListWidget({required this.cards});
+  const CardListWidget({Key? key, required this.cards}) : super(key: key);
 
   @override
   _CardListWidgetState createState() => _CardListWidgetState();
 }
 
-class _CardListWidgetState extends State<CardListWidget>{
+class _CardListWidgetState extends State<CardListWidget> {
   List<CardModel> selectedCards = [];
+  AudioPlayer audioPlayer = AudioPlayer();
+
+  void playSelectedCardsAudio() async {
+    print('Playing audio for selected cards: $selectedCards');
+    for (var card in selectedCards) {
+      print('Playing audio for card: ${card.audioPath}');
+      await audioPlayer.play(card.audioPath as Source);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,14 +52,57 @@ class _CardListWidgetState extends State<CardListWidget>{
             });
           },
           child: Card(
-            child: ListTile(
-              leading: Image.asset(card.imagePath),
-              title: Text(card.soundPath),
-              trailing: card.isSelected ? Icon(Icons.check) : null,
-            )
+            child: Container(
+              height: 155,
+              width: 155,
+              padding: EdgeInsets.all(16.0),
+              child: Image.asset(card.imagePath),
+            ),
           ),
         );
       },
     );
   }
 }
+
+final List<CardModel> cards_feelings = [
+  CardModel(
+    imagePath: 'assets/images/happy.png',
+    audioPath: 'assets/sounds/happy.m4a',
+  ),
+
+];
+
+
+Column cardsBar() {
+  return Column(
+    children: [
+      Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+        Container(
+          height: 150,
+          width: 337,
+          decoration: const BoxDecoration(color: Colors.grey),
+        )
+      ]),
+      Row(mainAxisAlignment: MainAxisAlignment.end, children: [
+        ElevatedButton.icon(
+            onPressed: () {
+               cardListKey.currentState?.playSelectedCardsAudio();
+            },
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                fixedSize: MaterialStateProperty.all<Size>(
+                  const Size(73, 50), // Specify the desired width and height
+                ),
+                padding: MaterialStateProperty.all<EdgeInsets>(
+                  const EdgeInsets.all(8), // Specify the desired padding
+                )),
+            icon: const Icon(Icons.volume_up),
+            label: const Text("")),
+        const SizedBox(height: 90, width: 40),
+      ]),
+    ],
+  );
+}
+
