@@ -1,3 +1,8 @@
+import 'dart:io';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -123,3 +128,124 @@ pickImage(ImageSource source) async {
   print('No Images Selected');
 }
 
+GestureDetector buttons(context,height,width,String title, Function onTap){
+  return GestureDetector(
+    onTap: () {
+      onTap();
+    },
+    child: Stack(
+      children: [
+        Container(
+            height: height,
+            width: width,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                begin: Alignment.centerRight,
+                end: Alignment.centerLeft,
+                colors: [
+                  Color(0xFFA7E8BD),
+                  Color(0xFF99CFA5),
+                ],
+              ),
+              borderRadius: BorderRadius.circular(28),
+            ),
+            child: Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 15),
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
+                  ),
+                ))),
+        Positioned(
+            bottom: 10,
+            left: 1,
+            child: ClipRect(
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  widthFactor: 1,
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            const Color(0xFFC7EAE4),
+                            const Color(0xFFC7EAE4).withOpacity(0.4),
+                          ]),
+                    ),
+                    child: const Column(
+                      children: [
+                        SizedBox(
+                          height: 25,
+                        ),
+                        Icon(
+                          Icons.arrow_forward,
+                          color: Colors.black,
+                          size: 19,
+                        ),
+                      ],
+                    ),
+                  ),
+                ))),
+        Positioned(
+            bottom: 35,
+            left: 14,
+            child: ClipRect(
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  widthFactor: 1,
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: LinearGradient(
+                          begin: Alignment.topRight,
+                          end: Alignment.bottomLeft,
+                          colors: [
+                            Color(0xFFFFD972),
+                            Color(0xFFEFA7A7),
+                          ]),
+                    ),
+                  ),
+                )))
+      ],
+    ),
+  );
+}
+
+Future<String?> uploadPDFToFirebase(File pdfFile) async {
+  try {
+    final storageRef = FirebaseStorage.instance.ref().child('uploads/pdfs/${DateTime.now().millisecondsSinceEpoch}.pdf');
+    await storageRef.putFile(pdfFile);
+    final downloadUrl = await storageRef.getDownloadURL();
+    return downloadUrl;
+  } on FirebaseException catch (e) {
+    print(e.message);
+    return null;
+  }
+}
+
+Future<bool> isUserSpecialist(User user) async {
+  final docRef = FirebaseFirestore.instance.collection('users').doc(user.uid); // Replace 'users' if your collection name is different
+
+  final docSnapshot = await docRef.get();
+
+  if (docSnapshot.exists) {
+    final data = docSnapshot.data();
+    if (data != null) {
+      // Check for specialist field in the document
+      return data['isSpecialist'] ?? false; // Default to false if not found
+    }
+  }
+
+  // Handle cases where the document doesn't exist or an error occurs
+  print("Error: Could not determine user type from Firestore");
+  return false;
+}
