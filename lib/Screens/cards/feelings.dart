@@ -20,18 +20,20 @@ class _FeelingsState extends State<Feelings> {
     List<cardModel> filteredCards = filterCardsBySection(cardsList, "feelings");
     return Scaffold(
         appBar: AppBar(
-          title: Transform(
-            transform: Matrix4.translationValues(150, 43, 0.0),
+          title: Align(
+            alignment: Alignment.bottomRight,
             child: const Text(
-              'بطاقات',
+              'بطاقات: مشاعر',
               style: TextStyle(color: Colors.black, fontSize: 28),
             ),
           ),
           flexibleSpace: Container(
             decoration: const BoxDecoration(
-                image: DecorationImage(
-                    image: AssetImage('assets/images/صرح.png'),
-                    fit: BoxFit.fill)),
+              image: DecorationImage(
+                image: AssetImage('assets/images/صرح.png'),
+                fit: BoxFit.fill,
+              ),
+            ),
           ),
           toolbarHeight: 250,
         ),

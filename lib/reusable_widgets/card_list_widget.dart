@@ -24,11 +24,13 @@ class _CardsBarWidgetState extends State<CardsBarWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              height: 150,
-              width: 337,
-
-              decoration: BoxDecoration(color: Colors.grey,
-                  borderRadius: BorderRadius.circular(15),),
+              height: 130,
+              width: 400,
+              decoration: BoxDecoration(gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Color(0xFFC7EAE4), Color(0xFFFFD972)],
+              ), borderRadius: BorderRadius.circular(15),),
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: selectedCards.length,
@@ -62,13 +64,21 @@ class _CardsBarWidgetState extends State<CardsBarWidget> {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
-            TextButton.icon(
-              onPressed: (){
-                playMusic();
-              },
-              icon: Icon(Icons.music_note),
-              label: Text('Play Music'),
-            ),
+            ElevatedButton.icon(
+                onPressed: () {
+                  playSounds();
+                },
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+                    foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                    fixedSize: MaterialStateProperty.all<Size>(
+                      const Size(73, 50), // Specify the desired width and height
+                    ),
+                    padding: MaterialStateProperty.all<EdgeInsets>(
+                      const EdgeInsets.all(8), // Specify the desired padding
+                    )),
+                icon: const Icon(Icons.volume_up),
+                label: const Text("")),
             const SizedBox(height: 90, width: 40),
           ],
         ),
@@ -76,7 +86,7 @@ class _CardsBarWidgetState extends State<CardsBarWidget> {
     );
   }
 
-  Future<void> playMusic() async{
+  Future<void> playSounds() async{
     for (cardModel card in selectedCards) {
       String audioPath = card.audioPath;
       await player.play(AssetSource(audioPath));

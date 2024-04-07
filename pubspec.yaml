@@ -105,6 +105,7 @@ flutter:
      - assets/sounds/حزين.mp3
      - assets/sounds/برجر.mp3
      - assets/sounds/جبن.mp3
+     - assets/images/Group 89.png
  
 
   # An image asset can refer to one or more resolution-specific "variants", see
