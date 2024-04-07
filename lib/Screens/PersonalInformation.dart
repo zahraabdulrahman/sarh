@@ -88,7 +88,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
                     ),
                   ],
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 ),
                 FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
@@ -97,10 +97,8 @@ class _PersonalInformationState extends State<PersonalInformation> {
                       .doc(FirebaseAuth.instance.currentUser!.uid)
                       .get(),
                   builder: (_, snapshot) {
-                    if (snapshot.hasError)
+                    if (snapshot.hasError) {
                       return Text('Error = ${snapshot.error}');
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Text("Loading");
                     }
                     Map<String, dynamic> data = snapshot.data!.data()!;
                     TextEditingController controller = TextEditingController(
@@ -110,12 +108,12 @@ class _PersonalInformationState extends State<PersonalInformation> {
                       transform: Matrix4.translationValues(-10, 0.0, 0.0),
                       child: Row(
                         children: [
-                          Text(
+                          const Text(
                             'الاسم الاول: ',
-                            style: TextStyle(fontSize: 20),
+                            style: TextStyle(fontSize: 18),
                           ),
-                          SizedBox(
-                            width: 54,
+                          const SizedBox(
+                            width: 20,
                           ),
                           SizedBox(
                             width: 220,
@@ -127,11 +125,11 @@ class _PersonalInformationState extends State<PersonalInformation> {
                                 labelText:
                                     'الاسم الاول', // Label for the TextField
                                 border:
-                                    OutlineInputBorder(), // Border for the TextField
+                                    const OutlineInputBorder(), // Border for the TextField
                                 fillColor: Colors.grey.shade400,
                                 filled: true,
                                 contentPadding:
-                                    EdgeInsets.symmetric(horizontal: 16.0),
+                                    const EdgeInsets.symmetric(horizontal: 16.0),
                                 alignLabelWithHint: true,
                               ),
                               style: const TextStyle(
@@ -159,7 +157,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
                     );
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
@@ -168,10 +166,8 @@ class _PersonalInformationState extends State<PersonalInformation> {
                       .doc(FirebaseAuth.instance.currentUser!.uid)
                       .get(),
                   builder: (_, snapshot) {
-                    if (snapshot.hasError)
+                    if (snapshot.hasError) {
                       return Text('Error = ${snapshot.error}');
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Text("Loading");
                     }
                     Map<String, dynamic> data = snapshot.data!.data()!;
                     TextEditingController controller = TextEditingController(
@@ -181,12 +177,12 @@ class _PersonalInformationState extends State<PersonalInformation> {
                       transform: Matrix4.translationValues(-10, 0.0, 0.0),
                       child: Row(
                         children: [
-                          Text(
+                          const Text(
                             'الاسم الاخير: ',
-                            style: TextStyle(fontSize: 20),
+                            style: TextStyle(fontSize: 18),
                           ),
-                          SizedBox(
-                            width: 50,
+                          const SizedBox(
+                            width: 20,
                           ),
                           SizedBox(
                             width: 220,
@@ -198,11 +194,11 @@ class _PersonalInformationState extends State<PersonalInformation> {
                                 labelText:
                                     'الاسم الاخير', // Label for the TextField
                                 border:
-                                    OutlineInputBorder(), // Border for the TextField
+                                    const OutlineInputBorder(), // Border for the TextField
                                 fillColor: Colors.grey.shade400,
                                 filled: true,
                                 contentPadding:
-                                    EdgeInsets.symmetric(horizontal: 16.0),
+                                    const EdgeInsets.symmetric(horizontal: 16.0),
                                 alignLabelWithHint: true,
                               ),
                               style: const TextStyle(
@@ -229,7 +225,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
                       ),
                     );
                   },
-                ),SizedBox(
+                ),const SizedBox(
                   height: 20,
                 ),
                 FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
@@ -238,10 +234,8 @@ class _PersonalInformationState extends State<PersonalInformation> {
                       .doc(FirebaseAuth.instance.currentUser!.uid)
                       .get(),
                   builder: (_, snapshot) {
-                    if (snapshot.hasError)
+                    if (snapshot.hasError) {
                       return Text('Error = ${snapshot.error}');
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Text("Loading");
                     }
                     Map<String, dynamic> data = snapshot.data!.data()!;
                     TextEditingController controller = TextEditingController(
@@ -251,12 +245,12 @@ class _PersonalInformationState extends State<PersonalInformation> {
                       transform: Matrix4.translationValues(-10, 0.0, 0.0),
                       child: Row(
                         children: [
-                          Text(
+                          const Text(
                             'البريد الالكتروني: ',
-                            style: TextStyle(fontSize: 20),
+                            style: TextStyle(fontSize: 16),
                           ),
-                          SizedBox(
-                            width: 20,
+                          const SizedBox(
+                            width: 10,
                           ),
                           SizedBox(
                             width: 220,
@@ -268,11 +262,11 @@ class _PersonalInformationState extends State<PersonalInformation> {
                                 labelText:
                                     'البريد الالكتروني', // Label for the TextField
                                 border:
-                                    OutlineInputBorder(), // Border for the TextField
+                                    const OutlineInputBorder(), // Border for the TextField
                                 fillColor: Colors.grey.shade400,
                                 filled: true,
                                 contentPadding:
-                                    EdgeInsets.symmetric(horizontal: 16.0),
+                                    const EdgeInsets.symmetric(horizontal: 16.0),
                                 alignLabelWithHint: true,
                               ),
                               style: const TextStyle(
@@ -299,7 +293,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
                       ),
                     );
                   },
-                ),SizedBox(
+                ),const SizedBox(
                   height: 20,
                 ),
                 FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
@@ -308,10 +302,8 @@ class _PersonalInformationState extends State<PersonalInformation> {
                       .doc(FirebaseAuth.instance.currentUser!.uid)
                       .get(),
                   builder: (_, snapshot) {
-                    if (snapshot.hasError)
+                    if (snapshot.hasError) {
                       return Text('Error = ${snapshot.error}');
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return const Text("Loading");
                     }
                     Map<String, dynamic> data = snapshot.data!.data()!;
                     TextEditingController controller = TextEditingController(
@@ -321,12 +313,12 @@ class _PersonalInformationState extends State<PersonalInformation> {
                       transform: Matrix4.translationValues(-10, 0.0, 0.0),
                       child: Row(
                         children: [
-                          Text(
+                          const Text(
                             'تاريخ الميلاد: ',
-                            style: TextStyle(fontSize: 20),
+                            style: TextStyle(fontSize: 16),
                           ),
-                          SizedBox(
-                            width: 50,
+                          const SizedBox(
+                            width: 20,
                           ),
                           SizedBox(
                             width: 220,
@@ -338,11 +330,11 @@ class _PersonalInformationState extends State<PersonalInformation> {
                                 labelText:
                                     'تاريخ الميلاد', // Label for the TextField
                                 border:
-                                    OutlineInputBorder(), // Border for the TextField
+                                    const OutlineInputBorder(), // Border for the TextField
                                 fillColor: Colors.grey.shade400,
                                 filled: true,
                                 contentPadding:
-                                    EdgeInsets.symmetric(horizontal: 16.0),
+                                    const EdgeInsets.symmetric(horizontal: 16.0),
                                 alignLabelWithHint: true,
                               ),
                               style: const TextStyle(

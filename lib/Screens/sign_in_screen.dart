@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sarh/Screens/Navigation.dart';
 import 'package:sarh/Screens/register.dart';
+import 'package:sarh/SpecialistScreens/Specialist_navigation.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sarh/reusable_widgets/reusable_widget.dart';
 // import 'package:firebase_signin/screens/home_screen.dart';
@@ -116,20 +118,44 @@ class _Sign_in_screenState extends State<Sign_in_screen> {
               ),
             ),
 
+            // Center(
+            //   child: firebaseUIButton(context, "تسجيل الدخول", () {
+            //         FirebaseAuth.instance
+            //             .signInWithEmailAndPassword(
+            //                 email: _emailTextController.text,
+            //                 password: _passwordTextController.text)
+            //             .then((value) {
+            //           Navigator.push(context,
+            //               MaterialPageRoute(builder: (context) => const Navigation()));
+            //         }).onError((error, stackTrace) {
+            //           print("Error ${error.toString()}");
+            //         });
+            //       }),
+            // ),
+
             Center(
               child: firebaseUIButton(context, "تسجيل الدخول", () {
-                    FirebaseAuth.instance
-                        .signInWithEmailAndPassword(
-                            email: _emailTextController.text,
-                            password: _passwordTextController.text)
-                        .then((value) {
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => const Navigation()));
-                    }).onError((error, stackTrace) {
-                      print("Error ${error.toString()}");
-                    });
-                  }),
+                FirebaseAuth.instance
+                    .signInWithEmailAndPassword(
+                    email: _emailTextController.text,
+                    password: _passwordTextController.text)
+                    .then((value) async {
+                  final isSpecialist = await isUserSpecialist(value.user!);
+
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => isSpecialist
+                          ? const Navigation() // Replace with your specialist navigation page
+                          : const Specialist_navigation(), // Replace with your user navigation page
+                    ),
+                  );
+                }).onError((error, stackTrace) {
+                  print("Error ${error.toString()}");
+                });
+              }),
             ),
+
             signUpOption() ,
           ],
         ),
@@ -156,3 +182,4 @@ class _Sign_in_screenState extends State<Sign_in_screen> {
     );
   }
 }
+

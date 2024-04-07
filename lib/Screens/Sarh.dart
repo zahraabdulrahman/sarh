@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'consultations.dart';
 import 'SessionsPage.dart';
-import 'package:video_player/video_player.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class Sarh extends StatefulWidget {
   const Sarh({super.key});
@@ -22,11 +20,13 @@ class _Sarh extends State<Sarh> {
     return Scaffold(
       //extendBodyBehindAppBar: true, // <-- Set this
       appBar: AppBar(
-        title: Transform(
-          transform: Matrix4.translationValues(330, 43, 0.0),
-          child: const Text(
-            'صرح',
-            style: TextStyle(color: Colors.black, fontSize: 28),
+        title: SizedBox(
+          child: Transform(
+            transform: Matrix4.translationValues(280, 43, 0.0),
+              child: const Text(
+                'صرح',
+                style: TextStyle(color: Colors.black, fontSize: 28),
+              ),
           ),
         ),
         flexibleSpace: Container(
@@ -50,16 +50,18 @@ class _Sarh extends State<Sarh> {
               String firstName =
                   data['first name'] ?? ''; // Get the first name from data
 
-              return Transform(
-                transform: Matrix4.translationValues(320, -6, 0.0),
-                child: Row(
-                  children: [
-                    Text(
-                      '${firstName} اهلاً  ',
-                      style:
-                          TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
-                    ),
-                  ],
+              return SizedBox(
+                child: Transform(
+                  transform: Matrix4.translationValues(265, -5, 0.0),
+                  child: Row(
+                    children: [
+                      Text(
+                        '$firstName اهلاً  ',
+                        style:
+                            const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                      ),
+                    ],
+                  ),
                 ),
               );
             },
@@ -67,18 +69,20 @@ class _Sarh extends State<Sarh> {
           Row(
             children: [
               Container(
-                child: Transform(
-                  transform: Matrix4.translationValues(350, -8, 0),
-                  child: const Text("الدروس"),
+                child: SizedBox(
+                  child: Transform(
+                    transform: Matrix4.translationValues(296, -8, 0),
+                    child: const Text("الدروس"),
+                  ),
                 ),
               ),
             ],
           ),
           SizedBox(
-            height: 100,
+            height: 80,
             width: double.infinity,
             child: Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(10.0),
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: 10,
@@ -98,10 +102,10 @@ class _Sarh extends State<Sarh> {
             ),
           ),
           SizedBox(
-            height: 100,
+            height: 80,
             width: double.infinity,
             child: Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.all(10.0),
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: 10,

@@ -33,7 +33,7 @@ class DatesPage extends StatelessWidget {
                   transform: Matrix4.translationValues(280, -3, 0.0),
                   child: const Text(
                     "الدخول للجلسة",
-                    style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
+                    style: TextStyle(fontWeight: FontWeight.w800, fontSize: 18),
                   ),
                 ),
               ),
@@ -71,7 +71,7 @@ class DatesPage extends StatelessWidget {
                     transform: Matrix4.translationValues(280, -3, 0.0),
                     child: const Text(
                       "المواعيد القادمة",
-                      style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
+                      style: TextStyle(fontWeight: FontWeight.w800, fontSize: 18),
                     ),
                   ),
                 ),
@@ -79,10 +79,10 @@ class DatesPage extends StatelessWidget {
             ],
           ),
            SizedBox(
-            height: 100,
+            height: 80,
             width: double.infinity,
             child: Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.symmetric(vertical: 15.0),
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: 5,
@@ -113,7 +113,7 @@ class DatesPage extends StatelessWidget {
                     transform: Matrix4.translationValues(280, -3, 0.0),
                     child: const Text(
                       "المواعيدالسابقة",
-                      style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
+                      style: TextStyle(fontWeight: FontWeight.w800, fontSize: 18),
                     ),
                   ),
                 ),
@@ -121,10 +121,10 @@ class DatesPage extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height: 100,
+            height: 80,
             width: double.infinity,
             child: Padding(
-              padding: const EdgeInsets.all(15.0),
+              padding: const EdgeInsets.symmetric(vertical: 15.0),
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: 10,

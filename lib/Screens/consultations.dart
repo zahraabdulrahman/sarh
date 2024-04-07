@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sarh/Screens/SpecialistDetails.dart';
 //import 'package:flutter/src/rendering/box.dart'; mport 'SecondRoute.dart';
 
 class Consulations extends StatefulWidget {
@@ -8,26 +9,18 @@ class Consulations extends StatefulWidget {
   State<Consulations> createState() => _Consulations();
 }
 
-class videos extends StatelessWidget {
-  const videos({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return const Scaffold();
-  }
-}
 List<String> selectedCategories = [];
-final List<String> gender = [
-  'انثى',
-  'ذكر'
-];
+final List<String> gender = ['انثى', 'ذكر'];
+
 class _Consulations extends State<Consulations> {
   final List<Map<String, dynamic>> _allUsers = [
     {
       "id": "1",
       "الاسم": "الاخصائي: احمد الحمداني",
       "التخصص": "اضطرابات نطق سمعي",
-      "الجنس": "ذكر"
+      "الجنس": "ذكر",
+      "الخبرة":"سنتين"
     },
     {
       "id": "2",
@@ -39,61 +32,71 @@ class _Consulations extends State<Consulations> {
       "id": "2",
       "الاسم": "الاخصائي: الزهراءعبدالرحمن",
       "التخصص": "اضطرابات نطق سمعي",
-      "الجنس": "انثى"
+      "الجنس": "انثى",
+      "الخبرة":"3 سنوات"
     },
     {
       "id": "3",
       "الاسم": "الاخصائي: رنا عبدالعزيز",
       "التخصص": "اضطرابات نطق سمعي",
-      "الجنس": "انثى"
+      "الجنس": "انثى",
+      "الخبرة":"4 سنوات"
     },
     {
       "id": "4",
-      "الاسم": ": الاخصائياحمد عبدالله",
+      "الاسم": ": الاخصائي: احمد عبدالله",
       "التخصص": "اضطرابات نطق سمعي",
-      "الجنس": "ذكر"
+      "الجنس": "ذكر",
+      "الخبرة":"سنة واحدة"
     },
     {
       "id": "5",
       "الاسم": "الاخصائي: خالد ناصر",
       "التخصص": "اضطرابات نطق سمعي",
-      "الجنس": "ذكر"
+      "الجنس": "ذكر",
+      "الخبرة":"5 سنوات"
     },
     {
       "id": "6",
       "الاسم": "الاخصائي: صالح عبدالله",
       "التخصص": "اضطرابات نطق سمعي",
-      "الجنس": "ذكر"
+      "الجنس": "ذكر",
+      "الخبرة":"5 سنوات"
     },
     {
       "id": "7",
       "الاسم": "الاخصائي: ريم ابراهيم",
       "التخصص": "اضطرابات نطق سمعي",
-      "الجنس": "انثى"
+      "الجنس": "انثى",
+      "الخبرة":"5 سنوات"
     },
     {
       "id": "8",
       "الاسم": "الاخصائي: عبدالمجيد",
       "التخصص": "اضطرابات نطق سمعي",
-      "الجنس": "ذكر"
+      "الجنس": "ذكر",
+      "الخبرة":"5 سنوات"
     },
     {
       "id": "9",
       "الاسم": "سمية",
       "التخصص": "الاخصائي: اضطرابات نطق سمعي",
-      "الجنس": "انثى"
+      "الجنس": "انثى",
+      "الخبرة":"5 سنوات"
     },
     {
       "id": "10",
       "الاسم": "الاخصائي: حصه الراشد",
       "التخصص": "اضطرابات نطق سمعي",
-      "الجنس": "انثى"
+      "الجنس": "انثى",
+      "الخبرة":"3 سنوات"
     },
     {
       "id": "10",
       "الاسم": "الاخصائي:sasa",
       "التخصص": "اضطرابات نطق سمعي",
-      "الجنس": "انثى"
+      "الجنس": "انثى",
+      "الخبرة":"3 سنوات",
     },
   ];
 
@@ -101,8 +104,8 @@ class _Consulations extends State<Consulations> {
 
   @override
   void initState() {
-    _foundUsers = _allUsers;
     super.initState();
+    _foundUsers = _allUsers;
   }
 
   void _runFilter(String enteredKeyword, List<String> selectedCategories) {
@@ -111,8 +114,10 @@ class _Consulations extends State<Consulations> {
       results = _allUsers;
     } else {
       results = _allUsers.where((user) {
-        bool nameContainsKeyword = user["الاسم"].toLowerCase().contains(enteredKeyword.toLowerCase());
-        bool genderMatchesCategory = selectedCategories.isEmpty || selectedCategories.contains(user["الجنس"]);
+        bool nameContainsKeyword =
+            user["الاسم"].toLowerCase().contains(enteredKeyword.toLowerCase());
+        bool genderMatchesCategory = selectedCategories.isEmpty ||
+            selectedCategories.contains(user["الجنس"]);
         return nameContainsKeyword && genderMatchesCategory;
       }).toList();
     }
@@ -120,6 +125,9 @@ class _Consulations extends State<Consulations> {
       _foundUsers = results;
     });
   }
+  late String name;
+  late String major;
+  late String genders;
 
   @override
   Widget build(BuildContext context) {
@@ -150,10 +158,10 @@ class _Consulations extends State<Consulations> {
         ),
         body: Column(
           children: [
-            const Text(
-              "البحث عن اخصائي",
-              style: TextStyle(fontWeight: FontWeight.w800, fontSize: 20),
-            ),
+            // const Text(
+            //   "البحث عن اخصائي",
+            //   style: TextStyle(fontWeight: FontWeight.w800, fontSize: 16),
+            // ),
             TextField(
               onChanged: (value) => _runFilter(value, selectedCategories),
               decoration: const InputDecoration(
@@ -168,7 +176,7 @@ class _Consulations extends State<Consulations> {
                 return FilterChip(
                   label: Text(gender),
                   selected: selectedCategories.contains(gender),
-                  selectedColor: Colors.green,
+                  // selectedColor: Colors.red,
                   onSelected: (selected) {
                     setState(() {
                       if (selected) {
@@ -187,25 +195,44 @@ class _Consulations extends State<Consulations> {
                 padding: const EdgeInsets.all(10.0),
                 child: ListView.builder(
                   itemCount: _foundUsers.length,
-                  itemBuilder: (context, index) => Card(
-                    key: ValueKey(_foundUsers[index]["id"]),
-                    color: Colors.grey.shade400,
-                    elevation: 4,
-                    margin: const EdgeInsets.symmetric(vertical: 10),
-                    child: ListTile(
-                      leading: Text(
-                        _foundUsers[index]['الاسم'],
-                        style: const TextStyle(fontSize: 24, color: Colors.black),
+                  itemBuilder: (context, index) => GestureDetector(
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(vertical: 10),
+                      decoration: BoxDecoration(
+                        color: Colors.grey[
+                            300], // You can adjust the shade of grey as needed
+                        borderRadius: BorderRadius.circular(
+                            8), // Optional: Adds rounded corners
                       ),
-                      title: Text(
-                        _foundUsers[index]['التخصص'],
-                        style: const TextStyle(color: Colors.black),
+                      child: Column(
+                        children: [
+                          Text(
+                            _foundUsers[index]['الاسم'],
+                            style: const TextStyle(
+                                fontSize: 16, color: Colors.black),
+                          ),
+                          Text(
+                            _foundUsers[index]['التخصص'],
+                            style: const TextStyle(color: Colors.black),
+                          ),
+                          Text(
+                            _foundUsers[index]["الجنس"],
+                            style: const TextStyle(color: Colors.black),
+                          ),
+                        ],
                       ),
-                      subtitle: Text(
-                        _foundUsers[index]["الجنس"],
-                        style: const TextStyle(color: Colors.black),
-                      ),
+
                     ),
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => SpecialistDetails(
+                             name: _foundUsers[index]['الاسم'],
+                            major: _foundUsers[index]['التخصص'],
+                            genders: _foundUsers[index]["الجنس"],
+                          )),
+                        );
+                      }
                   ),
                 ),
               ),

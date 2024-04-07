@@ -16,7 +16,7 @@ class CardModel {
 class CardListWidget extends StatefulWidget {
   final List<CardModel> cards;
 
-  const CardListWidget({Key? key, required this.cards}) : super(key: key);
+  const CardListWidget({super.key, required this.cards});
 
   @override
   _CardListWidgetState createState() => _CardListWidgetState();
@@ -55,7 +55,7 @@ class _CardListWidgetState extends State<CardListWidget> {
             child: Container(
               height: 155,
               width: 155,
-              padding: EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
               child: Image.asset(card.imagePath),
             ),
           ),

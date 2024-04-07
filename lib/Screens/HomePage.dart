@@ -27,36 +27,34 @@ class _HomePageState extends State<HomePage> {
             child: Expanded(
               child: Column(
                 children: [
-                  Container(
-                    child: Row(
-                      children: [
-                        Transform(
-                            transform: Matrix4.translationValues(-10, 0.0, 0.0),
-                            child: const Icon(Icons.chat_bubble_outline_rounded),),
-                        GestureDetector(
-                            child: const Text(
-                              "     اعدادات البطاقات",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const CardsSettings()),
-                              );
-                            }),
-                        Transform(
-                          transform: Matrix4.translationValues(-40, 0.0, 0.0),
-                          child: const Icon(
-                            Icons.arrow_forward_ios_outlined,
-                            color: Colors.black,
-                            size: 19,
+                  Row(
+                    children: [
+                      Transform(
+                          transform: Matrix4.translationValues(-10, 0.0, 0.0),
+                          child: const Icon(Icons.chat_bubble_outline_rounded),),
+                      GestureDetector(
+                          child: const Text(
+                            "     اعدادات البطاقات",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
                           ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const CardsSettings()),
+                            );
+                          }),
+                      Transform(
+                        transform: Matrix4.translationValues(-40, 0.0, 0.0),
+                        child: const Icon(
+                          Icons.arrow_forward_ios_outlined,
+                          color: Colors.black,
+                          size: 19,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   const Divider(
                     color: Color.fromARGB(255, 252, 188, 184),
@@ -67,36 +65,34 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(
                     height: 35,
                   ),
-                  Container(
-                    child: Row(
-                      children: [
-                        Transform(
-                          transform: Matrix4.translationValues(-10, 0.0, 0.0),
-                          child: const Icon(Icons.chat_bubble_outline_rounded),),
-                        GestureDetector(
-                            child: const Text(
-                              "     عن صرح",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const AboutSarh()),
-                              );
-                            }),
-                        Transform(
-                          transform: Matrix4.translationValues(-110, 0.0, 0.0),
-                          child: const Icon(
-                            Icons.arrow_forward_ios_outlined,
-                            color: Colors.black,
-                            size: 19,
+                  Row(
+                    children: [
+                      Transform(
+                        transform: Matrix4.translationValues(-10, 0.0, 0.0),
+                        child: const Icon(Icons.chat_bubble_outline_rounded),),
+                      GestureDetector(
+                          child: const Text(
+                            "     عن صرح",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
                           ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const AboutSarh()),
+                            );
+                          }),
+                      Transform(
+                        transform: Matrix4.translationValues(-110, 0.0, 0.0),
+                        child: const Icon(
+                          Icons.arrow_forward_ios_outlined,
+                          color: Colors.black,
+                          size: 19,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   const Divider(
                     color: Color.fromARGB(255, 255, 217, 114),
@@ -107,36 +103,34 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(
                     height: 35,
                   ),
-                  Container(
-                    child: Row(
-                      children: [
-                        Transform(
-                          transform: Matrix4.translationValues(-10, 0.0, 0.0),
-                          child: const Icon(Icons.chat_bubble_outline_rounded),),
-                        GestureDetector(
-                            child: const Text(
-                              "     البيانات الشخصية",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const PersonalInformation()),
-                              );
-                            }),
-                        Transform(
-                          transform: Matrix4.translationValues(-40, 0.0, 0.0),
-                          child: const Icon(
-                            Icons.arrow_forward_ios_outlined,
-                            color: Colors.black,
-                            size: 19,
+                  Row(
+                    children: [
+                      Transform(
+                        transform: Matrix4.translationValues(-10, 0.0, 0.0),
+                        child: const Icon(Icons.chat_bubble_outline_rounded),),
+                      GestureDetector(
+                          child: const Text(
+                            "     البيانات الشخصية",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
                           ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const PersonalInformation()),
+                            );
+                          }),
+                      Transform(
+                        transform: Matrix4.translationValues(-40, 0.0, 0.0),
+                        child: const Icon(
+                          Icons.arrow_forward_ios_outlined,
+                          color: Colors.black,
+                          size: 19,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   const Divider(
                     color: Color.fromARGB(255, 239, 167, 167),
@@ -147,36 +141,34 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(
                     height: 35,
                   ),
-                  Container(
-                    child: Row(
-                      children: [
-                        Transform(
-                          transform: Matrix4.translationValues(-10, 0.0, 0.0),
-                          child: const Icon(Icons.chat_bubble_outline_rounded),),
-                        GestureDetector(
-                            child: const Text(
-                              "     حذف الحساب",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const CardsSettings()),
-                              );
-                            }),
-                        Transform(
-                          transform: Matrix4.translationValues(-70, 0.0, 0.0),
-                          child: const Icon(
-                            Icons.arrow_forward_ios_outlined,
-                            color: Colors.black,
-                            size: 19,
+                  Row(
+                    children: [
+                      Transform(
+                        transform: Matrix4.translationValues(-10, 0.0, 0.0),
+                        child: const Icon(Icons.chat_bubble_outline_rounded),),
+                      GestureDetector(
+                          child: const Text(
+                            "     حذف الحساب",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
                           ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const CardsSettings()),
+                            );
+                          }),
+                      Transform(
+                        transform: Matrix4.translationValues(-70, 0.0, 0.0),
+                        child: const Icon(
+                          Icons.arrow_forward_ios_outlined,
+                          color: Colors.black,
+                          size: 19,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   const Divider(
                     color: Color.fromARGB(255, 199, 234, 228),
@@ -187,37 +179,35 @@ class _HomePageState extends State<HomePage> {
                   const SizedBox(
                     height: 35,
                   ),
-                  Container(
-                    child: Row(
-                      children: [
-                        Transform(
-                          transform: Matrix4.translationValues(-10, 0.0, 0.0),
-                          child: const Icon(Icons.chat_bubble_outline_rounded),),
-                        GestureDetector(
-                            child: const Text(
-                              "     تسجيل خروج",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                            ),
-                          onTap: () {
-                            FirebaseAuth.instance.signOut().then((value) {
-                              print("Signed Out");
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => const Sign_in_screen()));
-                            });
-                          },),
-                        Transform(
-                          transform: Matrix4.translationValues(-70, 0.0, 0.0),
-                          child: const Icon(
-                            Icons.arrow_forward_ios_outlined,
-                            color: Colors.black,
-                            size: 19,
+                  Row(
+                    children: [
+                      Transform(
+                        transform: Matrix4.translationValues(-10, 0.0, 0.0),
+                        child: const Icon(Icons.chat_bubble_outline_rounded),),
+                      GestureDetector(
+                          child: const Text(
+                            "     تسجيل خروج",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
                           ),
+                        onTap: () {
+                          FirebaseAuth.instance.signOut().then((value) {
+                            print("Signed Out");
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) => const Sign_in_screen()));
+                          });
+                        },),
+                      Transform(
+                        transform: Matrix4.translationValues(-70, 0.0, 0.0),
+                        child: const Icon(
+                          Icons.arrow_forward_ios_outlined,
+                          color: Colors.black,
+                          size: 19,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   const Divider(
                     color: Color.fromARGB(255, 255, 217, 114),
