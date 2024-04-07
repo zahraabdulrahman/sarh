@@ -10,26 +10,27 @@ class ProfilePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Transform(
-          transform: Matrix4.translationValues(150, 43, 0.0),
+        title: Align(
+          alignment: Alignment.bottomRight,
           child: const Text(
             'بطاقات',
             style: TextStyle(color: Colors.black, fontSize: 28),
           ),
         ),
-        flexibleSpace:
-            Container(
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('assets/images/صرح.png'),
-                      fit: BoxFit.fill)),
+        flexibleSpace: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage('assets/images/صرح.png'),
+              fit: BoxFit.fill,
+            ),
+          ),
         ),
         toolbarHeight: 250,
       ),
       body:
       Column(
         children: [
-          cardsBar(),
+          CardsBarWidget(),
           Expanded(
             child: SingleChildScrollView(
                 child: Column(
@@ -251,7 +252,7 @@ class ProfilePage extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const Clothes(),
+                                    builder: (context) => const Drinks(),
                                   ),
                                 );
                               },

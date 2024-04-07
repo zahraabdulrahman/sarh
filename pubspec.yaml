@@ -54,7 +54,9 @@ dependencies:
   firebase_storage: ^11.6.10
   path: ^1.9.0
   image_picker: ^1.0.7
+
   audioplayers: ^6.0.0
+  provider: ^5.0.0
 
 dev_dependencies:
   flutter_test:
@@ -99,7 +101,16 @@ flutter:
      - assets/images/sentences.PNG
      - assets/images/stuff.png
      - assets/images/water.png
-     - assets/sounds/happy.m4a
+     - assets/images/sad.png
+     - assets/images/angry.png
+     - assets/images/cheese.png
+     - assets/images/hamburger.png
+     - assets/sounds/سعيد.mp3
+     - assets/sounds/غاضب.mp3
+     - assets/sounds/حزين.mp3
+     - assets/sounds/برجر.mp3
+     - assets/sounds/جبن.mp3
+     - assets/images/Group 89.png
  
 
   # An image asset can refer to one or more resolution-specific "variants", see
