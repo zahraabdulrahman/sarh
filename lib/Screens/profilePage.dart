@@ -29,7 +29,7 @@ class ProfilePage extends StatelessWidget {
       body:
       Column(
         children: [
-          cardsBar(),
+          CardsBarWidget(),
           Expanded(
             child: SingleChildScrollView(
                 child: Column(

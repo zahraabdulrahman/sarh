@@ -82,9 +82,9 @@ void showDatePickerOnTextField(
     BuildContext context, TextEditingController dateInput) async {
   DateTime? pickedDate = await showDatePicker(
     context: context,
-    initialDate: DateTime.now(),
-    firstDate: DateTime(2000),
-    lastDate: DateTime(2101),
+    //initialDate: DateTime.now(),
+    firstDate: DateTime(1900),
+    lastDate: DateTime(2017),
   );
 
   if (pickedDate != null) {
