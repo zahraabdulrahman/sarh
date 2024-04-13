@@ -3,14 +3,14 @@ import 'cards/index.dart';
 import 'package:sarh/reusable_widgets/card_list_widget.dart';
 
 
-class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+class Cards extends StatefulWidget {
+  const Cards({super.key});
 
   @override
-  State<ProfilePage> createState() => _ProfilePageState();
+  State<Cards> createState() => _CardsState();
 }
 
-class _ProfilePageState extends State<ProfilePage> {
+class _CardsState extends State<Cards> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

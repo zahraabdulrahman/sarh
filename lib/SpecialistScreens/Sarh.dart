@@ -22,7 +22,7 @@ class _Sarh extends State<Sarh> {
         appBar: AppBar(
           title: SizedBox(
             child: Transform(
-              transform: Matrix4.translationValues(50, 43, 0.0),
+              transform: Matrix4.translationValues(-10, 43, 0.0),
               child: const Text(
                 'صرح',
                 style: TextStyle(color: Colors.black, fontSize: 28),

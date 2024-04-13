@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:sarh/User_Screens/consultations.dart';
 import '../reusable_widgets/reusable_widget.dart';
 
@@ -6,11 +9,13 @@ class SpecialistDetails extends StatefulWidget {
   final String name;
   final String major;
   final String genders;
+  final String experience;
   const SpecialistDetails({
     super.key,
     required this.name,
     required this.major,
     required this.genders,
+    required this.experience,
   });
 
   @override
@@ -20,9 +25,7 @@ class SpecialistDetails extends StatefulWidget {
 class _SpecialistDetailsState extends State<SpecialistDetails> {
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
@@ -86,19 +89,19 @@ class _SpecialistDetailsState extends State<SpecialistDetails> {
                       const SizedBox(
                         height: 20,
                       ),
-                      const Row(
+                       Row(
                         children: [
-                          Text(
+                          const Text(
                             'نوع الجلسات:\n'
                             'مخاطبة',
                             style: TextStyle(color: Colors.black),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 100,
                           ),
                           Text(
                             'الخبرة:\n'
-                            '4 سنوات',
+                            '${widget.experience} سنوات',
                             style: TextStyle(color: Colors.black),
                           ),
                         ],
@@ -156,23 +159,56 @@ class _SpecialistDetailsState extends State<SpecialistDetails> {
                 ),
               ],
             ),
-            Transform(
-              transform: Matrix4.translationValues(-50,0,0),
-              child: buttons(context,
-                  58.0,
-                  230.0,
-                 "الحجز",
-                 () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const Consulations()),
-                  );
-                },),
-            )
+            FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+              future: FirebaseFirestore.instance
+                  .collection('users')
+                  .doc(FirebaseAuth.instance.currentUser!.uid)
+                  .get(),
+              builder: (_, snapshot) {
+                if (snapshot.hasError) return Text('Error = ${snapshot.error}');
+                Map<String, dynamic> data = snapshot.data!.data()!;
+                String firstName =
+                    data['first name'] ?? ''; // Get the first name from data
+
+                return Transform(
+                  transform: Matrix4.translationValues(-50,0,0),
+                  child: buttons(context,
+                    58.0,
+                    220.0,
+                    "الحجز",
+                        () async {
+                      // Get current date
+                      DateTime now = DateTime.now();
+                      String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+
+                      // Create consultation data
+                      Map<String, dynamic> consultationData = {
+                        'specialist_name': widget.name,
+                        'specialist_major': widget.major,
+                        'consultation_date': formattedDate,
+                        // Add user name if available
+                        'user_name': firstName, // Replace with actual user name retrieval
+                      };
+
+                      // Add consultation to Firestore
+                      await FirebaseFirestore.instance
+                          .collection('consultations')
+                          .add(consultationData);
+
+                      // Display success message or navigate (optional)
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('تم حجز الاستشارة بنجاح!'),
+                        ),
+                      );
+                      // You can consider navigating to Consultations screen here
+                    },),
+                );
+              },
+            ),
           ],
         ),
-      ),
+
     );
   }
 }

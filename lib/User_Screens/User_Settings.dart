@@ -6,14 +6,14 @@ import 'package:sarh/Register_and_signin/sign_in_screen.dart';
 
 import 'PersonalInformation.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class User_Settings extends StatefulWidget {
+  const User_Settings({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<User_Settings> createState() => _User_SettingsState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _User_SettingsState extends State<User_Settings> {
   @override
   Widget build(BuildContext context) {
     return Directionality(

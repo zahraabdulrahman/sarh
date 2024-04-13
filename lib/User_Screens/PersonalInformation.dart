@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import '../reusable_widgets/reusable_widget.dart';
-import 'HomePage.dart';
+import 'User_Settings.dart';
 
 class PersonalInformation extends StatefulWidget {
   const PersonalInformation({super.key});
@@ -48,7 +48,7 @@ class _PersonalInformationState extends State<PersonalInformation> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const HomePage()),
+                              builder: (context) => const User_Settings()),
                         );
                       }),
                   Transform(

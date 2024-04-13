@@ -184,11 +184,6 @@ GestureDetector buttons(context,height,width,String title, Function onTap){
                         SizedBox(
                           height: 25,
                         ),
-                        Icon(
-                          Icons.arrow_forward,
-                          color: Colors.black,
-                          size: 19,
-                        ),
                       ],
                     ),
                   ),

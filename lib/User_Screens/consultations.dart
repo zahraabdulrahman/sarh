@@ -15,93 +15,9 @@ List<String> selectedCategories = [];
 final List<String> gender = ['انثى', 'ذكر'];
 
 class _Consulations extends State<Consulations> {
-  // final List<Map<String, dynamic>> _allUsers = [
-  //   {
-  //     "id": "1",
-  //     "الاسم": "الاخصائي: احمد الحمداني",
-  //     "التخصص": "اضطرابات نطق سمعي",
-  //     "الجنس": "ذكر",
-  //     "الخبرة":"سنتين"
-  //   },
-  //   {
-  //     "id": "2",
-  //     "الاسم": "سارة خالد",
-  //     "التخصص": "الاخصائي: اضطرابات نطق سمعي",
-  //     "الجنس": "انثى"
-  //   },
-  //   {
-  //     "id": "2",
-  //     "الاسم": "الاخصائي: الزهراءعبدالرحمن",
-  //     "التخصص": "اضطرابات نطق سمعي",
-  //     "الجنس": "انثى",
-  //     "الخبرة":"3 سنوات"
-  //   },
-  //   {
-  //     "id": "3",
-  //     "الاسم": "الاخصائي: رنا عبدالعزيز",
-  //     "التخصص": "اضطرابات نطق سمعي",
-  //     "الجنس": "انثى",
-  //     "الخبرة":"4 سنوات"
-  //   },
-  //   {
-  //     "id": "4",
-  //     "الاسم": ": الاخصائي: احمد عبدالله",
-  //     "التخصص": "اضطرابات نطق سمعي",
-  //     "الجنس": "ذكر",
-  //     "الخبرة":"سنة واحدة"
-  //   },
-  //   {
-  //     "id": "5",
-  //     "الاسم": "الاخصائي: خالد ناصر",
-  //     "التخصص": "اضطرابات نطق سمعي",
-  //     "الجنس": "ذكر",
-  //     "الخبرة":"5 سنوات"
-  //   },
-  //   {
-  //     "id": "6",
-  //     "الاسم": "الاخصائي: صالح عبدالله",
-  //     "التخصص": "اضطرابات نطق سمعي",
-  //     "الجنس": "ذكر",
-  //     "الخبرة":"5 سنوات"
-  //   },
-  //   {
-  //     "id": "7",
-  //     "الاسم": "الاخصائي: ريم ابراهيم",
-  //     "التخصص": "اضطرابات نطق سمعي",
-  //     "الجنس": "انثى",
-  //     "الخبرة":"5 سنوات"
-  //   },
-  //   {
-  //     "id": "8",
-  //     "الاسم": "الاخصائي: عبدالمجيد",
-  //     "التخصص": "اضطرابات نطق سمعي",
-  //     "الجنس": "ذكر",
-  //     "الخبرة":"5 سنوات"
-  //   },
-  //   {
-  //     "id": "9",
-  //     "الاسم": "سمية",
-  //     "التخصص": "الاخصائي: اضطرابات نطق سمعي",
-  //     "الجنس": "انثى",
-  //     "الخبرة":"5 سنوات"
-  //   },
-  //   {
-  //     "id": "10",
-  //     "الاسم": "الاخصائي: حصه الراشد",
-  //     "التخصص": "اضطرابات نطق سمعي",
-  //     "الجنس": "انثى",
-  //     "الخبرة":"3 سنوات"
-  //   },
-  //   {
-  //     "id": "10",
-  //     "الاسم": "الاخصائي:sasa",
-  //     "التخصص": "اضطرابات نطق سمعي",
-  //     "الجنس": "انثى",
-  //     "الخبرة":"3 سنوات",
-  //   },
-  // ];
 
   List<Map<String, dynamic>> _foundUsers = [];
+  List<Map<String, dynamic>> _allUsers = [];
 
   @override
   void initState() {
@@ -112,15 +28,23 @@ class _Consulations extends State<Consulations> {
 
   Future<void> _fetchSpecialists() async {
     try {
-      QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('specialists').get();
+      QuerySnapshot querySnapshot =
+      await FirebaseFirestore.instance.collection('specialists').get();
 
       List<Map<String, dynamic>> fetchedUsers = [];
       querySnapshot.docs.forEach((doc) {
-        fetchedUsers.add(doc.data() as Map<String, dynamic>);
+        Map<String, dynamic> userData = doc.data() as Map<String, dynamic>;
+        if (userData.containsKey('first name') &&
+            userData.containsKey('major') &&
+            userData.containsKey('gender') &&
+            userData.containsKey('experience')) {
+          fetchedUsers.add(userData);
+        }
       });
 
       setState(() {
-        _foundUsers = fetchedUsers;
+        _allUsers = fetchedUsers;
+        _foundUsers = _allUsers; // Initially set _foundUsers to all users
       });
     } catch (e) {
       print("Error fetching specialists: $e");
@@ -128,17 +52,16 @@ class _Consulations extends State<Consulations> {
     }
   }
 
-
   void _runFilter(String enteredKeyword, List<String> selectedCategories) {
     List<Map<String, dynamic>> results = [];
     if (enteredKeyword.isEmpty && selectedCategories.isEmpty) {
-      results = _foundUsers;
+      results = _allUsers; // Reset to all users on empty filter
     } else {
-      results = _foundUsers.where((user) {
+      results = _allUsers.where((user) {
         bool nameContainsKeyword =
-            user["الاسم"].toLowerCase().contains(enteredKeyword.toLowerCase());
+        user["first name"].toLowerCase().contains(enteredKeyword.toLowerCase());
         bool genderMatchesCategory = selectedCategories.isEmpty ||
-            selectedCategories.contains(user["الجنس"]);
+            selectedCategories.contains(user["gender"]);
         return nameContainsKeyword && genderMatchesCategory;
       }).toList();
     }
@@ -146,9 +69,11 @@ class _Consulations extends State<Consulations> {
       _foundUsers = results;
     });
   }
+
   late String name;
   late String major;
   late String genders;
+  late String experience;
 
   @override
   Widget build(BuildContext context) {
@@ -203,10 +128,10 @@ class _Consulations extends State<Consulations> {
                       if (selected) {
                         selectedCategories.add(gender);
                       } else {
-                        selectedCategories.remove(gender);
+                        // Don't remove, just deselect
                       }
                     });
-                    _runFilter('', selectedCategories);
+                    _runFilter('', selectedCategories.toList()); // Convert set to list for _runFilter
                   },
                 );
               }).toList(),
@@ -217,40 +142,68 @@ class _Consulations extends State<Consulations> {
                 child: ListView.builder(
                   itemCount: _foundUsers.length,
                   itemBuilder: (context, index) => GestureDetector(
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(vertical: 10),
-                      decoration: BoxDecoration(
-                        color: Colors.grey[
-                            300], // You can adjust the shade of grey as needed
-                        borderRadius: BorderRadius.circular(
-                            8), // Optional: Adds rounded corners
-                      ),
-                      child: Column(
+                    child: Center(
+                      child: Stack(
                         children: [
-                          Text(
-                            _foundUsers[index]['first name'].toString(),
-                            style: const TextStyle(
-                                fontSize: 16, color: Colors.black),
+                          Container(
+                            width: 300,
+                            margin: const EdgeInsets.symmetric(vertical: 10),
+                            decoration: BoxDecoration(
+                              color: Colors.grey[
+                                  300], // You can adjust the shade of grey as needed
+                              borderRadius: BorderRadius.circular(
+                                  8), // Optional: Adds rounded corners
+                            ),
+                            child: Column(
+                              children: [
+                                Text(
+                                  _foundUsers[index]['first name'].toString(),
+                                  style: const TextStyle(
+                                      fontSize: 16, color: Colors.black),
+                                ),
+                                Text(
+                                  _foundUsers[index]['major'].toString(),
+                                  style: const TextStyle(color: Colors.black),
+                                ),
+                                Text(
+                                  _foundUsers[index]["gender"].toString(),
+                                  style: const TextStyle(color: Colors.black),
+                                ),Text(
+                                  _foundUsers[index]["experience"].toString(),
+                                  style: const TextStyle(color: Colors.black),
+                                ),
+                              ],
+                            ),
+
                           ),
-                          Text(
-                            _foundUsers[index]['major'].toString(),
-                            style: const TextStyle(color: Colors.black),
-                          ),
-                          Text(
-                            _foundUsers[index]["gender"].toString(),
-                            style: const TextStyle(color: Colors.black),
+                          Positioned(
+                            top: 0,
+                            right: 0,
+                            child: Container(
+                              width: 50,
+                              height: 50,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: const Color.fromARGB(255, 167, 232, 189),
+                                border: Border.all(
+                                  color: Colors.grey.shade300, // Border color
+                                  width: 1,
+                                ),
+                              ),
+                              child: const Icon(Icons.person_2_outlined),
+                            ),
                           ),
                         ],
                       ),
-
                     ),
                       onTap: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => SpecialistDetails(
-                             name: _foundUsers[index]['الاسم'],
-                            major: _foundUsers[index]['التخصص'],
-                            genders: _foundUsers[index]["الجنس"],
+                            experience: _foundUsers[index]['experience'].toString(),
+                             name: _foundUsers[index]['first name'],
+                            major: _foundUsers[index]['major'],
+                            genders: _foundUsers[index]["gender"],
                           )),
                         );
                       }

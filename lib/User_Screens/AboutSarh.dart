@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sarh/User_Screens/HomePage.dart';
+import 'package:sarh/User_Screens/User_Settings.dart';
 
 class AboutSarh extends StatefulWidget {
   const AboutSarh({super.key});
@@ -38,7 +38,7 @@ class _AboutSarhState extends State<AboutSarh> {
                 onTap: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const HomePage()),
+                    MaterialPageRoute(builder: (context) => const User_Settings()),
                   );
                 }),
             Transform(
