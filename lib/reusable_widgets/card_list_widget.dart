@@ -24,8 +24,8 @@ class _CardsBarWidgetState extends State<CardsBarWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              height: 130,
-              width: 400,
+              height: 70,
+              width: 320,
               decoration: BoxDecoration(gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -45,7 +45,7 @@ class _CardsBarWidgetState extends State<CardsBarWidget> {
                       });
                     },
                     child: Container(
-                      width: 100,
+                      width: 40,
                       height: 100,
                       decoration: BoxDecoration(
                         color: Color(0xFFA7E8BD),
@@ -72,14 +72,14 @@ class _CardsBarWidgetState extends State<CardsBarWidget> {
                     backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
                     foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
                     fixedSize: MaterialStateProperty.all<Size>(
-                      const Size(73, 50), // Specify the desired width and height
+                      const Size(40, 30), // Specify the desired width and height
                     ),
                     padding: MaterialStateProperty.all<EdgeInsets>(
                       const EdgeInsets.all(8), // Specify the desired padding
                     )),
                 icon: const Icon(Icons.volume_up),
                 label: const Text("")),
-            const SizedBox(height: 90, width: 40),
+            const SizedBox(height: 35, width: 40),
           ],
         ),
       ],
@@ -108,4 +108,3 @@ class AppMethods {
     print(selectedCards);
   }
 }
-

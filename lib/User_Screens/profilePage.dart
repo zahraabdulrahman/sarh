@@ -1,40 +1,41 @@
 import 'package:flutter/material.dart';
 import 'cards/index.dart';
+import 'package:sarh/reusable_widgets/card_list_widget.dart';
 
-import 'feelingsCards.dart';
 
-
-class cardsSelection extends StatefulWidget {
-  const cardsSelection({super.key});
+class ProfilePage extends StatefulWidget {
+  const ProfilePage({super.key});
 
   @override
-  State<cardsSelection> createState() => _cardsSelectionState();
+  State<ProfilePage> createState() => _ProfilePageState();
 }
 
-class _cardsSelectionState extends State<cardsSelection> {
+class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Transform(
-          transform: Matrix4.translationValues(150, 43, 0.0),
-          child: const Text(
+        title: const Align(
+          alignment: Alignment.bottomRight,
+          child: Text(
             'بطاقات',
             style: TextStyle(color: Colors.black, fontSize: 28),
           ),
         ),
-        flexibleSpace:
-        Container(
+        flexibleSpace: Container(
           decoration: const BoxDecoration(
-              image: DecorationImage(
-                  image: AssetImage('assets/images/صرح.png'),
-                  fit: BoxFit.fill)),
+            image: DecorationImage(
+              image: AssetImage('assets/images/صرح.png'),
+              fit: BoxFit.fill,
+            ),
+          ),
         ),
         toolbarHeight: 250,
       ),
       body:
       Column(
         children: [
+          CardsBarWidget(),
           Expanded(
             child: SingleChildScrollView(
                 child: Column(
@@ -47,7 +48,7 @@ class _cardsSelectionState extends State<cardsSelection> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const feelingsCards(),
+                                    builder: (context) => const Feelings(),
                                   ),
                                 );
                               },
@@ -256,7 +257,7 @@ class _cardsSelectionState extends State<cardsSelection> {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => const Clothes(),
+                                    builder: (context) => const Drinks(),
                                   ),
                                 );
                               },

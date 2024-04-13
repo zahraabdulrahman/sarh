@@ -18,6 +18,7 @@ class _Sarh extends State<Sarh> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       //extendBodyBehindAppBar: true, // <-- Set this
       appBar: AppBar(
         title: SizedBox(

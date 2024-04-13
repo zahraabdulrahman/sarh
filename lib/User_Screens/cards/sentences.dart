@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
-class Sentences extends StatelessWidget {
+class Sentences extends StatefulWidget {
   const Sentences({super.key});
+
+  @override
+  State<Sentences> createState() => _SentencesState();
+}
+
+class _SentencesState extends State<Sentences> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
-class AddFolder extends StatelessWidget {
+class AddFolder extends StatefulWidget {
   const AddFolder({super.key});
+
+  @override
+  State<AddFolder> createState() => _AddFolderState();
+}
+
+class _AddFolderState extends State<AddFolder> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

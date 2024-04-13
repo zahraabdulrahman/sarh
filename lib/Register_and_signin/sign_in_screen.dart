@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:sarh/Screens/Navigation.dart';
-import 'package:sarh/Screens/register.dart';
+import 'package:sarh/User_Screens/Navigation.dart';
+import 'package:sarh/Register_and_signin/register.dart';
 import 'package:sarh/SpecialistScreens/Specialist_navigation.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 import 'package:sarh/reusable_widgets/reusable_widget.dart';
@@ -134,20 +134,20 @@ class _Sign_in_screenState extends State<Sign_in_screen> {
             // ),
 
             Center(
-              child: firebaseUIButton(context, "تسجيل الدخول", () {
+              child: firebaseUIButton(context, "تسجيل الدخول", () async {
                 FirebaseAuth.instance
                     .signInWithEmailAndPassword(
                     email: _emailTextController.text,
                     password: _passwordTextController.text)
                     .then((value) async {
-                  final isSpecialist = await isUserSpecialist(value.user!);
+                  final isSpecialist = await isUserSpecialist(value.user!.uid);
 
                   Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => isSpecialist
-                          ? const Navigation() // Replace with your specialist navigation page
-                          : const Specialist_navigation(), // Replace with your user navigation page
+                          ? const Specialist_navigation()
+                          : const Navigation(),
                     ),
                   );
                 }).onError((error, stackTrace) {
@@ -183,3 +183,20 @@ class _Sign_in_screenState extends State<Sign_in_screen> {
   }
 }
 
+Future<bool> isUserSpecialist(String uid) async {
+  final userDocRef = FirebaseFirestore.instance.collection('users').doc(uid);
+  final specialistDocRef = FirebaseFirestore.instance.collection('specialists').doc(uid);
+
+  final userDocSnapshot = await userDocRef.get();
+  final specialistDocSnapshot = await specialistDocRef.get();
+
+  if (userDocSnapshot.exists && userDocSnapshot.data()!.containsKey('isSpecialist')) {
+    return userDocSnapshot['isSpecialist'] ?? false;
+  } else if (specialistDocSnapshot.exists && specialistDocSnapshot.data()!.containsKey('isSpecialist')) {
+    return specialistDocSnapshot['isSpecialist'] ?? false;
+  } else {
+    // Handle cases where 'isSpecialist' field is missing or document doesn't exist
+    print("Error: Could not determine user type from Firestore");
+    return false;
+  }
+}

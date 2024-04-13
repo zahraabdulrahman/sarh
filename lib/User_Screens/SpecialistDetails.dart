@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:sarh/Screens/consultations.dart';
-
+import 'package:sarh/User_Screens/consultations.dart';
 import '../reusable_widgets/reusable_widget.dart';
 
 class SpecialistDetails extends StatefulWidget {
   final String name;
   final String major;
   final String genders;
-
   const SpecialistDetails({
     super.key,
     required this.name,

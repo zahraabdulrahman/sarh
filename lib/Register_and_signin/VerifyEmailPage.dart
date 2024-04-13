@@ -2,8 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sarh/Screens/LogRegPage.dart';
-import 'package:sarh/Screens/Navigation.dart';
+import 'package:sarh/Register_and_signin/LogRegPage.dart';
+import 'package:sarh/SpecialistScreens/Specialist_navigation.dart';
+import 'package:sarh/User_Screens/Navigation.dart';
 import 'package:sarh/reusable_widgets/reusable_widget.dart';
 
 class VerifyEmailPage extends StatefulWidget {
@@ -94,7 +95,11 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
       print(widget.date);
       print(widget.user.uid);
 
-      return const Navigation();
+      if(widget.isSpecialist) {
+        return const Specialist_navigation();
+      } else {
+        return const Navigation();
+      }
     } else {
       return Scaffold(
         appBar: AppBar(

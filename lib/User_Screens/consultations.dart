@@ -1,5 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:sarh/Screens/SpecialistDetails.dart';
+import 'package:sarh/User_Screens/SpecialistDetails.dart';
 //import 'package:flutter/src/rendering/box.dart'; mport 'SecondRoute.dart';
 
 class Consulations extends StatefulWidget {
@@ -14,106 +15,126 @@ List<String> selectedCategories = [];
 final List<String> gender = ['انثى', 'ذكر'];
 
 class _Consulations extends State<Consulations> {
-  final List<Map<String, dynamic>> _allUsers = [
-    {
-      "id": "1",
-      "الاسم": "الاخصائي: احمد الحمداني",
-      "التخصص": "اضطرابات نطق سمعي",
-      "الجنس": "ذكر",
-      "الخبرة":"سنتين"
-    },
-    {
-      "id": "2",
-      "الاسم": "سارة خالد",
-      "التخصص": "الاخصائي: اضطرابات نطق سمعي",
-      "الجنس": "انثى"
-    },
-    {
-      "id": "2",
-      "الاسم": "الاخصائي: الزهراءعبدالرحمن",
-      "التخصص": "اضطرابات نطق سمعي",
-      "الجنس": "انثى",
-      "الخبرة":"3 سنوات"
-    },
-    {
-      "id": "3",
-      "الاسم": "الاخصائي: رنا عبدالعزيز",
-      "التخصص": "اضطرابات نطق سمعي",
-      "الجنس": "انثى",
-      "الخبرة":"4 سنوات"
-    },
-    {
-      "id": "4",
-      "الاسم": ": الاخصائي: احمد عبدالله",
-      "التخصص": "اضطرابات نطق سمعي",
-      "الجنس": "ذكر",
-      "الخبرة":"سنة واحدة"
-    },
-    {
-      "id": "5",
-      "الاسم": "الاخصائي: خالد ناصر",
-      "التخصص": "اضطرابات نطق سمعي",
-      "الجنس": "ذكر",
-      "الخبرة":"5 سنوات"
-    },
-    {
-      "id": "6",
-      "الاسم": "الاخصائي: صالح عبدالله",
-      "التخصص": "اضطرابات نطق سمعي",
-      "الجنس": "ذكر",
-      "الخبرة":"5 سنوات"
-    },
-    {
-      "id": "7",
-      "الاسم": "الاخصائي: ريم ابراهيم",
-      "التخصص": "اضطرابات نطق سمعي",
-      "الجنس": "انثى",
-      "الخبرة":"5 سنوات"
-    },
-    {
-      "id": "8",
-      "الاسم": "الاخصائي: عبدالمجيد",
-      "التخصص": "اضطرابات نطق سمعي",
-      "الجنس": "ذكر",
-      "الخبرة":"5 سنوات"
-    },
-    {
-      "id": "9",
-      "الاسم": "سمية",
-      "التخصص": "الاخصائي: اضطرابات نطق سمعي",
-      "الجنس": "انثى",
-      "الخبرة":"5 سنوات"
-    },
-    {
-      "id": "10",
-      "الاسم": "الاخصائي: حصه الراشد",
-      "التخصص": "اضطرابات نطق سمعي",
-      "الجنس": "انثى",
-      "الخبرة":"3 سنوات"
-    },
-    {
-      "id": "10",
-      "الاسم": "الاخصائي:sasa",
-      "التخصص": "اضطرابات نطق سمعي",
-      "الجنس": "انثى",
-      "الخبرة":"3 سنوات",
-    },
-  ];
+  // final List<Map<String, dynamic>> _allUsers = [
+  //   {
+  //     "id": "1",
+  //     "الاسم": "الاخصائي: احمد الحمداني",
+  //     "التخصص": "اضطرابات نطق سمعي",
+  //     "الجنس": "ذكر",
+  //     "الخبرة":"سنتين"
+  //   },
+  //   {
+  //     "id": "2",
+  //     "الاسم": "سارة خالد",
+  //     "التخصص": "الاخصائي: اضطرابات نطق سمعي",
+  //     "الجنس": "انثى"
+  //   },
+  //   {
+  //     "id": "2",
+  //     "الاسم": "الاخصائي: الزهراءعبدالرحمن",
+  //     "التخصص": "اضطرابات نطق سمعي",
+  //     "الجنس": "انثى",
+  //     "الخبرة":"3 سنوات"
+  //   },
+  //   {
+  //     "id": "3",
+  //     "الاسم": "الاخصائي: رنا عبدالعزيز",
+  //     "التخصص": "اضطرابات نطق سمعي",
+  //     "الجنس": "انثى",
+  //     "الخبرة":"4 سنوات"
+  //   },
+  //   {
+  //     "id": "4",
+  //     "الاسم": ": الاخصائي: احمد عبدالله",
+  //     "التخصص": "اضطرابات نطق سمعي",
+  //     "الجنس": "ذكر",
+  //     "الخبرة":"سنة واحدة"
+  //   },
+  //   {
+  //     "id": "5",
+  //     "الاسم": "الاخصائي: خالد ناصر",
+  //     "التخصص": "اضطرابات نطق سمعي",
+  //     "الجنس": "ذكر",
+  //     "الخبرة":"5 سنوات"
+  //   },
+  //   {
+  //     "id": "6",
+  //     "الاسم": "الاخصائي: صالح عبدالله",
+  //     "التخصص": "اضطرابات نطق سمعي",
+  //     "الجنس": "ذكر",
+  //     "الخبرة":"5 سنوات"
+  //   },
+  //   {
+  //     "id": "7",
+  //     "الاسم": "الاخصائي: ريم ابراهيم",
+  //     "التخصص": "اضطرابات نطق سمعي",
+  //     "الجنس": "انثى",
+  //     "الخبرة":"5 سنوات"
+  //   },
+  //   {
+  //     "id": "8",
+  //     "الاسم": "الاخصائي: عبدالمجيد",
+  //     "التخصص": "اضطرابات نطق سمعي",
+  //     "الجنس": "ذكر",
+  //     "الخبرة":"5 سنوات"
+  //   },
+  //   {
+  //     "id": "9",
+  //     "الاسم": "سمية",
+  //     "التخصص": "الاخصائي: اضطرابات نطق سمعي",
+  //     "الجنس": "انثى",
+  //     "الخبرة":"5 سنوات"
+  //   },
+  //   {
+  //     "id": "10",
+  //     "الاسم": "الاخصائي: حصه الراشد",
+  //     "التخصص": "اضطرابات نطق سمعي",
+  //     "الجنس": "انثى",
+  //     "الخبرة":"3 سنوات"
+  //   },
+  //   {
+  //     "id": "10",
+  //     "الاسم": "الاخصائي:sasa",
+  //     "التخصص": "اضطرابات نطق سمعي",
+  //     "الجنس": "انثى",
+  //     "الخبرة":"3 سنوات",
+  //   },
+  // ];
 
   List<Map<String, dynamic>> _foundUsers = [];
 
   @override
   void initState() {
     super.initState();
-    _foundUsers = _allUsers;
+    // _foundUsers = _allUsers;
+    _fetchSpecialists();
   }
+
+  Future<void> _fetchSpecialists() async {
+    try {
+      QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('specialists').get();
+
+      List<Map<String, dynamic>> fetchedUsers = [];
+      querySnapshot.docs.forEach((doc) {
+        fetchedUsers.add(doc.data() as Map<String, dynamic>);
+      });
+
+      setState(() {
+        _foundUsers = fetchedUsers;
+      });
+    } catch (e) {
+      print("Error fetching specialists: $e");
+      // Handle error as needed
+    }
+  }
+
 
   void _runFilter(String enteredKeyword, List<String> selectedCategories) {
     List<Map<String, dynamic>> results = [];
     if (enteredKeyword.isEmpty && selectedCategories.isEmpty) {
-      results = _allUsers;
+      results = _foundUsers;
     } else {
-      results = _allUsers.where((user) {
+      results = _foundUsers.where((user) {
         bool nameContainsKeyword =
             user["الاسم"].toLowerCase().contains(enteredKeyword.toLowerCase());
         bool genderMatchesCategory = selectedCategories.isEmpty ||
@@ -207,16 +228,16 @@ class _Consulations extends State<Consulations> {
                       child: Column(
                         children: [
                           Text(
-                            _foundUsers[index]['الاسم'],
+                            _foundUsers[index]['first name'].toString(),
                             style: const TextStyle(
                                 fontSize: 16, color: Colors.black),
                           ),
                           Text(
-                            _foundUsers[index]['التخصص'],
+                            _foundUsers[index]['major'].toString(),
                             style: const TextStyle(color: Colors.black),
                           ),
                           Text(
-                            _foundUsers[index]["الجنس"],
+                            _foundUsers[index]["gender"].toString(),
                             style: const TextStyle(color: Colors.black),
                           ),
                         ],

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sarh/SpecialistScreens/Register_specialist.dart';
-import 'Register_student.dart';
+import '../User_Screens/Register_student.dart';
 class Register_screen extends StatelessWidget {
   const Register_screen({super.key});
 

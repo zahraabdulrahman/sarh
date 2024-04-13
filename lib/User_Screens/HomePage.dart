@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sarh/Screens/CardsSettings.dart';
-import 'package:sarh/Screens/AboutSarh.dart';
-import 'package:sarh/Screens/sign_in_screen.dart';
+import 'package:sarh/User_Screens/CardsSettings.dart';
+import 'package:sarh/User_Screens/AboutSarh.dart';
+import 'package:sarh/Register_and_signin/sign_in_screen.dart';
 
 import 'PersonalInformation.dart';
 

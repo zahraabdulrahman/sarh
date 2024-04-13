@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:sarh/reusable_widgets/reusable_widget.dart';
-import 'register.dart';
-import 'package:sarh/Screens/VerifyEmailPage.dart';
-import 'package:sarh/Screens/sign_in_screen.dart';
+import '../Register_and_signin/register.dart';
+import 'package:sarh/Register_and_signin/VerifyEmailPage.dart';
+import 'package:sarh/Register_and_signin/sign_in_screen.dart';
 
 //import 'package:image_picker/image_picker.dart';
 class Register_student extends StatefulWidget {

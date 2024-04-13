@@ -231,21 +231,3 @@ Future<String?> uploadPDFToFirebase(File pdfFile) async {
     return null;
   }
 }
-
-Future<bool> isUserSpecialist(User user) async {
-  final docRef = FirebaseFirestore.instance.collection('users').doc(user.uid); // Replace 'users' if your collection name is different
-
-  final docSnapshot = await docRef.get();
-
-  if (docSnapshot.exists) {
-    final data = docSnapshot.data();
-    if (data != null) {
-      // Check for specialist field in the document
-      return data['isSpecialist'] ?? false; // Default to false if not found
-    }
-  }
-
-  // Handle cases where the document doesn't exist or an error occurs
-  print("Error: Could not determine user type from Firestore");
-  return false;
-}
