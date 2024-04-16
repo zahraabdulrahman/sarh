@@ -1,7 +1,17 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'cards/index.dart';
 import 'package:sarh/reusable_widgets/card_list_widget.dart';
 
+String? getUserId() {
+  User? user = FirebaseAuth.instance.currentUser;
+  if (user != null) {
+    print(user.uid);
+    return user.uid;
+  } else {
+    return null; // User is not logged in or currentUser is null
+  }
+}
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -35,7 +45,7 @@ class _ProfilePageState extends State<ProfilePage> {
       body:
       Column(
         children: [
-          CardsBarWidget(),
+          const CardsBarWidget(),
           Expanded(
             child: SingleChildScrollView(
                 child: Column(

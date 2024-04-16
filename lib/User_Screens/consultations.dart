@@ -115,9 +115,9 @@ class _Consulations extends State<Consulations> {
       QuerySnapshot querySnapshot = await FirebaseFirestore.instance.collection('specialists').get();
 
       List<Map<String, dynamic>> fetchedUsers = [];
-      querySnapshot.docs.forEach((doc) {
+      for (var doc in querySnapshot.docs) {
         fetchedUsers.add(doc.data() as Map<String, dynamic>);
-      });
+      }
 
       setState(() {
         _foundUsers = fetchedUsers;

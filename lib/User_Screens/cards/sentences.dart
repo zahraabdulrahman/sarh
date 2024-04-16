@@ -11,9 +11,9 @@ class _SentencesState extends State<Sentences> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Align(
+        title: const Align(
           alignment: Alignment.bottomRight,
-          child: const Text(
+          child: Text(
             'بطاقات: جمل محفوظة',
             style: TextStyle(color: Colors.black, fontSize: 28),
           ),

@@ -21,7 +21,7 @@ Future<void> fetchCardsData(String section) async {
 class ImageListtt extends StatelessWidget {
   final String section;
 
-  ImageListtt({required this.section});
+  const ImageListtt({super.key, required this.section});
 
   Future<List<DocumentSnapshot>> fetchCardImages(String section) async {
     final cardsCollection = FirebaseFirestore.instance.collection('cards');
@@ -42,7 +42,7 @@ class ImageListtt extends StatelessWidget {
       future: fetchCardImages(section),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         } else if (snapshot.hasError) {
           return Center(child: Text('Error: ${snapshot.error}'));
         } else if (snapshot.hasData) {
@@ -66,7 +66,7 @@ class ImageListtt extends StatelessWidget {
             },
           );
         } else {
-          return Center(child: Text('No data available'));
+          return const Center(child: Text('No data available'));
         }
       },
     );
@@ -78,7 +78,7 @@ class CardItem extends StatefulWidget {
   final bool isSelected;
   final Function(bool) onCardSelected;
 
-  const CardItem({required this.imagePath, required this.isSelected, required this.onCardSelected});
+  const CardItem({super.key, required this.imagePath, required this.isSelected, required this.onCardSelected});
 
   @override
   _CardItemState createState() => _CardItemState();
@@ -111,7 +111,7 @@ class _CardItemState extends State<CardItem> {
             width: 2.0,
           ),
         ),
-        child: widget.imagePath != null ? Image.asset(widget.imagePath!) : Placeholder(),
+        child: widget.imagePath != null ? Image.asset(widget.imagePath!) : const Placeholder(),
       ),
     );
   }

@@ -7,9 +7,9 @@ class CameraPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Align(
+        title: const Align(
           alignment: Alignment.centerRight,
-          child: const Text(
+          child: Text(
             'اللعب',
             style: TextStyle(color: Colors.black, fontSize: 28),
           ),
@@ -26,7 +26,7 @@ class CameraPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          Align(alignment: Alignment.centerRight,
+          const Align(alignment: Alignment.centerRight,
               child: Text("المرحلة:",style: TextStyle(fontSize: 28),textDirection: TextDirection.rtl,)),
           Expanded(
             child: GridView.count(
@@ -40,26 +40,26 @@ class CameraPage extends StatelessWidget {
                     height: 30,
                     width: 30,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: Color(0xFFEFA7A7), // Replace with your desired icon color
                     ),
-                    child: Text("١", style: TextStyle(fontSize: 68)),
+                    child: const Text("١", style: TextStyle(fontSize: 68)),
                   ),
                 ),
-                SizedBox(height: 30,),
-                SizedBox(height: 30,),
+                const SizedBox(height: 30,),
+                const SizedBox(height: 30,),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                     height: 30,
                     width: 30,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: Color(0xFFC7EAE4),
                     ),
-                    child: Text("٢", style: TextStyle(fontSize: 68)),
+                    child: const Text("٢", style: TextStyle(fontSize: 68)),
                   ),
                 ),
                 Padding(
@@ -68,26 +68,26 @@ class CameraPage extends StatelessWidget {
                     height: 30,
                     width: 30,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: Color(0xFFA7E8BD),
                     ),
-                    child: Text("٣", style: TextStyle(fontSize: 68)),
+                    child: const Text("٣", style: TextStyle(fontSize: 68)),
                   ),
                 ),
-                SizedBox(height: 30,),
-                SizedBox(height: 30,),
+                const SizedBox(height: 30,),
+                const SizedBox(height: 30,),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                     height: 30,
                     width: 30,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: Color(0xFFFFD972),
                     ),
-                    child: Text("٤", style: TextStyle(fontSize: 68)),
+                    child: const Text("٤", style: TextStyle(fontSize: 68)),
                   ),
                 ),
                 Padding(
@@ -96,26 +96,26 @@ class CameraPage extends StatelessWidget {
                     height: 30,
                     width: 30,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: Color(0xFFEFA7A7), // Replace with your desired icon color
                     ),
-                    child: Text("٥", style: TextStyle(fontSize: 68)),
+                    child: const Text("٥", style: TextStyle(fontSize: 68)),
                   ),
                 ),
-                SizedBox(height: 30,),
-                SizedBox(height: 30,),
+                const SizedBox(height: 30,),
+                const SizedBox(height: 30,),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                     height: 30,
                     width: 30,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: Color(0xFFC7EAE4),
                     ),
-                    child: Text("٦", style: TextStyle(fontSize: 68)),
+                    child: const Text("٦", style: TextStyle(fontSize: 68)),
                   ),
                 ),
                 Padding(
@@ -124,26 +124,26 @@ class CameraPage extends StatelessWidget {
                     height: 30,
                     width: 30,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: Color(0xFFA7E8BD),
                     ),
-                    child: Text("٧", style: TextStyle(fontSize: 68)),
+                    child: const Text("٧", style: TextStyle(fontSize: 68)),
                   ),
                 ),
-                SizedBox(height: 30,),
-                SizedBox(height: 30,),
+                const SizedBox(height: 30,),
+                const SizedBox(height: 30,),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                     height: 30,
                     width: 30,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: Color(0xFFFFD972),
                     ),
-                    child: Text("٨", style: TextStyle(fontSize: 68)),
+                    child: const Text("٨", style: TextStyle(fontSize: 68)),
                   ),
                 ),
                 Padding(
@@ -152,26 +152,26 @@ class CameraPage extends StatelessWidget {
                     height: 30,
                     width: 30,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: Color(0xFFEFA7A7), // Replace with your desired icon color
                     ),
-                    child: Text("٩", style: TextStyle(fontSize: 68)),
+                    child: const Text("٩", style: TextStyle(fontSize: 68)),
                   ),
                 ),
-                SizedBox(height: 30,),
-                SizedBox(height: 30,),
+                const SizedBox(height: 30,),
+                const SizedBox(height: 30,),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: Container(
                     height: 30,
                     width: 30,
                     alignment: Alignment.center,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       shape: BoxShape.circle,
                       color: Color(0xFFC7EAE4),
                     ),
-                    child: Text("١٠", style: TextStyle(fontSize: 68)),
+                    child: const Text("١٠", style: TextStyle(fontSize: 68)),
                   ),
                 ),
               ],
