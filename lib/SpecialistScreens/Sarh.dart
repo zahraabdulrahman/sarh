@@ -51,8 +51,8 @@ class _Sarh extends State<Sarh> {
                         builder: (context) => const Consulations()),
                   );
                 },
-                Color(0xFFEFA7A7),
-                Color(0xFF99CFA5),
+                const Color(0xFFEFA7A7),
+                const Color(0xFF99CFA5),
               ),
               const SizedBox(height: 50,),
               buttons(context, "جلسات مجدولة", () {
@@ -61,8 +61,8 @@ class _Sarh extends State<Sarh> {
                   MaterialPageRoute(builder: (context) => const Consulations()),
                 );
               },
-                Color(0xFFFFD972),
-                Color(0xFF99CFA5),
+                const Color(0xFFFFD972),
+                const Color(0xFF99CFA5),
               ),
               const SizedBox(height: 50,),
               buttons(context, "حجز موعد جلسة", () {
@@ -71,8 +71,8 @@ class _Sarh extends State<Sarh> {
                   MaterialPageRoute(builder: (context) => const Consulations()),
                 );
               },
-                Color(0xFFEFA7A7),
-                Color(0xFF99CFA5),
+                const Color(0xFFEFA7A7),
+                const Color(0xFF99CFA5),
               ),
             ],
           ),

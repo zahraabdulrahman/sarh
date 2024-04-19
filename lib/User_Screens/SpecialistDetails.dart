@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sarh/User_Screens/consultations.dart';
@@ -10,12 +11,15 @@ class SpecialistDetails extends StatefulWidget {
   final String major;
   final String genders;
   final String experience;
+  final String uid;
+
   const SpecialistDetails({
     super.key,
     required this.name,
     required this.major,
     required this.genders,
     required this.experience,
+    required this.uid,
   });
 
   @override
@@ -23,9 +27,35 @@ class SpecialistDetails extends StatefulWidget {
 }
 
 class _SpecialistDetailsState extends State<SpecialistDetails> {
+
+  String getCurrentUserUID() {
+    User? user = FirebaseAuth.instance.currentUser;
+    return user?.uid ?? '';
+  }
+
+  Future<bool> checkExistingReservation(String userUID, String specialistUID) async {
+    if (userUID.isNotEmpty && specialistUID.isNotEmpty) {
+      try {
+        QuerySnapshot querySnapshot = await FirebaseFirestore.instance
+            .collection('reservations')
+            .where('user_uid', isEqualTo: userUID)
+            .where('specialist_uid', isEqualTo: specialistUID)
+            .get();
+
+        return querySnapshot.docs.isNotEmpty;
+      } catch (e) {
+        print('Error checking reservation: $e');
+        return false;
+      }
+    }
+    return false;
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
         appBar: AppBar(
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
@@ -171,38 +201,55 @@ class _SpecialistDetailsState extends State<SpecialistDetails> {
                     data['first name'] ?? ''; // Get the first name from data
 
                 return Transform(
-                  transform: Matrix4.translationValues(-50,0,0),
-                  child: buttons(context,
+                  transform: Matrix4.translationValues(-50, 0, 0),
+                  child: buttons(
+                    context,
                     58.0,
                     220.0,
                     "الحجز",
                         () async {
-                      // Get current date
-                      DateTime now = DateTime.now();
-                      String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+                      String userUID = getCurrentUserUID();
 
-                      // Create consultation data
-                      Map<String, dynamic> consultationData = {
-                        'specialist_name': widget.name,
-                        'specialist_major': widget.major,
-                        'consultation_date': formattedDate,
-                        // Add user name if available
-                        'user_name': firstName, // Replace with actual user name retrieval
-                      };
+                      if (userUID.isEmpty) {
+                        print('Error: User UID is empty');
+                        return;
+                      }
 
-                      // Add consultation to Firestore
-                      await FirebaseFirestore.instance
-                          .collection('consultations')
-                          .add(consultationData);
+                      bool hasExistingReservation = await checkExistingReservation(userUID, widget.uid);
 
-                      // Display success message or navigate (optional)
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('تم حجز الاستشارة بنجاح!'),
-                        ),
-                      );
-                      // You can consider navigating to Consultations screen here
-                    },),
+                      if (hasExistingReservation) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('لقد قمت بحجز الاستشارة مسبقاً!'),
+                          ),
+                        );
+                      } else {
+                        String specialistUID = widget.uid;
+                        DateTime now = DateTime.now();
+                        String formattedDate = DateFormat('yyyy-MM-dd').format(now);
+
+                        Map<String, dynamic> consultationData = {
+                          'user_uid': userUID,
+                          'specialist_uid': specialistUID,
+                          'consultation_date': formattedDate,
+                        };
+
+                        try {
+                          await FirebaseFirestore.instance.collection('reservations').add(consultationData);
+                          setState(() {
+                            // Update reservation status if needed
+                          });
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text('تم حجز الاستشارة بنجاح!'),
+                            ),
+                          );
+                        } catch (e) {
+                          print('Error making reservation: $e');
+                        }
+                      }
+                    },
+                  ),
                 );
               },
             ),

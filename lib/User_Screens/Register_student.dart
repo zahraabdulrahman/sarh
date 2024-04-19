@@ -116,7 +116,7 @@ class _Register_studentState extends State<Register_student> {
             width: 400,
             height: 40,
             child: reusableTextField("ادخل بريدك الالكتروني", Icons.email,
-                false, _emailTextController),
+                false, _emailTextController,true),
           ),
           const SizedBox(
             height: 10,
@@ -139,7 +139,7 @@ class _Register_studentState extends State<Register_student> {
             width: 400,
             height: 40,
             child: reusableTextField("ادخل اسمك الاول", Icons.email, false,
-                _firstNameTextController),
+                _firstNameTextController, false),
           ),
           const SizedBox(
             height: 5,
@@ -162,7 +162,7 @@ class _Register_studentState extends State<Register_student> {
             width: 400,
             height: 40,
             child: reusableTextField("ادخل اسمك الاخير", Icons.email, false,
-                _lastNameTextController),
+                _lastNameTextController, false),
           ),
 
           Container(
@@ -179,10 +179,9 @@ class _Register_studentState extends State<Register_student> {
                 onTap: () async {
                   DateTime? pickedDate = await showDatePicker(
                       context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(
-                          1900), //DateTime.now() - not to allow to choose before today.
-                      lastDate: DateTime.now());
+                      firstDate: DateTime(DateTime.now().year - 50, 1, 1), // 50 years ago from today
+                      lastDate: DateTime(DateTime.now().year - 7, 12, 31), // 7 years ago from today (Dec 31st)
+                       );
 
                   if (pickedDate != null) {
                     print(
@@ -220,7 +219,7 @@ class _Register_studentState extends State<Register_student> {
             width: 400,
             height: 40,
             child: reusableTextField(
-                "ادخل كلمة السر", Icons.lock, true, _passwordTextController),
+                "ادخل كلمة السر", Icons.lock, true, _passwordTextController,passwordsCheck()),
           ),
           const SizedBox(
             height: 10,
@@ -243,7 +242,7 @@ class _Register_studentState extends State<Register_student> {
             width: 400,
             height: 40,
             child: reusableTextField(
-                " ادخل كلمة السر مجددا", Icons.lock, true, _confirmPass),
+                " ادخل كلمة السر مجددا", Icons.lock, true, _confirmPass,passwordsCheck()),
           ),
 
           firebaseUIButton(context, "اكمال", ()async{
@@ -255,7 +254,7 @@ class _Register_studentState extends State<Register_student> {
               );
             }
           }),
-          signInOption(),
+          signInOption(context),
         ],
       ),
     );
@@ -294,31 +293,22 @@ class _Register_studentState extends State<Register_student> {
     }
   }
 
-
   bool confirmedPasssowrd() {
     if (_passwordTextController.text.trim() == _confirmPass.text.trim()) {
       return true;
     } else {
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   const SnackBar(
+      //     content: Text('كلمة المرور غير متطابقة'),
+      //   ),
+      // );
       return false;
     }
   }
 
-  Widget signInOption() {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const Sign_in_screen()),
-        );
-      },
-      child: const Text(
-        "لديك حساب بالفعل؟ تسجيل الدخول",
-        style: TextStyle(
-          color: Colors.grey,
-          fontWeight: FontWeight.bold,
-        ),
-        textAlign: TextAlign.center,
-      ),
-    );
+  bool passwordsCheck() {
+    return !confirmedPasssowrd(); // Return true if not confirmed (mismatch)
   }
+
 }
+

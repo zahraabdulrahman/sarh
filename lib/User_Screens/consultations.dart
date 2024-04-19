@@ -204,6 +204,7 @@ class _Consulations extends State<Consulations> {
                              name: _foundUsers[index]['first name'],
                             major: _foundUsers[index]['major'],
                             genders: _foundUsers[index]["gender"],
+                            uid: _foundUsers[index]['uid'],
                           )),
                         );
                       }

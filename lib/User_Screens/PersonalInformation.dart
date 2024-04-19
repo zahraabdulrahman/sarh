@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import '../reusable_widgets/reusable_widget.dart';
 import 'User_Settings.dart';
 
@@ -23,9 +24,7 @@ void selectImage() async {
 class _PersonalInformationState extends State<PersonalInformation> {
   @override
   Widget build(BuildContext context) {
-    return Directionality(
-      textDirection: TextDirection.rtl,
-      child: Scaffold(
+    return Scaffold(
         appBar: AppBar(),
         body: SafeArea(
           child: Center(
@@ -306,9 +305,11 @@ class _PersonalInformationState extends State<PersonalInformation> {
                       return Text('Error = ${snapshot.error}');
                     }
                     Map<String, dynamic> data = snapshot.data!.data()!;
+
+                    // Initial TextEditingController with retrieved date or empty string
                     TextEditingController controller = TextEditingController(
-                        text: data[
-                            'date']); // Create a TextEditingController
+                        text: data['date']?.toString() ?? '');
+
                     return Transform(
                       transform: Matrix4.translationValues(-10, 0.0, 0.0),
                       child: Row(
@@ -324,36 +325,45 @@ class _PersonalInformationState extends State<PersonalInformation> {
                             width: 220,
                             height: 50,
                             child: TextField(
-                              controller:
-                                  controller, // Set the controller for the TextField
+                              readOnly: true, // Make the TextField read-only
+                              controller: controller,
                               decoration: InputDecoration(
                                 labelText:
-                                    'تاريخ الميلاد', // Label for the TextField
+                                'تاريخ الميلاد', // Label for the TextField
                                 border:
-                                    const OutlineInputBorder(), // Border for the TextField
+                                const OutlineInputBorder(), // Border for the TextField
                                 fillColor: Colors.grey.shade400,
                                 filled: true,
                                 contentPadding:
-                                    const EdgeInsets.symmetric(horizontal: 16.0),
+                                const EdgeInsets.symmetric(horizontal: 16.0),
                                 alignLabelWithHint: true,
                               ),
                               style: const TextStyle(
                                   fontSize:
-                                      16), // Style for the text in the TextField
+                                  16), // Style for the text in the TextField
                               textAlign: TextAlign.center,
-                              onChanged: (value) {
-                                // Update the data when the TextField value changes
-                                data['date'] = value;
+                              onTap: () async {
+                                DateTime? pickedDate = await showDatePicker(
+                                  context: context,
+                                  firstDate: DateTime(DateTime.now().year - 50, 1, 1), // 50 years ago from today
+                                  lastDate: DateTime(DateTime.now().year - 7, 12, 31), // 7 years ago from today (Dec 31st)
+                                );
 
-                                // Update Firestore with the new data
-                                FirebaseFirestore.instance
-                                    .collection('users')
-                                    .doc(FirebaseAuth.instance.currentUser!.uid)
-                                    .update({'date': value})
-                                    .then((_) =>
-                                        print('Date updated successfully'))
-                                    .catchError((error) =>
-                                        print('Failed to update Date: $error'));
+                                if (pickedDate != null) {
+                                  String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+                                  controller.text = formattedDate;
+                                  data['date'] = formattedDate;
+
+                                  // Update Firestore with the new date
+                                  FirebaseFirestore.instance
+                                      .collection('users')
+                                      .doc(FirebaseAuth.instance.currentUser!.uid)
+                                      .update({'date': formattedDate})
+                                      .then((_) =>
+                                      print('Date updated successfully'))
+                                      .catchError((error) =>
+                                      print('Failed to update Date: $error'));
+                                }
                               },
                             ),
                           ),
@@ -366,7 +376,6 @@ class _PersonalInformationState extends State<PersonalInformation> {
             ),
           ),
         ),
-      ),
     );
   }
 }

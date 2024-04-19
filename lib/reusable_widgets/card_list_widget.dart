@@ -7,6 +7,8 @@ import '../models/card_model.dart';
 
 
 class CardsBarWidget extends StatefulWidget {
+  const CardsBarWidget({super.key});
+
   @override
   _CardsBarWidgetState createState() => _CardsBarWidgetState();
 }
@@ -26,7 +28,7 @@ class _CardsBarWidgetState extends State<CardsBarWidget> {
             Container(
               height: 70,
               width: 320,
-              decoration: BoxDecoration(gradient: LinearGradient(
+              decoration: BoxDecoration(gradient: const LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [Color(0xFFC7EAE4), Color(0xFFFFD972)],
@@ -48,10 +50,10 @@ class _CardsBarWidgetState extends State<CardsBarWidget> {
                       width: 40,
                       height: 100,
                       decoration: BoxDecoration(
-                        color: Color(0xFFA7E8BD),
+                        color: const Color(0xFFA7E8BD),
                         borderRadius: BorderRadius.circular(15),
                       ),
-                      margin: EdgeInsets.all(14),
+                      margin: const EdgeInsets.all(14),
                       child: Image.asset(model.imgPath),
                     ),
                   );

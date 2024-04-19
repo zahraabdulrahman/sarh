@@ -8,9 +8,9 @@ import '../../models/card_model.dart';
 
 
 class Feelings extends StatefulWidget {
-  const Feelings({Key? key}) : super(key: key);
+  const Feelings({super.key});
 
-  @override
+
   _FeelingsState createState() => _FeelingsState();
 }
 
@@ -20,9 +20,9 @@ class _FeelingsState extends State<Feelings> {
     List<cardModel> filteredCards = filterCardsBySection(cardsList, "feelings");
     return Scaffold(
         appBar: AppBar(
-          title: Align(
+          title: const Align(
             alignment: Alignment.bottomRight,
-            child: const Text(
+            child: Text(
               'بطاقات: مشاعر',
               style: TextStyle(color: Colors.black, fontSize: 28),
             ),
@@ -40,7 +40,7 @@ class _FeelingsState extends State<Feelings> {
 
       body: Column(
         children: [
-          CardsBarWidget(),
+          const CardsBarWidget(),
           Expanded(
             child: ListView.builder(
                 scrollDirection: Axis.vertical,
@@ -48,7 +48,7 @@ class _FeelingsState extends State<Feelings> {
                 itemBuilder: (context, index) {
                   cardModel model = filteredCards[index];
                   return Padding(
-                    padding: EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 10),
                     child: GestureDetector(
                       onTap: (){
                         setState(() {
@@ -62,7 +62,7 @@ class _FeelingsState extends State<Feelings> {
                           Container(
                           width: 250,
                           height: 250,
-                            decoration: BoxDecoration(color: Color(0xFFA7E8BD),
+                            decoration: BoxDecoration(color: const Color(0xFFA7E8BD),
                             borderRadius: BorderRadius.circular(15)),
                           ),
                           Positioned(
@@ -79,7 +79,7 @@ class _FeelingsState extends State<Feelings> {
                             bottom: 10,
                             left: 90,
                             child: Text(model.name,
-                            style: TextStyle(fontSize:30),),
+                            style: const TextStyle(fontSize:30),),
                           )
                         ],
                       ),

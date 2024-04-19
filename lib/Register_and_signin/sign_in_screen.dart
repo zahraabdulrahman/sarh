@@ -69,7 +69,7 @@ class _Sign_in_screenState extends State<Sign_in_screen> {
               ],
             ),
 
-            reusableTextField("ادخل بريدك الالكتروني", Icons.email, false,_emailTextController),
+            reusableTextField("ادخل بريدك الالكتروني", Icons.email, false,_emailTextController,false),
 
             const SizedBox(
               height: 10,
@@ -89,7 +89,7 @@ class _Sign_in_screenState extends State<Sign_in_screen> {
               ],
             ),
 
-            reusableTextField("ادخل كلمة السر", Icons.lock, true, _passwordTextController),
+            reusableTextField("ادخل كلمة السر", Icons.lock, true, _passwordTextController,false),
 
             const SizedBox(
               height: 20,

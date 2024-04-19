@@ -53,7 +53,7 @@ Future passowrdReset() async {
             const Text('ادخل ايميلك وسيتم ارسال رابط اعادة كلمة المرور '),
             const SizedBox(height: 25,),
             reusableTextField("ادخل بريدك الالكتروني", Icons.email, false,
-                _emailTextController),
+                _emailTextController,false),
             const SizedBox(height: 25,),
             firebaseUIButton(context, "تغيير كلمة المرور", () {
               passowrdReset();

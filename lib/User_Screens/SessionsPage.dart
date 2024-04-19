@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart'; // Import Firestore package
 
 class SessionsPage extends StatefulWidget {
-  const SessionsPage({Key? key});
+  const SessionsPage({super.key});
 
   @override
   State<SessionsPage> createState() => _SessionsPageState();
@@ -24,9 +24,9 @@ class _SessionsPageState extends State<SessionsPage> {
       await FirebaseFirestore.instance.collection('specialists').get();
 
       List<Map<String, dynamic>> fetchedUsers = [];
-      querySnapshot.docs.forEach((doc) {
+      for (var doc in querySnapshot.docs) {
         fetchedUsers.add(doc.data() as Map<String, dynamic>);
-      });
+      }
 
       setState(() {
         _foundUsers = fetchedUsers;

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sarh/SpecialistScreens/Register_specialist.dart';
 import '../User_Screens/Register_student.dart';
+import '../reusable_widgets/reusable_widget.dart';
 class Register_screen extends StatelessWidget {
   const Register_screen({super.key});
 
@@ -33,7 +34,7 @@ class Register_screen extends StatelessWidget {
                 ),
               )
             ]),
-              const SizedBox(height: 80,),
+              const SizedBox(height: 60,),
         GestureDetector(
           onTap: () {
             Navigator.push(
@@ -127,7 +128,7 @@ class Register_screen extends StatelessWidget {
               ),
               ),
         ),
-              const SizedBox(height: 45,),
+              const SizedBox(height: 15,),
               GestureDetector(
                 onTap: () {
                   Navigator.push(
@@ -219,6 +220,8 @@ class Register_screen extends StatelessWidget {
                     )
                   ],),),
               ),
+              const SizedBox(height: 15,),
+              Center(child: signInOption(context)),
             ],
 
       ),

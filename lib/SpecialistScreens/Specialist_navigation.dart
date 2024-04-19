@@ -15,15 +15,15 @@ class Specialist_navigation extends StatefulWidget {
 }
 
 class _Specialist_navigationState extends State<Specialist_navigation> {
-  GlobalKey<CurvedNavigationBarState>_curvednavigationkey=GlobalKey();
+  final GlobalKey<CurvedNavigationBarState>_curvednavigationkey=GlobalKey();
    int _currentPage = 0;
   final List<Widget> _pages = [
     // Replace Page1, Page2, etc. with your actual page widgets
-    Sarh(),
-    Specialist_dates(),
-    Education(),
-    Account(),
-    Speciality_settings(),
+    const Sarh(),
+    const Specialist_dates(),
+    const Education(),
+    const Account(),
+    const Speciality_settings(),
   ];
   @override
   Widget build(BuildContext context) {

@@ -1,22 +1,30 @@
 import 'dart:io';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-// import 'package:xyz/utils/pixel_sizes.dart';
+import 'package:sarh/User_Screens/Register_student.dart';
 
-TextField reusableTextField(String text, IconData icon, bool isPasswordType,
-    TextEditingController controller) {
+import '../Register_and_signin/sign_in_screen.dart';
+
+// import 'package:xyz/utils/pixel_sizes.dart';
+TextField reusableTextField(
+  String text,
+  IconData icon,
+  bool isPasswordType,
+  TextEditingController controller,
+  bool isInputWrong, // Add a parameter to indicate if input is wrong
+) {
+  Color borderColor = isInputWrong? Colors.red : Colors.grey.withOpacity(0.9);
+
   return TextField(
     controller: controller,
     obscureText: isPasswordType,
     enableSuggestions: !isPasswordType,
     autocorrect: !isPasswordType,
     cursorColor: Colors.white,
-    style: TextStyle(color: Colors.grey.withOpacity(0.9)),
+    style: TextStyle(color: borderColor),
     decoration: InputDecoration(
       contentPadding: const EdgeInsets.symmetric(vertical: -5),
       prefixIcon: Icon(
@@ -28,26 +36,49 @@ TextField reusableTextField(String text, IconData icon, bool isPasswordType,
       filled: true,
       floatingLabelBehavior: FloatingLabelBehavior.never,
       fillColor: Colors.white.withOpacity(0.3),
-      focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Color(0xFFA7E8BD))),
+      focusedBorder: UnderlineInputBorder(
+        borderSide: BorderSide(color: borderColor),
+      ),
+      errorBorder: const UnderlineInputBorder(
+        borderSide: BorderSide(color: Colors.red),
+      ),
+      focusedErrorBorder: const UnderlineInputBorder(
+        borderSide: BorderSide(color: Colors.red),
+      ),
     ),
     keyboardType: isPasswordType
         ? TextInputType.visiblePassword
         : TextInputType.emailAddress,
-    // onChanged: (value) {
-    // if (confirmationController != null) {
-    //   print("Confirm you password");
-    //   // Check if password and confirmation match
-    //   if (isPasswordType && value != confirmationController.text) {
-    //     print("The passowrd does not match");
-    //     // Set error if passwords do not match
-    //     confirmationController.clear(); // Clear confirmation field
-    //     confirmationController.text =
-    //         value; // Set text again to trigger error message
-    //   }
-    // }
   );
 }
+// TextField reusableTextField(String text, IconData icon, bool isPasswordType,
+//     TextEditingController controller) {
+//   return TextField(
+//     controller: controller,
+//     obscureText: isPasswordType,
+//     enableSuggestions: !isPasswordType,
+//     autocorrect: !isPasswordType,
+//     cursorColor: Colors.white,
+//     style: TextStyle(color: Colors.grey.withOpacity(0.9)),
+//     decoration: InputDecoration(
+//       contentPadding: const EdgeInsets.symmetric(vertical: -5),
+//       prefixIcon: Icon(
+//         icon,
+//         color: Colors.grey,
+//       ),
+//       labelText: text,
+//       labelStyle: TextStyle(color: Colors.grey.withOpacity(0.9)),
+//       filled: true,
+//       floatingLabelBehavior: FloatingLabelBehavior.never,
+//       fillColor: Colors.white.withOpacity(0.3),
+//       focusedBorder: const UnderlineInputBorder(
+//           borderSide: BorderSide(color: Color(0xFFA7E8BD))),
+//     ),
+//     keyboardType: isPasswordType
+//         ? TextInputType.visiblePassword
+//         : TextInputType.emailAddress,
+//   );
+// }
 
 Container firebaseUIButton(BuildContext context, String title, Function onTap) {
   return Container(
@@ -89,7 +120,7 @@ void showDatePickerOnTextField(
     context: context,
     initialDate: DateTime.now(),
     firstDate: DateTime(2000),
-    lastDate: DateTime(2101),
+    lastDate: DateTime(2017),
   );
 
   if (pickedDate != null) {
@@ -100,35 +131,35 @@ void showDatePickerOnTextField(
   }
 }
 
-Container settingUIButton (BuildContext context, String title, IconData icon, Function onTap) {
+Container settingUIButton(
+    BuildContext context, String title, IconData icon, Function onTap) {
   return Container(
-     child: ElevatedButton.icon(
-        icon: Icon(
-          icon,
-          color: Colors.green,
-          size: 20.0,
-        ),
-        label: Text(title,
-        style: TextStyle(
-            color: Colors.grey.withOpacity(0.9)
-        ),),
-        onPressed: () {
-          onTap();
-        },
-     )
-  );
+      child: ElevatedButton.icon(
+    icon: Icon(
+      icon,
+      color: Colors.green,
+      size: 20.0,
+    ),
+    label: Text(
+      title,
+      style: TextStyle(color: Colors.grey.withOpacity(0.9)),
+    ),
+    onPressed: () {
+      onTap();
+    },
+  ));
 }
 
 pickImage(ImageSource source) async {
   final ImagePicker imagePicker = ImagePicker();
   XFile? file = await imagePicker.pickImage(source: source);
-  if(file != null){
+  if (file != null) {
     return await file.readAsBytes();
   }
   print('No Images Selected');
 }
 
-GestureDetector buttons(context,height,width,String title, Function onTap){
+GestureDetector buttons(context, height, width, String title, Function onTap) {
   return GestureDetector(
     onTap: () {
       onTap();
@@ -156,7 +187,9 @@ GestureDetector buttons(context,height,width,String title, Function onTap){
                   child: Text(
                     title,
                     style: const TextStyle(
-                        color: Colors.black, fontWeight: FontWeight.bold, fontSize: 16),
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16),
                   ),
                 ))),
         Positioned(
@@ -164,52 +197,52 @@ GestureDetector buttons(context,height,width,String title, Function onTap){
             left: 1,
             child: ClipRect(
                 child: Align(
-                  alignment: Alignment.topLeft,
-                  widthFactor: 1,
-                  child: Container(
-                    width: 50,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                            const Color(0xFFC7EAE4),
-                            const Color(0xFFC7EAE4).withOpacity(0.4),
-                          ]),
+              alignment: Alignment.topLeft,
+              widthFactor: 1,
+              child: Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        const Color(0xFFC7EAE4),
+                        const Color(0xFFC7EAE4).withOpacity(0.4),
+                      ]),
+                ),
+                child: const Column(
+                  children: [
+                    SizedBox(
+                      height: 25,
                     ),
-                    child: const Column(
-                      children: [
-                        SizedBox(
-                          height: 25,
-                        ),
-                      ],
-                    ),
-                  ),
-                ))),
+                  ],
+                ),
+              ),
+            ))),
         Positioned(
             bottom: 35,
             left: 14,
             child: ClipRect(
                 child: Align(
-                  alignment: Alignment.topLeft,
-                  widthFactor: 1,
-                  child: Container(
-                    width: 50,
-                    height: 50,
-                    decoration: const BoxDecoration(
-                      shape: BoxShape.circle,
-                      gradient: LinearGradient(
-                          begin: Alignment.topRight,
-                          end: Alignment.bottomLeft,
-                          colors: [
-                            Color(0xFFFFD972),
-                            Color(0xFFEFA7A7),
-                          ]),
-                    ),
-                  ),
-                )))
+              alignment: Alignment.topLeft,
+              widthFactor: 1,
+              child: Container(
+                width: 50,
+                height: 50,
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                      colors: [
+                        Color(0xFFFFD972),
+                        Color(0xFFEFA7A7),
+                      ]),
+                ),
+              ),
+            )))
       ],
     ),
   );
@@ -217,7 +250,9 @@ GestureDetector buttons(context,height,width,String title, Function onTap){
 
 Future<String?> uploadPDFToFirebase(File pdfFile) async {
   try {
-    final storageRef = FirebaseStorage.instance.ref().child('uploads/pdfs/${DateTime.now().millisecondsSinceEpoch}.pdf');
+    final storageRef = FirebaseStorage.instance
+        .ref()
+        .child('uploads/pdfs/${DateTime.now().millisecondsSinceEpoch}.pdf');
     await storageRef.putFile(pdfFile);
     final downloadUrl = await storageRef.getDownloadURL();
     return downloadUrl;
@@ -225,4 +260,23 @@ Future<String?> uploadPDFToFirebase(File pdfFile) async {
     print(e.message);
     return null;
   }
+}
+
+Widget signInOption(BuildContext context) {
+  return GestureDetector(
+    onTap: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const Sign_in_screen()),
+      );
+    },
+    child: const Text(
+      "لديك حساب بالفعل؟ تسجيل الدخول",
+      style: TextStyle(
+        color: Colors.grey,
+        fontWeight: FontWeight.bold,
+      ),
+      textAlign: TextAlign.center,
+    ),
+  );
 }

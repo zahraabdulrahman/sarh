@@ -16,9 +16,9 @@ class _ActionssState extends State<Actionss> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Align(
+        title: const Align(
           alignment: Alignment.bottomRight,
-          child: const Text(
+          child: Text(
             'بطاقات: افعال',
             style: TextStyle(color: Colors.black, fontSize: 28),
           ),
@@ -35,7 +35,7 @@ class _ActionssState extends State<Actionss> {
       ),
         body: Column(
           children: [
-            CardsBarWidget(),
+            const CardsBarWidget(),
             Expanded(
               child: ListView.builder(
                   scrollDirection: Axis.vertical,
@@ -43,7 +43,7 @@ class _ActionssState extends State<Actionss> {
                   itemBuilder: (context, index) {
                     cardModel model = filteredCards[index];
                     return Padding(
-                      padding: EdgeInsets.only(bottom: 10),
+                      padding: const EdgeInsets.only(bottom: 10),
                       child: GestureDetector(
                         onTap: (){
                           setState(() {
@@ -57,7 +57,7 @@ class _ActionssState extends State<Actionss> {
                               Container(
                                 width: 250,
                                 height: 250,
-                                decoration: BoxDecoration(color: Color(0xFFA7E8BD),
+                                decoration: BoxDecoration(color: const Color(0xFFA7E8BD),
                                     borderRadius: BorderRadius.circular(15)),
                               ),
                               Positioned(
@@ -74,7 +74,7 @@ class _ActionssState extends State<Actionss> {
                                 bottom: 10,
                                 left: 90,
                                 child: Text(model.name,
-                                  style: TextStyle(fontSize:30),),
+                                  style: const TextStyle(fontSize:30),),
                               )
                             ],
                           ),

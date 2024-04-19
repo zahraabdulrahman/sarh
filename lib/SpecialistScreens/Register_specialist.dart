@@ -156,7 +156,7 @@ class _Register_specialistState extends State<Register_specialist> {
             width: 400,
             height: 40,
             child: reusableTextField("ادخل بريدك الالكتروني", Icons.email,
-                false, _emailTextController),
+                false, _emailTextController,false),
           ),
           const SizedBox(
             height: 10,
@@ -180,7 +180,7 @@ class _Register_specialistState extends State<Register_specialist> {
             width: 400,
             height: 40,
             child: reusableTextField("ادخل اسمك الاول", Icons.email, false,
-                _firstNameTextController),
+                _firstNameTextController,false),
           ),
           const SizedBox(
             height: 5,
@@ -204,7 +204,7 @@ class _Register_specialistState extends State<Register_specialist> {
             width: 400,
             height: 40,
             child: reusableTextField("ادخل اسمك الاخير", Icons.email, false,
-                _lastNameTextController),
+                _lastNameTextController,false),
           ),
 
           Container(
@@ -264,7 +264,7 @@ class _Register_specialistState extends State<Register_specialist> {
             width: 400,
             height: 40,
             child: reusableTextField(
-                "ادخل كلمة السر", Icons.lock, true, _passwordTextController),
+                "ادخل كلمة السر", Icons.lock, true, _passwordTextController,false),
           ),
           const SizedBox(
             height: 10,
@@ -288,7 +288,7 @@ class _Register_specialistState extends State<Register_specialist> {
             width: 400,
             height: 40,
             child: reusableTextField(
-                " ادخل كلمة السر مجددا", Icons.lock, true, _confirmPass),
+                " ادخل كلمة السر مجددا", Icons.lock, true, _confirmPass,false),
           ),
 
           ElevatedButton(
