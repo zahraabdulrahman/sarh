@@ -1,5 +1,6 @@
 import '../models/card_model.dart';
 
+
 List<cardModel> cardsList = [
   cardModel(name: "سعيد",
       section: "feelings",
@@ -28,7 +29,10 @@ List<cardModel> cardsList = [
 ];
 
 List<cardModel> selectedCards = [];
+List<List<cardModel>> memorizedSelectedCards = [];
+
 
 List<cardModel> filterCardsBySection(List<cardModel> cardsList, String section) {
   return cardsList.where((card) => card.section == section).toList();
 }
+

@@ -7,7 +7,6 @@ import '../models/card_model.dart';
 
 
 class CardsBarWidget extends StatefulWidget {
-  const CardsBarWidget({super.key});
 
   @override
   _CardsBarWidgetState createState() => _CardsBarWidgetState();
@@ -26,8 +25,8 @@ class _CardsBarWidgetState extends State<CardsBarWidget> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Container(
-              height: 70,
-              width: 320,
+              height: 100,
+              width: 370,
               decoration: BoxDecoration(gradient: const LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -47,7 +46,7 @@ class _CardsBarWidgetState extends State<CardsBarWidget> {
                       });
                     },
                     child: Container(
-                      width: 40,
+                      width: 60,
                       height: 100,
                       decoration: BoxDecoration(
                         color: const Color(0xFFA7E8BD),
@@ -57,15 +56,16 @@ class _CardsBarWidgetState extends State<CardsBarWidget> {
                       child: Image.asset(model.imgPath),
                     ),
                   );
-
                 },
               ),
             ),
           ],
         ),
+        const SizedBox(height: 15, width: 25),
         Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
+            const SizedBox(height: 35, width: 25),
             ElevatedButton.icon(
                 onPressed: () {
                   playSounds();
@@ -74,17 +74,49 @@ class _CardsBarWidgetState extends State<CardsBarWidget> {
                     backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
                     foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
                     fixedSize: MaterialStateProperty.all<Size>(
-                      const Size(40, 30), // Specify the desired width and height
+                      const Size(30, 50), // Specify the desired width and height
                     ),
                     padding: MaterialStateProperty.all<EdgeInsets>(
                       const EdgeInsets.all(8), // Specify the desired padding
                     )),
                 icon: const Icon(Icons.volume_up),
                 label: const Text("")),
-            const SizedBox(height: 35, width: 40),
-          ],
+            const SizedBox(height: 35, width: 170),
+            ElevatedButton.icon(
+                onPressed: () {
+                  memorizeCards();
+                },
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.green),
+                    foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                    fixedSize: MaterialStateProperty.all<Size>(
+                      const Size(30, 50), // Specify the desired width and height
+                    ),
+                    padding: MaterialStateProperty.all<EdgeInsets>(
+                      const EdgeInsets.all(8), // Specify the desired padding
+                    )),
+                icon: const Icon(Icons.add),
+                label: const Text("")),
+            const SizedBox(height: 35, width: 5),
+            ElevatedButton.icon(
+                onPressed: () {
+                   setState(() {
+                     deleteCards();
+                   });
+                },
+                style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                    foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                    fixedSize: MaterialStateProperty.all<Size>(
+                      const Size(20, 50), // Specify the desired width and height
+                    ),
+                    padding: MaterialStateProperty.all<EdgeInsets>(
+                      const EdgeInsets.all(8), // Specify the desired padding
+                    )),
+                icon: const Icon(Icons.delete),
+                label: const Text("")),],
         ),
-      ],
+        const SizedBox(height: 35, width: 5)],
     );
   }
 
@@ -95,13 +127,20 @@ class _CardsBarWidgetState extends State<CardsBarWidget> {
       await player.onPlayerComplete.first;
     }
   }
+
+  void deleteCards() {
+    selectedCards = [];
+  }
+
+  void memorizeCards() {
+    memorizedSelectedCards.add(selectedCards);
+  }
 }
 
 class AppMethods {
   AppMethods._();
   static void addToSelectedList(cardModel data, BuildContext context) {
     bool contains = selectedCards.contains(data);
-
     if (contains) {
       selectedCards.remove(data);
     } else {

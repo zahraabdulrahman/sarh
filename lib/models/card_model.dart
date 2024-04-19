@@ -11,6 +11,13 @@ class cardModel {
     required this.section,
     required this.audioPath,
     required this.imgPath,
-
 });
+  Map<String, dynamic> toJson() {
+    return {
+      'name': name,
+      'section': section,
+      'audioPath': audioPath,
+      'imgPath': imgPath,
+    };
+  }
 }

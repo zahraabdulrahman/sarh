@@ -40,7 +40,7 @@ class _FeelingsState extends State<Feelings> {
 
       body: Column(
         children: [
-          const CardsBarWidget(),
+          CardsBarWidget(),
           Expanded(
             child: ListView.builder(
                 scrollDirection: Axis.vertical,

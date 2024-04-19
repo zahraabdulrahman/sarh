@@ -1,20 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'cards/index.dart';
 import 'package:sarh/reusable_widgets/card_list_widget.dart';
 
-String? getUserId() {
-  User? user = FirebaseAuth.instance.currentUser;
-  if (user != null) {
-    print(user.uid);
-    return user.uid;
-  } else {
-    return null; // User is not logged in or currentUser is null
-  }
-}
-
 class Cards extends StatefulWidget {
-  const Cards({super.key});
+
 
   @override
   State<Cards> createState() => _CardsState();
@@ -45,7 +34,7 @@ class _CardsState extends State<Cards> {
       body:
       Column(
         children: [
-          const CardsBarWidget(),
+           CardsBarWidget(),
           Expanded(
             child: SingleChildScrollView(
                 child: Column(

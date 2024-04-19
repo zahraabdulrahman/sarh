@@ -37,7 +37,7 @@ class _FoodState extends State<Food> {
 
         body: Column(
           children: [
-            const CardsBarWidget(),
+            CardsBarWidget(),
             Expanded(
               child: ListView.builder(
                   scrollDirection: Axis.vertical,
