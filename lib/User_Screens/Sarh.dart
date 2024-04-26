@@ -37,6 +37,7 @@ class _Sarh extends State<Sarh> {
                   fit: BoxFit.fill)),
         ),
         toolbarHeight: 250,
+        automaticallyImplyLeading: false,
       ),
       body: Column(
         children: [

@@ -3,9 +3,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:sarh/User_Screens/consultations.dart';
 import 'package:sarh/services/CallPage.dart';
 
-class DatesPage extends StatelessWidget {
+class DatesPage extends StatefulWidget {
   const DatesPage({super.key});
 
+  @override
+  State<DatesPage> createState() => _DatesPageState();
+}
+
+class _DatesPageState extends State<DatesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

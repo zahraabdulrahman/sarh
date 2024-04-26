@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sarh/User_Screens/CardsSettings.dart';
@@ -13,6 +14,32 @@ class Speciality_settings extends StatefulWidget {
 }
 
 class _Speciality_settings extends State<Speciality_settings> {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  Future<void> onlineStatus() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid; // Use null-safe operator
+    if (uid != null) {
+      try {
+        await _firestore.collection('specialists').doc(uid).update({
+          'status': 'offline',
+        });
+        print("User status updated successfully");
+      } catch (error) {
+        print("Error updating user status: $error");
+      }
+    }
+  }
+
+  Future<void> signOut() async {
+    try {
+      onlineStatus().then((value) async => await FirebaseAuth.instance.signOut()); // Update online status to offline
+      print("Signed Out");
+    } catch (error) {
+      print("Error signing out: $error");
+      // Handle error (optional: show a snackbar or dialog)
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -160,12 +187,10 @@ class _Speciality_settings extends State<Speciality_settings> {
                                 fontWeight: FontWeight.bold,
                                 fontSize: 20),
                           ),
-                          onTap: () {
-                            FirebaseAuth.instance.signOut().then((value) {
-                              print("Signed Out");
-                              Navigator.push(context,
-                                  MaterialPageRoute(builder: (context) => const Sign_in_screen()));
-                            });
+                          onTap: () async{
+                            await signOut();
+                            Navigator.push(context,
+                                MaterialPageRoute(builder: (context) => const Sign_in_screen()));
                           },),
                         Transform(
                           transform: Matrix4.translationValues(-70, 0.0, 0.0),

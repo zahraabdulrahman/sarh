@@ -228,10 +228,16 @@ class _SpecialistDetailsState extends State<SpecialistDetails> {
                         DateTime now = DateTime.now();
                         String formattedDate = DateFormat('yyyy-MM-dd').format(now);
 
+                        DateTime fiveMinutesFromNow = now.add(const Duration(minutes: 5));
+
+// Format time with HH:mm:ss format (24-hour format)
+                        String formattedTime = DateFormat('HH:mm:ss').format(fiveMinutesFromNow);
+
                         Map<String, dynamic> consultationData = {
                           'user_uid': userUID,
                           'specialist_uid': specialistUID,
                           'consultation_date': formattedDate,
+                          'consultation_time': formattedTime,
                         };
 
                         try {

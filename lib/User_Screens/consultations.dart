@@ -34,10 +34,11 @@ class _Consulations extends State<Consulations> {
       List<Map<String, dynamic>> fetchedUsers = [];
       querySnapshot.docs.forEach((doc) {
         Map<String, dynamic> userData = doc.data() as Map<String, dynamic>;
-        if (userData.containsKey('first name') &&
+        if (userData.containsKey('first name') && // Assuming typo correction
             userData.containsKey('major') &&
             userData.containsKey('gender') &&
-            userData.containsKey('experience')) {
+            userData.containsKey('experience') &&
+            userData['status'] == 'online') {
           fetchedUsers.add(userData);
         }
       });
@@ -85,6 +86,7 @@ class _Consulations extends State<Consulations> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
+        backgroundColor: Colors.white,
         //extendBodyBehindAppBar: true, // <-- Set this
         appBar: AppBar(
           title: Transform(

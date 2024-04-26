@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sarh/User_Screens/consultations.dart';
 //import 'package:flutter/src/rendering/box.dart';
@@ -11,7 +13,36 @@ class Sarh extends StatefulWidget {
   State<Sarh> createState() => _Sarh();
 }
 
-class _Sarh extends State<Sarh> {
+class _Sarh extends State<Sarh> with WidgetsBindingObserver {
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseAuth auth = FirebaseAuth.instance;
+
+  void setUserOnlineStatus(bool isOnline) async {
+    try {
+      await _firestore.collection('specialists').doc(auth.currentUser!.uid).update({
+        'status': isOnline ? 'online' : 'offline',
+      });
+      print("User status updated successfully");
+    } catch (error) {
+      print("Error updating user status: $error");
+    }
+  }
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    super.initState();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      setUserOnlineStatus(true); // Set online when app is resumed
+    } else {
+      setUserOnlineStatus(false); // Set offline when app goes to background
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Directionality(
@@ -36,6 +67,7 @@ class _Sarh extends State<Sarh> {
                     fit: BoxFit.fill)),
           ),
           toolbarHeight: 250,
+          automaticallyImplyLeading: false,
         ),
         body: Center(
           child: Column(
