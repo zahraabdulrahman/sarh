@@ -40,7 +40,7 @@ class _DatesPageState extends State<DatesPage> {
   void startReservationTimer() {
     // Start the timer to check for reservations every 1 minute
     reservationTimer?.cancel();
-    reservationTimer = Timer.periodic(const Duration(seconds: 30), (timer) {
+    reservationTimer = Timer.periodic(const Duration(seconds: 10), (timer) {
       fetchReservationDetails();
       print("working");
     });

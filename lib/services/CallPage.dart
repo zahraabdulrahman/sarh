@@ -49,11 +49,11 @@ class _CallPageState extends State<CallPage> {
     var channelName = widget.channelId;
     var uid = widget.userId; // Set the user ID (optional)
 
-    var url = 'https://api.agora.io/v1/token';
+    var url = 'https://api.agora.io/v1/token/rtc';
     var response = await http.post(
       Uri.parse(url),
       headers: {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json; charset=utf-8',
       },
       body: jsonEncode({
         'app_id': appID,
@@ -70,6 +70,8 @@ class _CallPageState extends State<CallPage> {
       var body = jsonDecode(response.body);
       return body['rtc_token'];
     } else {
+      print('Token generation failed. Status code: ${response.statusCode}');
+      print('Response body: ${response.body}');
       throw Exception('Failed to generate token');
     }
   }
