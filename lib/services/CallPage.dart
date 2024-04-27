@@ -2,12 +2,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:agora_uikit/agora_uikit.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 
 class CallPage extends StatefulWidget {
   final String channelId;
+  final String userId;
 
-  const CallPage({required this.channelId, Key? key}) : super(key: key);
+  const CallPage({required this.channelId, required this.userId, Key? key}) : super(key: key);
 
   @override
   _CallPageState createState() => _CallPageState();
@@ -19,10 +21,12 @@ class _CallPageState extends State<CallPage> {
   @override
   void initState() {
     super.initState();
+
     client = AgoraClient(
       agoraConnectionData: AgoraConnectionData(
         appId: '1c60873bd7e04c4499eeca649c744656',
         channelName: widget.channelId,
+        tempToken: widget.userId,
       ),
       enabledPermission: [
         Permission.camera,

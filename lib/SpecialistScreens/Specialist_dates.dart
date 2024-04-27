@@ -101,6 +101,7 @@ class _Specialist_datesState extends State<Specialist_dates> {
   @override
   Widget build(BuildContext context) {
     String channelId = channelIdd;
+    String userIdd = userUID;
     return Scaffold(
       appBar: AppBar(
         title: Transform(
@@ -157,7 +158,7 @@ class _Specialist_datesState extends State<Specialist_dates> {
                     if (channelIdd.isNotEmpty) {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => CallPage(channelId: channelIdd)),
+                        MaterialPageRoute(builder: (context) => CallPage(channelId: channelIdd, userId: userIdd,)),
                       );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
