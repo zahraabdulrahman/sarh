@@ -16,7 +16,7 @@ class CallPage extends StatefulWidget {
 }
 
 class _CallPageState extends State<CallPage> {
-  late final AgoraClient client;
+  AgoraClient? client;
 
   @override
   void initState() {
@@ -40,15 +40,14 @@ class _CallPageState extends State<CallPage> {
       ],
     );
 
-    await client.initialize();
+    await client!.initialize();
   }
 
   Future<String> generateToken() async {
     var appID = '1c60873bd7e04c4499eeca649c744656';
     var appCertificate = 'ee9713d0eeb34fd3a096d3fd0fa4bce2';
     var channelName = widget.channelId;
-    var uid = 0; // Set the user ID (optional)
-    var role = 1; // Set the role (1 for publisher, 0 for subscriber)
+    var uid = widget.userId; // Set the user ID (optional)
 
     var url = 'https://api.agora.io/v1/token';
     var response = await http.post(
@@ -61,7 +60,7 @@ class _CallPageState extends State<CallPage> {
         'app_certificate': appCertificate,
         'channel_name': channelName,
         'uid': uid,
-        'role': role,
+        'role': 1, // Set the role (1 for publisher, 0 for subscriber)
         'privilege_expire_ts':
         DateTime.now().millisecondsSinceEpoch ~/ 1000 + 3600, // Set token expiration time (1 hour in this example)
       }),
@@ -89,20 +88,22 @@ class _CallPageState extends State<CallPage> {
         body: SafeArea(
           child: Stack(
             children: [
-              AgoraVideoViewer(
-                client: client,
-                layoutType: Layout.floating,
-                enableHostControls: false, // Add this to enable host controls
-              ),
-              AgoraVideoButtons(
-                client: client,
-                enabledButtons: const [
-                  BuiltInButtons.toggleMic,
-                  BuiltInButtons.callEnd,
-                  BuiltInButtons.switchCamera,
-                  BuiltInButtons.toggleCamera,
-                ], // Add this to enable screen sharing
-              ),
+              if (client != null)
+                AgoraVideoViewer(
+                  client: client!,
+                  layoutType: Layout.floating,
+                  enableHostControls: false, // Add this to enable host controls
+                ),
+              if (client != null)
+                AgoraVideoButtons(
+                  client: client!,
+                  enabledButtons: const [
+                    BuiltInButtons.toggleMic,
+                    BuiltInButtons.callEnd,
+                    BuiltInButtons.switchCamera,
+                    BuiltInButtons.toggleCamera,
+                  ], // Add this to enable screen sharing
+                ),
             ],
           ),
         ),
@@ -110,5 +111,3 @@ class _CallPageState extends State<CallPage> {
     );
   }
 }
-
-
