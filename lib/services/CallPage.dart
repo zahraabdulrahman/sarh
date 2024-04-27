@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:agora_uikit/agora_uikit.dart';
 import 'package:permission_handler/permission_handler.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
+
 
 class CallPage extends StatefulWidget {
   final String channelId;
@@ -18,7 +17,7 @@ class CallPage extends StatefulWidget {
 class _CallPageState extends State<CallPage> {
   late String channelId;
   late AgoraClient client;
-  String serverUrl = "https://agora-token-server-4cf5.onrender.com/";
+  String serverUrl = "https://agora-token-service-production-95a7.up.railway.app";
 
   @override
   void initState() {
