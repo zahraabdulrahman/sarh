@@ -16,7 +16,7 @@ class DatesPage extends StatefulWidget {
 class _DatesPageState extends State<DatesPage> {
   Timer? reservationTimer;
   Timer? callAvailableTimer;
-  late String userUID;
+  String userUID = '';
   late String specialistUID;
   late String formattedDate;
   late String formattedTime;
@@ -155,7 +155,7 @@ class _DatesPageState extends State<DatesPage> {
                     ),
                   ),
                   onPressed: () {
-                    if (channelIdd.isNotEmpty) {
+                    if (channelIdd.isNotEmpty && userIdd.isNotEmpty) {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => CallPage(channelId: channelIdd, userId: userIdd)),
