@@ -26,7 +26,7 @@ class _CallPageState extends State<CallPage> {
       agoraConnectionData: AgoraConnectionData(
         appId: '1c60873bd7e04c4499eeca649c744656',
         channelName: widget.channelId,
-        tempToken: widget.userId,
+        tempToken: "007eJxTYHgue+j0k4k+sWo2OVcP3PRTZjhsXx3E++t59FRDuS26b3oUGAyTzQwszI2TUsxTDUySTUwsLVNTkxPNTCyTzU1MzEzN+DfIpTUEMjJsNpJjYIRCEJ+ToTixKCM5MSenmIEBAM8FIBk=",
       ),
       enabledPermission: [
         Permission.camera,
