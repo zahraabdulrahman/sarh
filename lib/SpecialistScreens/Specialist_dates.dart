@@ -16,7 +16,7 @@ class Specialist_dates extends StatefulWidget {
 class _Specialist_datesState extends State<Specialist_dates> {
   Timer? reservationTimer;
   Timer? callAvailableTimer;
-  late String userUID;
+  String userUID = '';
   late String specialistUID;
   late String formattedDate;
   late String formattedTime;
@@ -101,6 +101,7 @@ class _Specialist_datesState extends State<Specialist_dates> {
   @override
   Widget build(BuildContext context) {
     String channelId = channelIdd;
+    String userIdd = userUID;
     return Scaffold(
       appBar: AppBar(
         title: Transform(
@@ -155,10 +156,10 @@ class _Specialist_datesState extends State<Specialist_dates> {
                     ),
                   ),
                   onPressed: () {
-                    if (channelIdd.isNotEmpty) {
+                    if (channelIdd.isNotEmpty && userIdd.isNotEmpty) {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => CallPage(channelId: channelIdd)),
+                        MaterialPageRoute(builder: (context) => CallPage(channelId: channelIdd, userId: userIdd,)),
                       );
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
