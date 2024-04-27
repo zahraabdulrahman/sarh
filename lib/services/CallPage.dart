@@ -55,8 +55,7 @@ class _CallPageState extends State<CallPage> {
             children: [
               AgoraVideoViewer(
                 client: client,
-                layoutType: Layout.floating,
-                enableHostControls: false, // Add this to enable host controls
+                layoutType: Layout.grid, // Add this to enable host controls
               ),
               AgoraVideoButtons(
                   client: client,
