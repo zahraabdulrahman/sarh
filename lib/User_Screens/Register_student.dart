@@ -1,5 +1,8 @@
+import 'dart:async';
+import 'dart:io';
 import 'dart:typed_data';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
@@ -24,6 +27,12 @@ class _Register_studentState extends State<Register_student> {
   late TextEditingController _dateinput;
   final TextEditingController _confirmPass = TextEditingController();
 
+  final ImagePicker _picker = ImagePicker(); // Image picker instance
+  XFile? _imageFile; // Store the selected image file
+  String? _imageUrl; // Store the downloaded image URL (initially null)
+  final FirebaseStorage _storage = FirebaseStorage.instance;
+
+
   bool isSpecialist = false;
   @override
   void initState() {
@@ -45,10 +54,39 @@ class _Register_studentState extends State<Register_student> {
     super.dispose();
   }
 
-  Uint8List? _image;
-  void selectImage() async {
-    Uint8List img = await pickImage(ImageSource.gallery);
-    _image = img;
+  Future<void> _selectImage() async {
+    final XFile? pickedFile = await _picker.pickImage(
+      source: ImageSource.gallery,
+    );
+    setState(() {
+      _imageFile = pickedFile;
+    });
+  }
+
+  Future<void> _uploadImage() async {
+    if (_imageFile == null) return; // Handle no image selected
+
+    // Create a reference to the user's profile image in storage
+    final user = FirebaseAuth.instance.currentUser!;
+    final imageRef = _storage.ref().child('profile_images/${user.uid}.jpg');
+
+    // Upload the image to Firebase Storage
+    try {
+      final uploadTask = await imageRef.putFile(File(_imageFile!.path));
+      final url = await uploadTask.ref.getDownloadURL();
+      setState(() {
+        _imageUrl = url; // Update the image URL
+      });
+    } on FirebaseException catch (e) {
+      // Handle upload error
+      print('Error uploading image: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error uploading image: ${e.message}'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
   }
 
   @override
@@ -74,21 +112,21 @@ class _Register_studentState extends State<Register_student> {
         children: [
           Stack(
             children: [
-              _image != null
+              _imageUrl != null
                   ? CircleAvatar(
-                      radius: 64,
-                      backgroundImage: MemoryImage(_image!),
-                     )
+                radius: 64,
+                backgroundImage: NetworkImage(_imageUrl!),
+              )
                   : const CircleAvatar(
-                      radius: 60,
-                      backgroundImage: NetworkImage(
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIwRBD9gNuA2GjcOf6mpL-WuBhJADTWC3QVQ&usqp=CAU'),
-                    ),
+                radius: 60,
+                backgroundImage: NetworkImage(
+                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIwRBD9gNuA2GjcOf6mpL-WuBhJADTWC3QVQ&usqp=CAU'),
+              ),
               Positioned(
                 bottom: -10,
                 left: 80,
                 child: IconButton(
-                  onPressed: selectImage,
+                  onPressed: () => _selectImage().then(_uploadImage as FutureOr Function(void value)),
                   icon: const Icon(Icons.add_a_photo),
                 ),
               ),

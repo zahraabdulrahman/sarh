@@ -118,6 +118,7 @@ class _Specialist_datesState extends State<Specialist_dates> {
                   fit: BoxFit.fill)),
         ),
         toolbarHeight: 250,
+        automaticallyImplyLeading: false,
       ),
       body: Column(
         children: [

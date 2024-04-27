@@ -5,6 +5,8 @@ import 'package:sarh/User_Screens/CardsSettings.dart';
 import 'package:sarh/User_Screens/AboutSarh.dart';
 import 'package:sarh/Register_and_signin/sign_in_screen.dart';
 
+import '../Register_and_signin/register.dart';
+
 
 class Speciality_settings extends StatefulWidget {
   const Speciality_settings({super.key});
@@ -45,44 +47,40 @@ class _Speciality_settings extends State<Speciality_settings> {
     return Directionality(
       textDirection: TextDirection.rtl,
       child: Scaffold(
-        appBar: AppBar(
-
-        ),
         body: SafeArea(
           child: Center(
             child: Expanded(
               child: Column(
                 children: [
-                  Container(
-                    child: Row(
-                      children: [
-                        Transform(
-                          transform: Matrix4.translationValues(-10, 0.0, 0.0),
-                          child: const Icon(Icons.chat_bubble_outline_rounded),),
-                        GestureDetector(
-                            child: const Text(
-                              "     اعدادات البطاقات",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
-                            ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const CardsSettings()),
-                              );
-                            }),
-                        Transform(
-                          transform: Matrix4.translationValues(-40, 0.0, 0.0),
-                          child: const Icon(
-                            Icons.arrow_forward_ios_outlined,
-                            color: Colors.black,
-                            size: 19,
+                  const SizedBox(height: 50,),
+                  Row(
+                    children: [
+                      Transform(
+                        transform: Matrix4.translationValues(-10, 0.0, 0.0),
+                        child: const Icon(Icons.chat_bubble_outline_rounded),),
+                      GestureDetector(
+                          child: const Text(
+                            "     اعدادات البطاقات",
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20),
                           ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const CardsSettings()),
+                            );
+                          }),
+                      Transform(
+                        transform: Matrix4.translationValues(-40, 0.0, 0.0),
+                        child: const Icon(
+                          Icons.arrow_forward_ios_outlined,
+                          color: Colors.black,
+                          size: 19,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   const Divider(
                     color: Color.fromARGB(255, 252, 188, 184),
@@ -140,19 +138,73 @@ class _Speciality_settings extends State<Speciality_settings> {
                           transform: Matrix4.translationValues(-10, 0.0, 0.0),
                           child: const Icon(Icons.chat_bubble_outline_rounded),),
                         GestureDetector(
-                            child: const Text(
-                              "     حذف الحساب",
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 20),
+                          child: const Text(
+                            "     حذف الحساب",
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
                             ),
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(builder: (context) => const CardsSettings()),
-                              );
-                            }),
+                          ),
+                          onTap: () {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  content: SingleChildScrollView(
+                                    child: Container(
+                                      width: 300.0,
+                                      height: 200.0,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            'تأكيد الحذف',
+                                            style: TextStyle(fontSize: 18.0),
+                                          ),
+                                          SizedBox(height: 20.0),
+                                          Text(
+                                            'هل انت متأكد من رغبتك في حذف الحساب؟',
+                                          ),
+                                          SizedBox(height: 20.0),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                            children: [
+                                              ElevatedButton(
+                                                onPressed: () {
+                                                  Navigator.of(context).pop();
+                                                },
+                                                child: Text('الغاء'),
+                                              ),
+                                              ElevatedButton(
+                                                onPressed: () async {
+                                                  String userId = FirebaseAuth.instance.currentUser!.uid;
+                                                  FirebaseFirestore.instance
+                                                      .collection('users')
+                                                      .doc(userId)
+                                                      .delete();
+                                                  await FirebaseAuth.instance.currentUser!.delete();
+                                                  Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                      builder: (context) => const Register_screen(),
+                                                    ),
+                                                  );
+                                                },
+                                                child: Text('حذف'),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                        ),
                         Transform(
                           transform: Matrix4.translationValues(-70, 0.0, 0.0),
                           child: const Icon(

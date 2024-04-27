@@ -1,8 +1,11 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/src/material/dropdown.dart';
 import '../User_Screens/PersonalInformation.dart';
@@ -15,6 +18,68 @@ class Account extends StatefulWidget {
 }
 
 class _AccountState extends State<Account> {
+  final ImagePicker _picker = ImagePicker(); // Image picker instance
+  XFile? _imageFile; // Store the selected image file
+  String? _imageUrl; // Store the downloaded image URL (initially null)
+
+  // Get a reference to Firebase Storage
+  final FirebaseStorage _storage = FirebaseStorage.instance;
+
+  Future<void> _selectImage() async {
+    final XFile? pickedFile = await _picker.pickImage(
+      source: ImageSource.gallery,
+    );
+    setState(() {
+      _imageFile = pickedFile;
+    });
+  }
+
+  Future<void> _uploadImage() async {
+    if (_imageFile == null) return; // Handle no image selected
+
+    // Create a reference to the user's profile image in storage
+    final user = FirebaseAuth.instance.currentUser!;
+    final imageRef = _storage.ref().child('profile_images/${user.uid}.jpg');
+
+    try {
+      final uploadTask = await imageRef.putFile(File(_imageFile!.path));
+      final url = await uploadTask.ref.getDownloadURL();
+      setState(() {
+        _imageUrl = url; // Update the image URL
+      });
+    } on FirebaseException catch (e) {
+      // Handle upload error
+      print('Error uploading image: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error uploading image: ${e.message}'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
+  Future<void> _downloadImage() async {
+    if (_imageUrl == null) return; // Handle no image URL
+
+    try {
+      // Consider using a secure cache mechanism if necessary
+      final imageUrl = await _storage.ref().child(_imageUrl!).getDownloadURL();
+      setState(() {
+        _imageUrl = imageUrl; // Update in case the URL has changed
+      });
+    } on FirebaseException catch (e) {
+      // Handle download error
+      print('Error downloading image: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Error downloading image: ${e.message}'),
+          backgroundColor: Colors.red,
+        ),
+      );
+    }
+  }
+
   Uint8List? _image;
   @override
   Widget build(BuildContext context) {
@@ -29,22 +94,22 @@ class _AccountState extends State<Account> {
               ),
               Stack(
                 children: [
-                  _image != null
+                  _imageUrl != null
                       ? CircleAvatar(
-                          radius: 64,
-                          backgroundImage: MemoryImage(_image!),
-                        )
+                    radius: 64,
+                    backgroundImage: NetworkImage(_imageUrl!),
+                  )
                       : const CircleAvatar(
-                          radius: 45,
-                          backgroundImage: NetworkImage(
-                              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIwRBD9gNuA2GjcOf6mpL-WuBhJADTWC3QVQ&usqp=CAU'),
-                        ),
-                  const Positioned(
-                    bottom: -15,
-                    left: 50,
+                    radius: 60,
+                    backgroundImage: NetworkImage(
+                        'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIwRBD9gNuA2GjcOf6mpL-WuBhJADTWC3QVQ&usqp=CAU'),
+                  ),
+                  Positioned(
+                    bottom: -10,
+                    left: 80,
                     child: IconButton(
-                      onPressed: selectImage,
-                      icon: Icon(Icons.add_a_photo),
+                      onPressed: () => _selectImage().then(_uploadImage as Future Function(void value)),
+                      icon: const Icon(Icons.add_a_photo),
                     ),
                   ),
                 ],

@@ -24,10 +24,10 @@ class _Sarh extends State<Sarh> {
         title: SizedBox(
           child: Transform(
             transform: Matrix4.translationValues(280, 43, 0.0),
-              child: const Text(
-                'صرح',
-                style: TextStyle(color: Colors.black, fontSize: 28),
-              ),
+            child: const Text(
+              'صرح',
+              style: TextStyle(color: Colors.black, fontSize: 28),
+            ),
           ),
         ),
         flexibleSpace: Container(
@@ -60,7 +60,7 @@ class _Sarh extends State<Sarh> {
                       Text(
                         '$firstName اهلاً  ',
                         style:
-                            const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+                        const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                       ),
                     ],
                   ),
