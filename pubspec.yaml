@@ -60,6 +60,7 @@ dependencies:
   agora_uikit: ^1.3.8
   permission_handler: 11.3.1
   shared_preferences: ^2.0.8
+  flutter_sound: ^8.0.0
 
 dev_dependencies:
   flutter_test:
@@ -115,6 +116,7 @@ flutter:
      - assets/sounds/برجر.mp3
      - assets/sounds/جبن.mp3
      - assets/images/Group 89.png
+     - assets/sounds/كان.mp3
  
 
   # An image asset can refer to one or more resolution-specific "variants", see

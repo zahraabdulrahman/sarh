@@ -1,10 +1,7 @@
-import 'dart:html';
 
 import 'package:flutter/material.dart';
 import 'User_Settings.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:path/path.dart' as path;
+
 
 class CardsSettings extends StatefulWidget {
   const CardsSettings({super.key});
@@ -14,12 +11,6 @@ class CardsSettings extends StatefulWidget {
 }
 
 class _CardsSettingsState extends State<CardsSettings> {
-
-
-
-  // Future<void> _saveImageToAssets(String imagePath) async {
-  //   // Your save logic here
-  // }
 
   @override
   Widget build(BuildContext context) {
