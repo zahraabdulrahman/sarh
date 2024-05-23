@@ -3,6 +3,8 @@ import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as path;
+import 'package:http/http.dart' as http;
+import 'dart:io';
 
 class FirstLevel extends StatefulWidget {
   const FirstLevel({super.key});
@@ -95,6 +97,14 @@ class _FirstLevelState extends State<FirstLevel> {
   }
 }
 
-void processAudioFile(String filePath) {
-
+Future<void> processAudioFile(String filePath) async {
+  File audioFile = File(filePath);
+  var request = http.MultipartRequest('POST', Uri.parse('http://127.0.0.1:5000/upload_audio'));
+  request.files.add(await http.MultipartFile.fromPath('file', audioFile.path));
+  var response = await request.send();
+  if (response.statusCode == 200) {
+  print('File uploaded successfully');
+  } else {
+  print('Failed to upload file');
+  }
 }
