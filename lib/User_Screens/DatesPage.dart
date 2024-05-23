@@ -104,13 +104,10 @@ class _DatesPageState extends State<DatesPage> {
     String userIdd = userUID;
     return Scaffold(
       appBar: AppBar(
-        title: Transform(
-          transform: Matrix4.translationValues(280, 43, 0.0),
-          child: const Text(
+        title: const Text(
             'مواعيدي',
-            style: TextStyle(color: Colors.black, fontSize: 28),
+            style: TextStyle(color: Colors.black, fontSize: 16),
           ),
-        ),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
               image: DecorationImage(
@@ -118,6 +115,7 @@ class _DatesPageState extends State<DatesPage> {
                   fit: BoxFit.fill)),
         ),
         toolbarHeight: 250,
+        automaticallyImplyLeading: false,
       ),
       body: Column(
         children: [

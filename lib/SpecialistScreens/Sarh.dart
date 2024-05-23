@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:sarh/User_Screens/consultations.dart';
+
+import 'Upload_Sessions.dart';
 //import 'package:flutter/src/rendering/box.dart';
 // import 'consultations.dart';
 // import 'SessionsPage.dart';
@@ -97,10 +99,10 @@ class _Sarh extends State<Sarh> with WidgetsBindingObserver {
                 const Color(0xFF99CFA5),
               ),
               const SizedBox(height: 50,),
-              buttons(context, "حجز موعد جلسة", () {
+              buttons(context, "رفع موعد جلسة", () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => const Consulations()),
+                  MaterialPageRoute(builder: (context) => const Upload_Sessions()),
                 );
               },
                 const Color(0xFFEFA7A7),
