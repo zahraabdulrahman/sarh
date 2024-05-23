@@ -280,3 +280,100 @@ Widget signInOption(BuildContext context) {
     ),
   );
 }
+
+GestureDetector buttons2(context, height, width, bottom1, left1, bottom2,
+    left2, String title, Function onTap, Color color1, Color color2) {
+  return GestureDetector(
+    onTap: () {
+      onTap();
+    },
+    child: Stack(
+      children: [
+        Container(
+            height: height,
+            width: width,
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.centerRight,
+                end: Alignment.centerLeft,
+                colors: [
+                  // Color(0xFFEFA7A7),
+                  // Color(0xFF99CFA5),
+                  color1,
+                  color2,
+                ],
+              ),
+              borderRadius: BorderRadius.circular(28),
+            ),
+            child: Align(
+                alignment: Alignment.centerRight,
+                child: Padding(
+                  padding: const EdgeInsets.only(right: 15.0),
+                  child: Text(
+                    title,
+                    style: const TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16),
+                  ),
+                ))),
+        Positioned(
+            bottom: bottom1,
+            left: left1,
+            child: ClipRect(
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  widthFactor: 10,
+                  child: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            const Color(0xFFC7EAE4),
+                            const Color(0xFFC7EAE4).withOpacity(0.4),
+                          ]),
+                    ),
+                    child: const Column(
+                      children: [
+                        SizedBox(
+                          height: 25,
+                        ),
+                        // Icon(
+                        //   Icons.upload,
+                        //   color: Colors.black,
+                        //   size: 19,
+                        // ),
+                      ],
+                    ),
+                  ),
+                ))),
+        Positioned(
+            bottom: bottom2,
+            left: left2,
+            child: ClipRect(
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  widthFactor: 1,
+                  child: Container(
+                    width: 65,
+                    height: 65,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      gradient: LinearGradient(
+                          begin: Alignment.topRight,
+                          end: Alignment.bottomLeft,
+                          colors: [
+                            Color(0xFFFFD972),
+                            Color(0xFFEFA7A7),
+                          ]),
+                    ),
+                  ),
+                )))
+      ],
+    ),
+  );
+}

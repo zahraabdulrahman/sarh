@@ -1,10 +1,17 @@
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 //import 'package:flutter/src/rendering/box.dart';
 import 'package:flutter/cupertino.dart';
+import '../reusable_widgets/reusable_widget.dart';
 import 'consultations.dart';
 import 'SessionsPage.dart';
+import 'package:video_player/video_player.dart'; // Import video_player
+import 'package:path_provider/path_provider.dart';
+import 'package:http/http.dart' as http;
+import 'package:chewie/chewie.dart';
 
 class Sarh extends StatefulWidget {
   const Sarh({super.key});
@@ -15,20 +22,83 @@ class Sarh extends StatefulWidget {
 
 class _Sarh extends State<Sarh> {
 
+  final FirebaseStorage _storage = FirebaseStorage.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  List<Lesson> _lessons = [];
+  ChewieController? _chewieController;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchLessons();
+  }
+
+  @override
+  void dispose() {
+    _chewieController?.dispose();
+    super.dispose();
+  }
+
+  Future<void> _fetchLessons() async {
+    // Fetch lessons from Firestore
+    QuerySnapshot<Map<String, dynamic>> snapshot =
+    await _firestore.collection('lessons').get();
+
+    setState(() {
+      _lessons = snapshot.docs.map((doc) => Lesson.fromMap(doc.data())).toList();
+    });
+  }
+
+  Future<void> _playVideo(Lesson lesson) async {
+    if (_chewieController != null) {
+      await _chewieController?.pause();
+      // await _chewieController?.dispose();
+    }
+
+    final videoUrl = await _downloadVideo(lesson.videoUrl);
+    if (videoUrl.isNotEmpty) {
+      _chewieController = ChewieController(
+        videoPlayerController: VideoPlayerController.file(File(videoUrl)),
+        autoInitialize: true,
+        looping: false,
+      );
+
+      setState(() {});
+    }
+  }
+
+  Future<String> _downloadVideo(String videoUrl) async {
+    try {
+      final ref = _storage.ref('videos/$videoUrl');
+      final downloadUrl = await ref.getDownloadURL();
+      final http.Response response = await http.get(Uri.parse(downloadUrl));
+      final bytes = response.bodyBytes;
+      return await writeBytes(bytes);
+    } catch (error) {
+      print('Error downloading video: $error');
+      return '';
+    }
+  }
+
+  Future<String> writeBytes(List<int> bytes) async {
+    final tempDir = await getTemporaryDirectory();
+    final tempFile = File('${tempDir.path}/lesson_video.mp4');
+    await tempFile.writeAsBytes(bytes);
+    return tempFile.path;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       //extendBodyBehindAppBar: true, // <-- Set this
       appBar: AppBar(
-        title: SizedBox(
-          child: Transform(
-            transform: Matrix4.translationValues(280, 43, 0.0),
-            child: const Text(
+        title: const SizedBox(
+          child: Text(
               'صرح',
               style: TextStyle(color: Colors.black, fontSize: 28),
             ),
-          ),
         ),
         flexibleSpace: Container(
           decoration: const BoxDecoration(
@@ -53,138 +123,111 @@ class _Sarh extends State<Sarh> {
                   data['first name'] ?? ''; // Get the first name from data
 
               return SizedBox(
-                child: Transform(
-                  transform: Matrix4.translationValues(265, -5, 0.0),
-                  child: Row(
+                child: Row(
                     children: [
                       Text(
-                        '$firstName اهلاً  ',
+                        'اهلاً $firstName',
                         style:
                         const TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
                       ),
                     ],
                   ),
-                ),
               );
             },
           ),
-          Row(
+          const Row(
             children: [
-              Container(
-                child: SizedBox(
-                  child: Transform(
-                    transform: Matrix4.translationValues(296, -8, 0),
-                    child: const Text("الدروس"),
-                  ),
+              SizedBox(
+                child: Text("الدروس"),
                 ),
-              ),
             ],
           ),
           SizedBox(
-            height: 80,
+            height: 150,
             width: double.infinity,
             child: Padding(
               padding: const EdgeInsets.all(10.0),
               child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 10,
+                itemCount: _lessons.length,
                 itemBuilder: (context, index) {
-                  return Container(
-                    alignment: Alignment.center,
-                    width: 100,
-                    color: Colors.grey[400],
-                    margin: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Text(
-                      'Item $index',
-                      style: const TextStyle(fontSize: 24),
-                    ),
+                  final lesson = _lessons[index];
+                  return ListTile(
+                    title: Text(lesson.text),
+                    subtitle: _chewieController != null &&
+                        _chewieController!.videoPlayerController.value.isInitialized
+                        ? Chewie(controller: _chewieController!)
+                        : const Text('Downloading video...'),
+                    onTap: () async {
+                      if (_chewieController == null ||
+                          !_chewieController!.videoPlayerController.value.isInitialized) {
+                        await _playVideo(lesson);
+                      } else {
+                        _chewieController!.enterFullScreen();
+                      }
+                    },
                   );
                 },
               ),
             ),
           ),
-          SizedBox(
-            height: 80,
-            width: double.infinity,
-            child: Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: 10,
-                itemBuilder: (context, index) {
-                  return Container(
-                    alignment: Alignment.center,
-                    width: 100,
-                    color: Colors.grey[400],
-                    margin: const EdgeInsets.symmetric(horizontal: 8),
-                    child: Text(
-                      'Item $index',
-                      style: const TextStyle(fontSize: 24),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ),
+
+
+
           const Divider(color: Color.fromARGB(255, 216, 188, 128)),
-          Padding(
-            padding: const EdgeInsets.only(top: 15.0),
-            child: Center(
-              child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: Colors.amber.shade100),
-                height: 60,
-                width: 250,
-                child: CupertinoButton(
-                  child: const Text(
-                    'استشارات فورية',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      CupertinoPageRoute(
-                          builder: (context) => const Consulations()),
-                    );
-                  },
-                ),
-              ),
-            ),
+
+          SizedBox(height: 20,),
+          buttons2(
+            context,
+            60.0,
+            250.0,
+            9.0,
+            1.0,
+            20.0,
+            15.0,
+            "استشارات فورية",
+                () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const Consulations()),
+              );
+            },
+            const Color(0xFFFFD972),
+            const Color(0xFF99CFA5),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 8.0),
-            child: Center(
-              child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10.0),
-                    color: Colors.amber.shade100),
-                height: 60,
-                width: 250,
-                child: CupertinoButton(
-                  child: const Text(
-                    'جلسات مجدولة',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 20),
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SessionsPage()),
-                    );
-                  },
-                ),
-              ),
-            ),
+          const SizedBox(height: 20,),
+          buttons2(
+            context,
+            60.0,
+            250.0,
+            9.0,
+            1.0,
+            20.0,
+            15.0,
+            "جلسات مجدولة",
+                () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const SessionsPage()),
+              );
+            },
+            const Color(0xFFEFA7A7),
+            const Color(0xFF99CFA5),
           ),
         ],
       ),
     );
   }
+}
+
+class Lesson {
+  final String videoUrl;
+  final String text;
+  String videoPath; // Local path for downloaded video
+
+  Lesson.fromMap(Map<String, dynamic> data)
+      : videoUrl = data['videoUrl'] as String,
+        text = data['text'] as String,
+        videoPath = '';
 }

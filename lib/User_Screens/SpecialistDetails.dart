@@ -63,13 +63,10 @@ class _SpecialistDetailsState extends State<SpecialistDetails> {
               Navigator.of(context).pop();
             },
           ),
-          title: Transform(
-            transform: Matrix4.translationValues(-10, 43, 0.0),
-            child: const Text(
+          title: const Text(
               'استشارات فورية',
-              style: TextStyle(color: Colors.black, fontSize: 28),
+              style: TextStyle(color: Colors.black, fontSize: 16),
             ),
-          ),
           flexibleSpace: Container(
             decoration: const BoxDecoration(
                 image: DecorationImage(
