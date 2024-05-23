@@ -42,7 +42,6 @@ class _DatesPageState extends State<DatesPage> {
     reservationTimer?.cancel();
     reservationTimer = Timer.periodic(const Duration(seconds: 10), (timer) {
       fetchReservationDetails();
-      print("working");
     });
   }
 
@@ -80,8 +79,7 @@ class _DatesPageState extends State<DatesPage> {
       setState(() {
         callAvailable = reservationData['incoming'] ??
             false; // Set default value if incoming is null
-        print(callAvailable);
-        print(formattedDate);
+
 
         if (callAvailable) {
           // Cancel the previous timer if it exists

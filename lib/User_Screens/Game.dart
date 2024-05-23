@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sarh/User_Screens/FirstLevel.dart';
 
 class Game extends StatefulWidget {
   const Game({super.key});
@@ -42,7 +43,15 @@ class _GameState extends State<Game> {
               children: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Container(
+                  child: GestureDetector(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const FirstLevel(),
+                        ),
+                      );
+                    },child: Container(
                     height: 30,
                     width: 30,
                     alignment: Alignment.center,
@@ -52,6 +61,7 @@ class _GameState extends State<Game> {
                     ),
                     child: const Text("١", style: TextStyle(fontSize: 68)),
                   ),
+                )
                 ),
                 const SizedBox(height: 30,),
                 const SizedBox(height: 30,),
