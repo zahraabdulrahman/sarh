@@ -35,10 +35,12 @@ dependencies:
   flutter_localizations :
     sdk: flutter
   video_player: ^2.8.3
+  chewie: ^1.8.1
   youtube_player_flutter: ^9.0.0
   file_picker: ^8.0.0+1
   pdf: ^3.10.8
   firebase_database: ^10.5.0
+
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -56,12 +58,13 @@ dependencies:
   image_picker: ^1.0.7
 
   audioplayers: ^6.0.0
-  provider: ^5.0.0
+  provider: 6.1.2
   agora_uikit: ^1.3.8
   permission_handler: 11.3.1
   shared_preferences: ^2.0.8
+
   flutter_sound: ^8.0.0
-#
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -116,7 +119,8 @@ flutter:
      - assets/sounds/برجر.mp3
      - assets/sounds/جبن.mp3
      - assets/images/Group 89.png
-     - assets/sounds/كان.mp3
+     - assets/images/mada.png
+     - assets/images/madaCard.png
  
 
   # An image asset can refer to one or more resolution-specific "variants", see
