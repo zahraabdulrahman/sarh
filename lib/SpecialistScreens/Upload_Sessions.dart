@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
-
 class Upload_Sessions extends StatefulWidget {
   const Upload_Sessions({Key? key}) : super(key: key);
 
@@ -55,10 +54,14 @@ class _Upload_SessionsState extends State<Upload_Sessions> {
         selectedTime!.hour,
         selectedTime!.minute,
       );
+
+      // Format the date to the desired Arabic format
+      final String formattedDate = DateFormat('MMMM d, yyyy', 'ar_SA').format(selectedDate!);
       final String formattedTime = DateFormat('h:mm a', 'ar_SA').format(dateTime);
+
       await sessionsCollection.add({
         'uid': user.uid,
-        'date': selectedDate!,
+        'date': formattedDate,
         'time': formattedTime,
       }).then((value) {
         print('Session saved successfully');
@@ -77,7 +80,6 @@ class _Upload_SessionsState extends State<Upload_Sessions> {
       );
     }
   }
-
 
   @override
   Widget build(BuildContext context) {

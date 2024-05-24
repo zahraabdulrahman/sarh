@@ -179,7 +179,7 @@ class _Register_specialistState extends State<Register_specialist> {
           SizedBox(
             width: 400,
             height: 40,
-            child: reusableTextField("ادخل اسمك الاول", Icons.email, false,
+            child: reusableTextField("ادخل اسمك الاول", Icons.perm_identity_outlined, false,
                 _firstNameTextController,false),
           ),
           const SizedBox(
@@ -292,7 +292,10 @@ class _Register_specialistState extends State<Register_specialist> {
           ),
 
           ElevatedButton(
-            onPressed: pickFile, child: const Text('ارفع الملف'),
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.white, // Change the button color here
+            ),
+            onPressed: pickFile, child: const Text('ارفع الشهادة', style: TextStyle(color: Colors.black),),
           ),
 
 

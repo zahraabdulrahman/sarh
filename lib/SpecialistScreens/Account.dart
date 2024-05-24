@@ -100,13 +100,13 @@ class _AccountState extends State<Account> {
                     backgroundImage: NetworkImage(_imageUrl!),
                   )
                       : const CircleAvatar(
-                    radius: 60,
+                    radius: 50,
                     backgroundImage: NetworkImage(
                         'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIwRBD9gNuA2GjcOf6mpL-WuBhJADTWC3QVQ&usqp=CAU'),
                   ),
                   Positioned(
                     bottom: -10,
-                    left: 80,
+                    left: 60,
                     child: IconButton(
                       onPressed: () => _selectImage().then(_uploadImage as Future Function(void value)),
                       icon: const Icon(Icons.add_a_photo),
@@ -356,18 +356,20 @@ class _AccountState extends State<Account> {
                   if (snapshot.hasError) {
                     return Text('Error = ${snapshot.error}');
                   }
+                  if (!snapshot.hasData || !snapshot.data!.exists) {
+                    return Text('Loading...');
+                  }
                   Map<String, dynamic> data = snapshot.data!.data()!;
-                  String selectedExperience = data['experience']
-                      .toString()
-                      .toLowerCase(); // Ensure lowercase match
+                  String selectedExperience = data['experience']?.toString().toLowerCase() ?? 'اختر سنوات الخبرة'; // Default value
                   List<String> experienceOptions = [
+                    'اختر الخبرة',
                     '1',
                     '2',
                     '3',
                     '4',
                     '5',
                     'اكثر من 5'
-                  ]; // Remove duplicates
+                  ];
 
                   return Center(
                     child: Row(
@@ -389,7 +391,7 @@ class _AccountState extends State<Account> {
                                 color: Colors.black,
                                 width: 1.0), // Border around the menu
                             borderRadius:
-                                BorderRadius.circular(20.0), // Rounded corners
+                            BorderRadius.circular(20.0), // Rounded corners
                           ),
                           child: DropdownButton<String>(
                             value: selectedExperience,
@@ -403,10 +405,10 @@ class _AccountState extends State<Account> {
                                     .collection('specialists')
                                     .doc(FirebaseAuth.instance.currentUser!.uid)
                                     .update({'experience': newValue})
-                                    .then((_) => print(
-                                        'Experience updated successfully'))
+                                    .then((_) =>
+                                    print('Experience updated successfully'))
                                     .catchError((error) => print(
-                                        'Failed to update Experience: $error'));
+                                    'Failed to update Experience: $error'));
                               });
                             },
                             items: experienceOptions.map((String option) {
@@ -439,15 +441,19 @@ class _AccountState extends State<Account> {
                   if (snapshot.hasError) {
                     return Text('Error = ${snapshot.error}');
                   }
+                  if (!snapshot.hasData || !snapshot.data!.exists) {
+                    return Text('Loading...');
+                  }
                   Map<String, dynamic> data = snapshot.data!.data()!;
 
                   // Replace with your actual list of majors retrieved from Firestore
                   List<String> majorOptions = [
+                    'اختر التخصص',
                     'اضطرابات',
                     'أخصائي أمراض واضطرابات اللغة',
                     'أخصائي أمراض واضطرابات الكلام',
                     'أخصائي أمراض النطق واللغة والسمع '
-                  ]; // Example
+                  ];
 
                   return Center(
                     child: Row(
@@ -469,8 +475,7 @@ class _AccountState extends State<Account> {
                             borderRadius: BorderRadius.circular(20.0), // Rounded corners
                           ),
                           child: DropdownButton<String>(
-                            value: data['major']?.toString() ??
-                                "", // Set initial value
+                            value: data['major']?.toString() ?? 'اختر التخصص', // Default value
                             onChanged: (newValue) {
                               setState(() {
                                 data['major'] = newValue!;
@@ -480,9 +485,9 @@ class _AccountState extends State<Account> {
                                     .doc(FirebaseAuth.instance.currentUser!.uid)
                                     .update({'major': newValue})
                                     .then((_) =>
-                                        print('Major updated successfully'))
+                                    print('Major updated successfully'))
                                     .catchError((error) =>
-                                        print('Failed to update Major: $error'));
+                                    print('Failed to update Major: $error'));
                               });
                             },
                             items: majorOptions.map((String option) {

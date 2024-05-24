@@ -161,9 +161,16 @@ class _SpecialistSessionsDetalisState extends State<SpecialistSessionsDetalis> {
                     const SizedBox(
                       height: 35,
                     ),
-                    const Row(
+                     Row(
                       children: [
                         Text(
+                          'التاريخ: ${widget.date}',
+                          style: const TextStyle(color: Colors.black),
+                        ),
+                        const SizedBox(
+                          width: 100,
+                        ),
+                        const Text(
                           '150رس/45د',
                           style: TextStyle(color: Colors.black),
                         ),
