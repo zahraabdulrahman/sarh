@@ -13,10 +13,8 @@ TextField reusableTextField(
   String text,
   IconData icon,
   bool isPasswordType,
-  TextEditingController controller,
-  bool isInputWrong, // Add a parameter to indicate if input is wrong
+  TextEditingController controller, // Add a parameter to indicate if input is wrong
 ) {
-  Color borderColor = isInputWrong? Colors.red : Colors.grey.withOpacity(0.9);
 
   return TextField(
     controller: controller,
@@ -24,7 +22,7 @@ TextField reusableTextField(
     enableSuggestions: !isPasswordType,
     autocorrect: !isPasswordType,
     cursorColor: Colors.white,
-    style: TextStyle(color: borderColor),
+    style: TextStyle(color: Colors.black),
     decoration: InputDecoration(
       contentPadding: const EdgeInsets.symmetric(vertical: -5),
       prefixIcon: Icon(
@@ -36,8 +34,8 @@ TextField reusableTextField(
       filled: true,
       floatingLabelBehavior: FloatingLabelBehavior.never,
       fillColor: Colors.white.withOpacity(0.3),
-      focusedBorder: UnderlineInputBorder(
-        borderSide: BorderSide(color: borderColor),
+      focusedBorder: const UnderlineInputBorder(
+        borderSide: BorderSide(color: Colors.black),
       ),
       errorBorder: const UnderlineInputBorder(
         borderSide: BorderSide(color: Colors.red),

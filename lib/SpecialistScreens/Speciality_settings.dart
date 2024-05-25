@@ -181,7 +181,7 @@ class _Speciality_settings extends State<Speciality_settings> {
                                                 onPressed: () async {
                                                   String userId = FirebaseAuth.instance.currentUser!.uid;
                                                   FirebaseFirestore.instance
-                                                      .collection('users')
+                                                      .collection('specialists')
                                                       .doc(userId)
                                                       .delete();
                                                   await FirebaseAuth.instance.currentUser!.delete();

@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -129,14 +128,14 @@ class _AccountState extends State<Account> {
                   Map<String, dynamic> data = snapshot.data!.data()!;
                   TextEditingController controller = TextEditingController(
                       text:
-                          data['first name']); // Create a TextEditingController
+                      data['first name']); // Create a TextEditingController
                   return Center(
                     child: SizedBox(
                       width: 255,
                       height: 30,
                       child: TextField(
                         controller:
-                            controller, // Set the controller for the TextField
+                        controller, // Set the controller for the TextField
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20.0),
@@ -144,12 +143,12 @@ class _AccountState extends State<Account> {
                           fillColor: Colors.grey.shade200,
                           filled: true,
                           contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 16.0),
+                          const EdgeInsets.symmetric(horizontal: 16.0),
                           labelText: 'الاسم الاول',
                         ),
                         style: const TextStyle(
                             fontSize:
-                                12), // Style for the text in the TextField
+                            12), // Style for the text in the TextField
                         textAlign: TextAlign.center,
                         onChanged: (value) {
                           // Update the data when the TextField value changes
@@ -162,7 +161,7 @@ class _AccountState extends State<Account> {
                               .update({'first name': value})
                               .then((_) => print('Name updated successfully'))
                               .catchError((error) =>
-                                  print('Failed to update name: $error'));
+                              print('Failed to update name: $error'));
                         },
                       ),
                     ),
@@ -184,14 +183,14 @@ class _AccountState extends State<Account> {
                   Map<String, dynamic> data = snapshot.data!.data()!;
                   TextEditingController controller = TextEditingController(
                       text:
-                          data['last name']); // Create a TextEditingController
+                      data['last name']); // Create a TextEditingController
                   return Center(
                     child: SizedBox(
                       width: 255,
                       height: 30,
                       child: TextField(
                         controller:
-                            controller, // Set the controller for the TextField
+                        controller, // Set the controller for the TextField
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20.0),
@@ -199,12 +198,12 @@ class _AccountState extends State<Account> {
                           fillColor: Colors.grey.shade200,
                           filled: true,
                           contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 16.0),
+                          const EdgeInsets.symmetric(horizontal: 16.0),
                           labelText: 'الاسم الاخير',
                         ),
                         style: const TextStyle(
                             fontSize:
-                                12), // Style for the text in the TextField
+                            12), // Style for the text in the TextField
                         textAlign: TextAlign.center,
                         onChanged: (value) {
                           // Update the data when the TextField value changes
@@ -217,7 +216,7 @@ class _AccountState extends State<Account> {
                               .update({'last name': value})
                               .then((_) => print('Name updated successfully'))
                               .catchError((error) =>
-                                  print('Failed to update name: $error'));
+                              print('Failed to update name: $error'));
                         },
                       ),
                     ),
@@ -245,7 +244,7 @@ class _AccountState extends State<Account> {
                       height: 30,
                       child: TextField(
                         controller:
-                            controller, // Set the controller for the TextField
+                        controller, // Set the controller for the TextField
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20.0),
@@ -253,12 +252,12 @@ class _AccountState extends State<Account> {
                           fillColor: Colors.grey.shade200,
                           filled: true,
                           contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 16.0),
+                          const EdgeInsets.symmetric(horizontal: 16.0),
                           labelText: 'البريد الالكتروني',
                         ),
                         style: const TextStyle(
                             fontSize:
-                                12), // Style for the text in the TextField
+                            12), // Style for the text in the TextField
                         textAlign: TextAlign.center,
                         onChanged: (value) {
                           // Update the data when the TextField value changes
@@ -271,7 +270,7 @@ class _AccountState extends State<Account> {
                               .update({'email': value})
                               .then((_) => print('Email updated successfully'))
                               .catchError((error) =>
-                                  print('Failed to update Email: $error'));
+                              print('Failed to update Email: $error'));
                         },
                       ),
                     ),
@@ -307,12 +306,12 @@ class _AccountState extends State<Account> {
                           fillColor: Colors.grey.shade200,
                           filled: true,
                           contentPadding:
-                              const EdgeInsets.symmetric(horizontal: 16.0),
+                          const EdgeInsets.symmetric(horizontal: 16.0),
                           labelText: 'تاريخ الميلاد',
                         ),
                         style: const TextStyle(
                             fontSize:
-                                12), // Style for the text in the TextField
+                            12), // Style for the text in the TextField
                         textAlign: TextAlign.center,
                         onTap: () async {
                           DateTime? pickedDate = await showDatePicker(
@@ -325,7 +324,7 @@ class _AccountState extends State<Account> {
 
                           if (pickedDate != null) {
                             String formattedDate =
-                                DateFormat('yyyy-MM-dd').format(pickedDate);
+                            DateFormat('yyyy-MM-dd').format(pickedDate);
                             controller.text = formattedDate;
                             data['date'] = formattedDate;
 
@@ -336,7 +335,7 @@ class _AccountState extends State<Account> {
                                 .update({'date': formattedDate})
                                 .then((_) => print('Date updated successfully'))
                                 .catchError((error) =>
-                                    print('Failed to update Date: $error'));
+                                print('Failed to update Date: $error'));
                           }
                         },
                       ),
@@ -347,6 +346,163 @@ class _AccountState extends State<Account> {
               const SizedBox(
                 height: 15,
               ),
+              // FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+              //   future: FirebaseFirestore.instance
+              //       .collection('specialists')
+              //       .doc(FirebaseAuth.instance.currentUser!.uid)
+              //       .get(),
+              //   builder: (_, snapshot) {
+              //     if (snapshot.hasError) {
+              //       return Text('Error = ${snapshot.error}');
+              //     }
+              //     if (!snapshot.hasData || !snapshot.data!.exists) {
+              //       return Text('Loading...');
+              //     }
+              //     Map<String, dynamic> data = snapshot.data!.data()!;
+              //     String selectedExperience = data['experience']?.toString().toLowerCase() ?? 'اختر سنوات الخبرة'; // Default value
+              //     List<String> experienceOptions = [
+              //       'اختر الخبرة',
+              //       '1',
+              //       '2',
+              //       '3',
+              //       '4',
+              //       '5',
+              //       'اكثر من 5'
+              //     ];
+              //
+              //     return Center(
+              //       child: Row(
+              //         mainAxisAlignment: MainAxisAlignment.center,
+              //         children: [
+              //           const Text(
+              //             'سنوات الخبرة : ',
+              //             style: TextStyle(fontSize: 12),
+              //           ),
+              //           const SizedBox(
+              //             width: 15,
+              //           ),
+              //           Container(
+              //             height: 30,
+              //             padding: const EdgeInsets.symmetric(horizontal: 50),
+              //             decoration: BoxDecoration(
+              //               color: Colors.grey.shade200,
+              //               border: Border.all(
+              //                   color: Colors.black,
+              //                   width: 1.0), // Border around the menu
+              //               borderRadius:
+              //               BorderRadius.circular(20.0), // Rounded corners
+              //             ),
+              //             child: DropdownButton<String>(
+              //               value: selectedExperience,
+              //               onChanged: (newValue) {
+              //                 setState(() {
+              //                   selectedExperience = newValue!;
+              //                   data['experience'] = newValue;
+              //
+              //                   // Update Firestore with the new data
+              //                   FirebaseFirestore.instance
+              //                       .collection('specialists')
+              //                       .doc(FirebaseAuth.instance.currentUser!.uid)
+              //                       .update({'experience': newValue})
+              //                       .then((_) =>
+              //                       print('Experience updated successfully'))
+              //                       .catchError((error) => print(
+              //                       'Failed to update Experience: $error'));
+              //                 });
+              //               },
+              //               items: experienceOptions.map((String option) {
+              //                 return DropdownMenuItem<String>(
+              //                   value: option
+              //                       .toLowerCase(), // Ensure lowercase value
+              //                   child: Text(
+              //                     option,
+              //                     style: const TextStyle(fontSize: 12),
+              //                   ),
+              //                 );
+              //               }).toList(),
+              //               underline: Container(),
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //     );
+              //   },
+              // ),
+              // const SizedBox(
+              //   height: 15,
+              // ),
+              // FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+              //   future: FirebaseFirestore.instance
+              //       .collection('specialists')
+              //       .doc(FirebaseAuth.instance.currentUser!.uid)
+              //       .get(),
+              //   builder: (_, snapshot) {
+              //     if (snapshot.hasError) {
+              //       return Text('Error = ${snapshot.error}');
+              //     }
+              //     if (!snapshot.hasData || !snapshot.data!.exists) {
+              //       return Text('Loading...');
+              //     }
+              //     Map<String, dynamic> data = snapshot.data!.data()!;
+              //
+              //     // Replace with your actual list of majors retrieved from Firestore
+              //     List<String> majorOptions = [
+              //       'اختر التخصص',
+              //       'اضطرابات',
+              //       'أخصائي أمراض واضطرابات اللغة',
+              //       'أخصائي أمراض واضطرابات الكلام',
+              //       'أخصائي أمراض النطق واللغة والسمع '
+              //     ];
+              //
+              //     return Center(
+              //       child: Row(
+              //         mainAxisAlignment: MainAxisAlignment.center,
+              //         children: [
+              //           const Text(
+              //             'التخصص: ',
+              //             style: TextStyle(fontSize: 12),
+              //           ),
+              //           const SizedBox(
+              //             width: 5,
+              //           ),
+              //           Container(
+              //             height: 30,
+              //             padding: const EdgeInsets.symmetric(horizontal: 10),
+              //             decoration: BoxDecoration(
+              //               color: Colors.grey.shade200,
+              //               border: Border.all(color: Colors.black, width: 1.0), // Border around the menu
+              //               borderRadius: BorderRadius.circular(20.0), // Rounded corners
+              //             ),
+              //             child: DropdownButton<String>(
+              //               value: data['major']?.toString() ?? 'اختر التخصص', // Default value
+              //               onChanged: (newValue) {
+              //                 setState(() {
+              //                   data['major'] = newValue!;
+              //                   // Update Firestore with the new data
+              //                   FirebaseFirestore.instance
+              //                       .collection('specialists')
+              //                       .doc(FirebaseAuth.instance.currentUser!.uid)
+              //                       .update({'major': newValue})
+              //                       .then((_) =>
+              //                       print('Major updated successfully'))
+              //                       .catchError((error) =>
+              //                       print('Failed to update Major: $error'));
+              //                 });
+              //               },
+              //               items: majorOptions.map((String option) {
+              //                 return DropdownMenuItem<String>(
+              //                   value: option.toLowerCase(),
+              //                   child: Text(option, style: TextStyle(fontSize: 12),),
+              //                 );
+              //               }).toList(),
+              //               underline: Container(),
+              //             ),
+              //           ),
+              //         ],
+              //       ),
+              //     );
+              //   },
+              // ),
               FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
                 future: FirebaseFirestore.instance
                     .collection('specialists')
@@ -356,71 +512,70 @@ class _AccountState extends State<Account> {
                   if (snapshot.hasError) {
                     return Text('Error = ${snapshot.error}');
                   }
-                  if (!snapshot.hasData || !snapshot.data!.exists) {
-                    return Text('Loading...');
-                  }
                   Map<String, dynamic> data = snapshot.data!.data()!;
-                  String selectedExperience = data['experience']?.toString().toLowerCase() ?? 'اختر سنوات الخبرة'; // Default value
+
                   List<String> experienceOptions = [
-                    'اختر الخبرة',
-                    '1',
-                    '2',
-                    '3',
-                    '4',
-                    '5',
-                    'اكثر من 5'
-                  ];
+                         '1',
+                         '2',
+                         '3',
+                         '4',
+                         '5',
+                         'اكثر من 5'
+                       ];
 
                   return Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const Text(
-                          'سنوات الخبرة : ',
+                          'سنوات الخبرة: ',
                           style: TextStyle(fontSize: 12),
                         ),
                         const SizedBox(
-                          width: 15,
+                          width: 3,
                         ),
                         Container(
                           height: 30,
-                          padding: const EdgeInsets.symmetric(horizontal: 50),
+                          padding: const EdgeInsets.symmetric(horizontal: 20),
                           decoration: BoxDecoration(
                             color: Colors.grey.shade200,
-                            border: Border.all(
-                                color: Colors.black,
-                                width: 1.0), // Border around the menu
-                            borderRadius:
-                            BorderRadius.circular(20.0), // Rounded corners
+                            border: Border.all(color: Colors.black, width: 1.0), // Border around the menu
+                            borderRadius: BorderRadius.circular(20.0), // Rounded corners
                           ),
                           child: DropdownButton<String>(
-                            value: selectedExperience,
+                            value: data['experience']
+                                ?.toString(), // Check for null before conversion
                             onChanged: (newValue) {
                               setState(() {
-                                selectedExperience = newValue!;
                                 data['experience'] = newValue;
-
                                 // Update Firestore with the new data
-                                FirebaseFirestore.instance
-                                    .collection('specialists')
-                                    .doc(FirebaseAuth.instance.currentUser!.uid)
-                                    .update({'experience': newValue})
-                                    .then((_) =>
-                                    print('Experience updated successfully'))
-                                    .catchError((error) => print(
-                                    'Failed to update Experience: $error'));
+                                if (newValue != null) {
+                                  // Update only if a value is selected
+                                  FirebaseFirestore.instance
+                                      .collection('specialists')
+                                      .doc(FirebaseAuth.instance.currentUser!.uid)
+                                      .update({'experience': newValue})
+                                      .then((_) =>
+                                      print('experience updated successfully'))
+                                      .catchError((error) => print(
+                                      'Failed to update experience: $error'));
+                                }
                               });
                             },
-                            items: experienceOptions.map((String option) {
-                              return DropdownMenuItem<String>(
-                                value: option
-                                    .toLowerCase(), // Ensure lowercase value
+                            items: [
+                              // Add an empty option for default null value
+                              const DropdownMenuItem<String>(
+                                value: null,
                                 child: Text(
-                                  option,
-                                  style: const TextStyle(fontSize: 12),
-                                ),
-                              );
-                            }).toList(),
+                                    'اختر سنوات الخبرة'), // Customize the text for null option
+                              ),
+                              ...experienceOptions.map((String option) {
+                                return DropdownMenuItem<String>(
+                                  value: option,
+                                  child: Text(option, style: const TextStyle(fontSize: 12),),
+                                );
+                              }).toList(),
+                            ],
                             underline: Container(),
                           ),
                         ),
@@ -429,9 +584,11 @@ class _AccountState extends State<Account> {
                   );
                 },
               ),
+
               const SizedBox(
                 height: 15,
               ),
+
               FutureBuilder<DocumentSnapshot<Map<String, dynamic>>>(
                 future: FirebaseFirestore.instance
                     .collection('specialists')
@@ -441,19 +598,15 @@ class _AccountState extends State<Account> {
                   if (snapshot.hasError) {
                     return Text('Error = ${snapshot.error}');
                   }
-                  if (!snapshot.hasData || !snapshot.data!.exists) {
-                    return Text('Loading...');
-                  }
                   Map<String, dynamic> data = snapshot.data!.data()!;
 
-                  // Replace with your actual list of majors retrieved from Firestore
                   List<String> majorOptions = [
-                    'اختر التخصص',
-                    'اضطرابات',
-                    'أخصائي أمراض واضطرابات اللغة',
-                    'أخصائي أمراض واضطرابات الكلام',
-                    'أخصائي أمراض النطق واللغة والسمع '
-                  ];
+                         'اختر التخصص',
+                         'اضطرابات',
+                         'أخصائي أمراض واضطرابات اللغة',
+                         'أخصائي أمراض واضطرابات الكلام',
+                         'أخصائي أمراض النطق واللغة والسمع '
+                       ];
 
                   return Center(
                     child: Row(
@@ -464,38 +617,50 @@ class _AccountState extends State<Account> {
                           style: TextStyle(fontSize: 12),
                         ),
                         const SizedBox(
-                          width: 5,
+                          width: 2,
                         ),
                         Container(
                           height: 30,
-                          padding: const EdgeInsets.symmetric(horizontal: 10),
+                          padding: const EdgeInsets.symmetric(horizontal: 4),
                           decoration: BoxDecoration(
                             color: Colors.grey.shade200,
                             border: Border.all(color: Colors.black, width: 1.0), // Border around the menu
                             borderRadius: BorderRadius.circular(20.0), // Rounded corners
                           ),
                           child: DropdownButton<String>(
-                            value: data['major']?.toString() ?? 'اختر التخصص', // Default value
+                            value: data['major']
+                                ?.toString(), // Check for null before conversion
                             onChanged: (newValue) {
                               setState(() {
-                                data['major'] = newValue!;
+                                data['major'] = newValue;
                                 // Update Firestore with the new data
-                                FirebaseFirestore.instance
-                                    .collection('specialists')
-                                    .doc(FirebaseAuth.instance.currentUser!.uid)
-                                    .update({'major': newValue})
-                                    .then((_) =>
-                                    print('Major updated successfully'))
-                                    .catchError((error) =>
-                                    print('Failed to update Major: $error'));
+                                if (newValue != null) {
+                                  // Update only if a value is selected
+                                  FirebaseFirestore.instance
+                                      .collection('specialists')
+                                      .doc(FirebaseAuth.instance.currentUser!.uid)
+                                      .update({'major': newValue})
+                                      .then((_) =>
+                                      print('major updated successfully'))
+                                      .catchError((error) => print(
+                                      'Failed to update major: $error'));
+                                }
                               });
                             },
-                            items: majorOptions.map((String option) {
-                              return DropdownMenuItem<String>(
-                                value: option.toLowerCase(),
-                                child: Text(option, style: TextStyle(fontSize: 12),),
-                              );
-                            }).toList(),
+                            items: [
+                              // Add an empty option for default null value
+                              const DropdownMenuItem<String>(
+                                value: null,
+                                child: Text(
+                                    'اختر الجنس'), // Customize the text for null option
+                              ),
+                              ...majorOptions.map((String option) {
+                                return DropdownMenuItem<String>(
+                                  value: option,
+                                  child: Text(option,style: TextStyle(fontSize: 12),),
+                                );
+                              }).toList(),
+                            ],
                             underline: Container(),
                           ),
                         ),
@@ -504,6 +669,7 @@ class _AccountState extends State<Account> {
                   );
                 },
               ),
+
               const SizedBox(
                 height: 15,
               ),
@@ -536,7 +702,7 @@ class _AccountState extends State<Account> {
                         ),
                         Container(
                           height: 30,
-                          padding: const EdgeInsets.symmetric(horizontal: 55),
+                          padding: const EdgeInsets.symmetric(horizontal: 50),
                           decoration: BoxDecoration(
                             color: Colors.grey.shade200,
                             border: Border.all(color: Colors.black, width: 1.0), // Border around the menu
@@ -556,9 +722,9 @@ class _AccountState extends State<Account> {
                                       .doc(FirebaseAuth.instance.currentUser!.uid)
                                       .update({'gender': newValue})
                                       .then((_) =>
-                                          print('Gender updated successfully'))
+                                      print('Gender updated successfully'))
                                       .catchError((error) => print(
-                                          'Failed to update Gender: $error'));
+                                      'Failed to update Gender: $error'));
                                 }
                               });
                             },
@@ -572,7 +738,7 @@ class _AccountState extends State<Account> {
                               ...genderOptions.map((String option) {
                                 return DropdownMenuItem<String>(
                                   value: option,
-                                  child: Text(option),
+                                  child: Text(option, style: TextStyle(fontSize: 12),),
                                 );
                               }).toList(),
                             ],

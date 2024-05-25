@@ -42,7 +42,7 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
 
       timer = Timer.periodic(
         const Duration(seconds: 3),
-        (_) => checkEmailVerified(),
+            (_) => checkEmailVerified(),
       );
     }
   }
@@ -81,12 +81,12 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
   Widget build(BuildContext context) {
     if (isEmailVerified) {
       addUserDetails(
-        widget.firstName,
-        widget.lastName,
-        widget.user.email!,
-        widget.date,
-        widget.user.uid,
-        widget.isSpecialist
+          widget.firstName,
+          widget.lastName,
+          widget.user.email!,
+          widget.date,
+          widget.user.uid,
+          widget.isSpecialist
       );
       print(widget.isSpecialist);
       print(widget.firstName);
@@ -150,14 +150,23 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
 
 Future<void> addUserDetails(String firstName, String lastName, String email,
     String date, String uid, bool isSpecialist) async {
-  String collectionName = isSpecialist ? 'specialists' : 'users';
-
-  await FirebaseFirestore.instance.collection(collectionName).doc(uid).set({
-    'first name': firstName,
-    'last name': lastName,
-    'date': date,
-    'email': email,
-    'uid': uid,
-    'isSpecialist': isSpecialist,
-  });
+  if( isSpecialist ){
+    await FirebaseFirestore.instance.collection('specialists').doc(uid).set({
+      'first name': firstName,
+      'last name': lastName,
+      'date': date,
+      'email': email,
+      'uid': uid,
+      'isSpecialist': isSpecialist,
+    });
+  }else{
+    await FirebaseFirestore.instance.collection('users').doc(uid).set({
+      'first name': firstName,
+      'last name': lastName,
+      'date': date,
+      'email': email,
+      'uid': uid,
+      'isSpecialist': isSpecialist,
+    });
+  }
 }

@@ -154,7 +154,7 @@ class _Register_studentState extends State<Register_student> {
             width: 400,
             height: 40,
             child: reusableTextField("ادخل بريدك الالكتروني", Icons.email,
-                false, _emailTextController,true),
+                false, _emailTextController),
           ),
           const SizedBox(
             height: 10,
@@ -177,7 +177,7 @@ class _Register_studentState extends State<Register_student> {
             width: 400,
             height: 40,
             child: reusableTextField("ادخل اسمك الاول", Icons.email, false,
-                _firstNameTextController, false),
+                _firstNameTextController),
           ),
           const SizedBox(
             height: 5,
@@ -200,7 +200,7 @@ class _Register_studentState extends State<Register_student> {
             width: 400,
             height: 40,
             child: reusableTextField("ادخل اسمك الاخير", Icons.email, false,
-                _lastNameTextController, false),
+                _lastNameTextController),
           ),
 
           Container(
@@ -257,7 +257,7 @@ class _Register_studentState extends State<Register_student> {
             width: 400,
             height: 40,
             child: reusableTextField(
-                "ادخل كلمة السر", Icons.lock, true, _passwordTextController,passwordsCheck()),
+                "ادخل كلمة السر", Icons.lock, true, _passwordTextController),
           ),
           const SizedBox(
             height: 10,
@@ -280,7 +280,7 @@ class _Register_studentState extends State<Register_student> {
             width: 400,
             height: 40,
             child: reusableTextField(
-                " ادخل كلمة السر مجددا", Icons.lock, true, _confirmPass,passwordsCheck()),
+                " ادخل كلمة السر مجددا", Icons.lock, true, _confirmPass),
           ),
 
           firebaseUIButton(context, "اكمال", ()async{
@@ -335,17 +335,8 @@ class _Register_studentState extends State<Register_student> {
     if (_passwordTextController.text.trim() == _confirmPass.text.trim()) {
       return true;
     } else {
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   const SnackBar(
-      //     content: Text('كلمة المرور غير متطابقة'),
-      //   ),
-      // );
       return false;
     }
-  }
-
-  bool passwordsCheck() {
-    return !confirmedPasssowrd(); // Return true if not confirmed (mismatch)
   }
 
 }

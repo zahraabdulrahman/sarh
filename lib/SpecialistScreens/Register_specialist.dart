@@ -156,7 +156,7 @@ class _Register_specialistState extends State<Register_specialist> {
             width: 400,
             height: 40,
             child: reusableTextField("ادخل بريدك الالكتروني", Icons.email,
-                false, _emailTextController,false),
+                false, _emailTextController),
           ),
           const SizedBox(
             height: 10,
@@ -180,7 +180,7 @@ class _Register_specialistState extends State<Register_specialist> {
             width: 400,
             height: 40,
             child: reusableTextField("ادخل اسمك الاول", Icons.perm_identity_outlined, false,
-                _firstNameTextController,false),
+                _firstNameTextController),
           ),
           const SizedBox(
             height: 5,
@@ -203,48 +203,55 @@ class _Register_specialistState extends State<Register_specialist> {
           SizedBox(
             width: 400,
             height: 40,
-            child: reusableTextField("ادخل اسمك الاخير", Icons.email, false,
-                _lastNameTextController,false),
+            child: reusableTextField("ادخل اسمك الاخير", Icons.perm_identity_outlined, false,
+                _lastNameTextController),
           ),
 
           Container(
-              padding: const EdgeInsets.all(15),
-              child: Center(
-                  child: TextField(
-                    controller: _dateinput, //editing controller of this TextField
-                    decoration: const InputDecoration(
-                        icon: Icon(Icons.calendar_today), //icon of text field
-                        labelText: "يوم ميلادك", //label text of field
-                      labelStyle: TextStyle(fontSize: 12)
-                    ),
-                    readOnly:
-                    true, //set it true, so that user will not able to edit text
-                    onTap: () async {
-                      DateTime? pickedDate = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(
-                              1900), //DateTime.now() - not to allow to choose before today.
-                          lastDate: DateTime.now());
-
-                      if (pickedDate != null) {
-                        print(
-                            pickedDate); //pickedDate output format => 2021-03-10 00:00:00.000
-                        String formattedDate =
-                        DateFormat('yyyy-MM-dd').format(pickedDate);
-                        print(
-                            formattedDate); //formatted date output using intl package =>  2021-03-16
-                        //you can implement different kind of Date Format here according to your requirement
-
-                        setState(() {
-                          _dateinput.text =
-                              formattedDate; //set output date to TextField value.
-                        });
-                      } else {
-                        print("Date is not selected");
-                      }
+            padding: const EdgeInsets.all(15),
+            child: Center(
+              child: TextField(
+                controller: _dateinput, // Controller for this TextField
+                decoration: const InputDecoration(
+                  icon: Icon(Icons.calendar_today, color: Colors.grey), // Icon for the TextField
+                  labelText: "يوم ميلادك", // Label text for the TextField
+                  labelStyle: TextStyle(fontSize: 12),
+                ),
+                readOnly: true, // Set to true to make the field read-only
+                onTap: () async {
+                  DateTime? pickedDate = await showDatePicker(
+                    context: context,
+                    firstDate: DateTime(DateTime.now().year - 50, 1, 1), // 50 years ago from today
+                    lastDate: DateTime(DateTime.now().year - 20, 12, 31), // 7 years ago from today (Dec 31st)
+                    builder: (BuildContext context, Widget? child) {
+                      return Theme(
+                        data: ThemeData.light().copyWith(
+                          colorScheme: ColorScheme.light(primary: Color(0xFFA7E8BD), onPrimary: Colors.black), // Set primary and text color
+                          buttonTheme: ButtonThemeData(
+                            textTheme: ButtonTextTheme.primary,
+                            colorScheme: ColorScheme.light(primary: Colors.red), // Set button color
+                          ),
+                        ),
+                        child: child!,
+                      );
                     },
-                  ))),
+                  );
+
+                  if (pickedDate != null) {
+                    print(pickedDate); // Debug print: selected date
+                    String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+                    print(formattedDate); // Debug print: formatted date
+
+                    setState(() {
+                      _dateinput.text = formattedDate; // Set the selected date to the TextField
+                    });
+                  } else {
+                    print("Date is not selected"); // Debug print: no date selected
+                  }
+                },
+              ),
+            ),
+          ),
 
           Row(
             children: [
@@ -264,7 +271,7 @@ class _Register_specialistState extends State<Register_specialist> {
             width: 400,
             height: 40,
             child: reusableTextField(
-                "ادخل كلمة السر", Icons.lock, true, _passwordTextController,false),
+                "ادخل كلمة السر", Icons.lock, true, _passwordTextController),
           ),
           const SizedBox(
             height: 10,
@@ -288,7 +295,7 @@ class _Register_specialistState extends State<Register_specialist> {
             width: 400,
             height: 40,
             child: reusableTextField(
-                " ادخل كلمة السر مجددا", Icons.lock, true, _confirmPass,false),
+                " ادخل كلمة السر مجددا", Icons.lock, true, _confirmPass),
           ),
 
           ElevatedButton(
@@ -298,15 +305,15 @@ class _Register_specialistState extends State<Register_specialist> {
             onPressed: pickFile, child: const Text('ارفع الشهادة', style: TextStyle(color: Colors.black),),
           ),
 
-
           firebaseUIButton(context, "اكمال", () async {
-                await createAccountAndSendVerificationEmail(context,
-                    firstName: _firstNameTextController.text.trim(),
-                    lastName: _lastNameTextController.text.trim(),
-                    date: _dateinput.text.trim(),
-                    pdfUrl: _uploadedPdfUrl,
-    );
+            await createAccountAndSendVerificationEmail(context,
+              firstName: _firstNameTextController.text.trim(),
+              lastName: _lastNameTextController.text.trim(),
+              date: _dateinput.text.trim(),
+              pdfUrl: _uploadedPdfUrl,
+            );
           },
+
           ),
           signInOption(),
         ],
@@ -315,12 +322,12 @@ class _Register_specialistState extends State<Register_specialist> {
   }
 
   Future<void> createAccountAndSendVerificationEmail(BuildContext context,{
-  required String firstName,
-  required String lastName,
-  required String date,
-  // required isSpecialist,
-  String? pdfUrl,
-}) async {
+    required String firstName,
+    required String lastName,
+    required String date,
+    // required isSpecialist,
+    String? pdfUrl,
+  }) async {
     if (_fileSelected && confirmedPasswords()) {
       try {
         UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -359,6 +366,7 @@ class _Register_specialistState extends State<Register_specialist> {
       }
     }
   }
+
 
 
   bool confirmedPasswords() {

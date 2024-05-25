@@ -37,29 +37,29 @@ class _PaymentDetailsState extends State<PaymentDetails> {
             transform: Matrix4.translationValues(0, -50, 0),
             child: Image.asset(
               'assets/images/madaCard.png',
-              width: 250,
-              height: 250,
+              width: 200,
+              height: 220,
             ),
           ),
           Transform(
-            transform: Matrix4.translationValues(0, -80, 0),
+            transform: Matrix4.translationValues(0, -95, 0),
             child: const Padding(
               padding: EdgeInsets.fromLTRB(0, 0, 50, 0),
               child: Row(
                 children: [
-                  Text('تفاصيل البطاقه', style: TextStyle(fontSize: 18)),
+                  Text('تفاصيل البطاقه', style: TextStyle(fontSize: 16)),
                 ],
               ),
             ),
           ),
           Transform(
-            transform: Matrix4.translationValues(0, -75, 0),
+            transform: Matrix4.translationValues(0, -95, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
                   width: 255,
-                  height: 45,
+                  height: 35,
                   child: TextField(
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -72,22 +72,22 @@ class _PaymentDetailsState extends State<PaymentDetails> {
                       const EdgeInsets.symmetric(horizontal: 16.0),
                       labelText: 'رقم البطاقه',
                     ),
-                    style: const TextStyle(fontSize: 12),
+                    style: const TextStyle(fontSize: 10),
                     textAlign: TextAlign.center,
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 10,),
+
           Transform(
-            transform: Matrix4.translationValues(0, -75, 0),
+            transform: Matrix4.translationValues(0, -90, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
                   width: 122.5,
-                  height: 45,
+                  height: 35,
                   child: TextField(
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -100,14 +100,14 @@ class _PaymentDetailsState extends State<PaymentDetails> {
                       const EdgeInsets.symmetric(horizontal: 16.0),
                       labelText: 'تاريخ الانتهاء',
                     ),
-                    style: const TextStyle(fontSize: 12),
+                    style: const TextStyle(fontSize: 10),
                     textAlign: TextAlign.center,
                   ),
                 ),
                 SizedBox(width: 10),
                 SizedBox(
                   width: 122.5,
-                  height: 45,
+                  height: 35,
                   child: TextField(
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -121,22 +121,21 @@ class _PaymentDetailsState extends State<PaymentDetails> {
                       labelText: 'VCC',
                     ),
                     style: const TextStyle(
-                        fontSize: 12, color: Colors.grey),
+                        fontSize: 10, color: Colors.grey),
                     textAlign: TextAlign.center,
                   ),
                 ),
               ],
             ),
           ),
-          const SizedBox(height: 10,),
           Transform(
-            transform: Matrix4.translationValues(0, -75, 0),
+            transform: Matrix4.translationValues(0, -85, 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
                   width: 255,
-                  height: 45,
+                  height: 35,
                   child: TextField(
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -149,7 +148,7 @@ class _PaymentDetailsState extends State<PaymentDetails> {
                       const EdgeInsets.symmetric(horizontal: 16.0),
                       labelText: 'الاسم',
                     ),
-                    style: const TextStyle(fontSize: 12),
+                    style: const TextStyle(fontSize: 10),
                     textAlign: TextAlign.center,
                   ),
                 ),
