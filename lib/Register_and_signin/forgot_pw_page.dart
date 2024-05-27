@@ -25,7 +25,7 @@ Future passowrdReset() async {
           context: context,
           builder: (context){
             return const AlertDialog(
-              content: Text('تم ارسال رابط تغيير الايميل'),
+              content: Text('تم ارسال رابط تغيير كلمة السر'),
             );
           });
     }on FirebaseAuthException catch (e) {

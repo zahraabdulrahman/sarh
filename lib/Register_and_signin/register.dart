@@ -89,7 +89,7 @@ class Register_screen extends StatelessWidget {
                                 children: [
                                   SizedBox(height: 41,),
                                   Icon(
-                                    Icons.arrow_back,
+                                    Icons.arrow_forward,
                                     color: Colors.white,
                                     size: 19,
                                   ),
@@ -183,7 +183,7 @@ class Register_screen extends StatelessWidget {
                                   children: [
                                     SizedBox(height: 41,),
                                     Icon(
-                                      Icons.arrow_back,
+                                      Icons.arrow_forward,
                                       color: Colors.white,
                                       size: 19,
                                     ),
