@@ -85,7 +85,7 @@ class LogRegPage extends StatelessWidget {
                                 height: 41,
                               ),
                               Icon(
-                                Icons.arrow_back,
+                                Icons.arrow_forward,
                                 color: Colors.white,
                                 size: 19,
                               ),
@@ -136,18 +136,20 @@ class LogRegPage extends StatelessWidget {
                   border: Border.all(color: const Color(0xFFA7E8BD), width: 1),
                 ),
                 child: const Row(children: [
-                  Icon(
-                    Icons.arrow_back,
-                    color: Color(0xFFA7E8BD),
-                    size: 19,
-                  ),
-                  SizedBox(width: 130),
+                Padding(
+                padding: EdgeInsets.only(right: 15),
+                  child: Text("التسجيل",
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Color(0xFFA7E8BD),
+                      ))),
+                  SizedBox(width: 180),
                   Expanded(
-                    child: Text("التسجيل",
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Color(0xFFA7E8BD),
-                        )),
+                    child: Icon(
+                      Icons.arrow_forward,
+                      color: Color(0xFFA7E8BD),
+                      size: 19,
+                    ),
                   )
                 ]),
               ),
