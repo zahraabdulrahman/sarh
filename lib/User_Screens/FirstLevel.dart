@@ -6,6 +6,7 @@ import 'package:http/http.dart' as http;
 import 'package:audioplayers/audioplayers.dart';
 import 'dart:io';
 import 'package:permission_handler/permission_handler.dart';
+import 'dart:convert';
 
 class FirstLevel extends StatefulWidget {
   const FirstLevel({Key? key}) : super(key: key);
@@ -98,13 +99,14 @@ class _FirstLevelState extends State<FirstLevel> {
 
   void processAudioFile(String filePath) async {
     File audioFile = File(filePath);
-    var request = http.MultipartRequest('POST', Uri.parse('http://localhost:8000/upload_audio'));
+    var request = http.MultipartRequest('POST', Uri.parse('http://127.0.0.1:5000/transcribe'));
     request.files.add(await http.MultipartFile.fromPath('file', audioFile.path));
     var response = await request.send();
 
     if (response.statusCode == 200) {
       final responseBody = await response.stream.bytesToString();
-      if (responseBody == '1') {
+      final jsonResponse = jsonDecode(responseBody);
+      if (jsonResponse['result'] == 1) {
         _showSnackBar('Audio transcription successful');
       } else {
         _showSnackBar('Audio transcription failed');
@@ -113,6 +115,7 @@ class _FirstLevelState extends State<FirstLevel> {
       _showSnackBar('Failed to upload file');
     }
   }
+
 
   void _showSnackBar(String message) {
     ScaffoldMessenger.of(context).showSnackBar(
@@ -141,7 +144,6 @@ class _FirstLevelState extends State<FirstLevel> {
       ),
       body: Center(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
               "كان يا ما كان",
@@ -151,6 +153,7 @@ class _FirstLevelState extends State<FirstLevel> {
               icon: Icon(Icons.volume_up, size: 44, color: Colors.black),
               onPressed: playAudio,
             ),
+            SizedBox(height: 330,),
             IconButton(
               icon: Icon(isRecording ? Icons.stop : Icons.mic, size: 44, color: Colors.black),
               onPressed: () {
