@@ -41,7 +41,7 @@
 ### Installation
 
 ```bash
-git clone [https://github.com/your-username/sarh.git](https://github.com/zahraabdulrahman/sarh.git)
+git clone https://github.com/zahraabdulrahman/sarh.git
 cd sarh
 flutter pub get
 ```
