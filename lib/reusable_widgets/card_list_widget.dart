@@ -26,7 +26,7 @@ class _CardsBarWidgetState extends State<CardsBarWidget> {
           children: [
             Container(
               height: 100,
-              width: 300,
+              width: 350,
               decoration: BoxDecoration(gradient: const LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -65,7 +65,7 @@ class _CardsBarWidgetState extends State<CardsBarWidget> {
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const SizedBox(height: 35, width: 10),
+            const SizedBox(height: 35, width: 43),
             ElevatedButton.icon(
                 onPressed: () {
                   playSounds();
@@ -81,7 +81,7 @@ class _CardsBarWidgetState extends State<CardsBarWidget> {
                     )),
                 icon: const Icon(Icons.volume_up),
                 label: const Text("")),
-            const SizedBox(height: 35, width: 120),
+            const SizedBox(height: 35, width: 125),
             ElevatedButton.icon(
                 onPressed: () {
                   memorizeCards();

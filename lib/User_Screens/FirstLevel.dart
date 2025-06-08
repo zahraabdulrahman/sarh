@@ -59,11 +59,12 @@ class _FirstLevelState extends State<FirstLevel> {
     if (!isRecorderInitialized) return;
 
     String temporaryPath = await getTemporaryDirectoryPath();
-    String filePath = path.join(temporaryPath, 'recording.aac');
+    String filePath = path.join(temporaryPath, 'recording.wav');
 
     try {
       await flutterSoundRecorder.startRecorder(
         toFile: filePath,
+        codec: Codec.pcm16WAV,
       );
 
       print('Recording started'); // Print when recording starts
@@ -89,7 +90,7 @@ class _FirstLevelState extends State<FirstLevel> {
       });
 
       String temporaryPath = await getTemporaryDirectoryPath();
-      String filePath = path.join(temporaryPath, 'recording.aac');
+      String filePath = path.join(temporaryPath, 'recording.wav');
 
       processAudioFile(filePath);
     } catch (err) {
@@ -99,20 +100,21 @@ class _FirstLevelState extends State<FirstLevel> {
 
   void processAudioFile(String filePath) async {
     File audioFile = File(filePath);
-    var request = http.MultipartRequest('POST', Uri.parse('http://127.0.0.1:5000/transcribe'));
+    var request = http.MultipartRequest('POST', Uri.parse('https://cfe0-34-148-188-150.ngrok-free.app/predict'));
     request.files.add(await http.MultipartFile.fromPath('file', audioFile.path));
     var response = await request.send();
 
     if (response.statusCode == 200) {
       final responseBody = await response.stream.bytesToString();
       final jsonResponse = jsonDecode(responseBody);
-      if (jsonResponse['result'] == 1) {
-        _showSnackBar('Audio transcription successful');
+      print(jsonResponse);
+      if (jsonResponse['prediction'] == "Correct") {
+        _showSnackBar('نطق صحيح');
       } else {
-        _showSnackBar('Audio transcription failed');
+        _showSnackBar('نطق خاطئ');
       }
     } else {
-      _showSnackBar('Failed to upload file');
+      _showSnackBar('فشل في ارسال الملف الصوتي');
     }
   }
 

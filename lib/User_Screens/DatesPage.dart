@@ -191,14 +191,11 @@ class _DatesPageState extends State<DatesPage> {
               Padding(
                 padding: const EdgeInsets.only(top: 40.0),
                 child: Container(
-                  child: Transform(
-                    transform: Matrix4.translationValues(280, -3, 0.0),
                     child: const Text(
                       "المواعيد القادمة",
                       style:
                       TextStyle(fontWeight: FontWeight.w800, fontSize: 18),
                     ),
-                  ),
                 ),
               ),
             ],
@@ -210,7 +207,7 @@ class _DatesPageState extends State<DatesPage> {
               padding: const EdgeInsets.symmetric(vertical: 15.0),
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
-                itemCount: 5,
+                itemCount: 3,
                 itemBuilder: (context, index) {
                   return Container(
                     decoration: BoxDecoration(
@@ -221,7 +218,7 @@ class _DatesPageState extends State<DatesPage> {
                     height: 130,
                     margin: const EdgeInsets.symmetric(horizontal: 8),
                     child: Text(
-                      'Item $index',
+                      'الموعد : 24/6/2024',
                       style: const TextStyle(fontSize: 24),
                     ),
                   );
@@ -234,14 +231,11 @@ class _DatesPageState extends State<DatesPage> {
               Padding(
                 padding: const EdgeInsets.only(top: 10.0),
                 child: Container(
-                  child: Transform(
-                    transform: Matrix4.translationValues(280, -3, 0.0),
                     child: const Text(
                       "المواعيدالسابقة",
                       style:
                       TextStyle(fontWeight: FontWeight.w800, fontSize: 18),
                     ),
-                  ),
                 ),
               ),
             ],
@@ -264,7 +258,7 @@ class _DatesPageState extends State<DatesPage> {
                     height: 130,
                     margin: const EdgeInsets.symmetric(horizontal: 8),
                     child: Text(
-                      'Item $index',
+                      'الموعد : 11/2/2024',
                       style: const TextStyle(fontSize: 24),
                     ),
                   );
