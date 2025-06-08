@@ -36,7 +36,6 @@
 
 - Flutter SDK  
 - Python 3.8+  
-- Node.js (if using Firebase CLI)  
 - Android Studio or Xcode (for emulators)
 
 ### Installation
