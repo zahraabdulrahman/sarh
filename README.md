@@ -1,16 +1,48 @@
-# sarh
+# 🌟 SARH – Your AI Companion for Speech Therapy
 
-A new Flutter project.
+**SARH** is an innovative mobile application designed to support individuals with communication disorders. It leverages machine learning and modern mobile technologies to deliver accessible and interactive speech therapy.
 
-## Getting Started
+---
 
-This project is a starting point for a Flutter application.
+## 🧠 Key Features
 
-A few resources to get you started if this is your first Flutter project:
+- 🎤 **Speech Error Detection**  
+  Uses machine learning to analyze spoken input and identify common speech errors for targeted feedback.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- 🧑‍⚕️ **Online Speech Therapy Sessions**  
+  Connects users with certified speech-language therapists for real-time, personalized therapy sessions.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- 🧩 **AAC (Augmentative and Alternative Communication) Cards**  
+  Offers a digital AAC board to assist non-verbal individuals in expressing their needs and feelings.
+
+- 🎥 **Free Video Lessons**  
+  Provides engaging educational videos designed by experts to support independent learning and practice.
+
+---
+
+## 📱 Technologies Used
+
+- **Flutter & Dart** – Cross-platform mobile app development  
+- **TensorFlow / scikit-learn** – Machine learning models for speech error analysis  
+- **FastAPI / Flask** – Backend services and APIs  
+- **Firebase** – Authentication and real-time database  
+- **Python** – Model training and backend logic  
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Flutter SDK  
+- Python 3.8+  
+- Node.js (if using Firebase CLI)  
+- Android Studio or Xcode (for emulators)
+
+### Installation
+
+```bash
+git clone [https://github.com/your-username/sarh.git](https://github.com/zahraabdulrahman/sarh.git)
+cd sarh
+flutter pub get
+```
