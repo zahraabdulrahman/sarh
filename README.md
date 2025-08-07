@@ -45,3 +45,9 @@ git clone https://github.com/zahraabdulrahman/sarh.git
 cd sarh
 flutter pub get
 ```
+
+## 🖼️ Preview
+
+<img src="sarh_screenshots/1.png" alt="Chatbot UI" width="600"/>
+<img src="sarh_screenshots/2.png" alt="Chatbot UI" width="600"/>
+<img src="sarh_screenshots/3.png" alt="Chatbot UI" width="600"/>
